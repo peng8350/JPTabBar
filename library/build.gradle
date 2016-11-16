@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'//添加
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    provided 'com.android.support:support-v4:24.2.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+}
+
+publish {
+    userOrg = 'peng83508440'//bintray.com用户名
+    groupId = 'com.jpeng'//jcenter上的路径
+    artifactId = 'JPTabBar'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'The library can make you build the TabBar more quicky,It contains many animate,and implements the filter like WeChat.'
+    licences = ['Apache-2.0']
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JPTabBar">
+        <attr name="TabHeight" format="reference|dimension"/>
+        <attr name="TabNormalColor" format="reference|color"/>
+        <attr name="TabSelectColor" format="reference|color"/>
+        <attr name="TabTextSize" format="dimension|reference"/>
+        <attr name="TabIconSize" format="dimension|reference"/>
+        <attr name="TabIconFilter" format="boolean"/>
+        <attr name="TabMargin" format="dimension|reference"/>
+        <attr name="TabDuration" format="integer"/>
+        <attr name="TabAnimate" format="enum">
+            <enum name="Alpha" value="0"/>
+            <enum name="Flip" value="1"/>
+            <enum name="Rotate" value="2"/>
+            <enum name="Scale" value="3"/>
+            <enum name="Jump" value="4"/>
+        </attr>
+
+        <attr name="TabMiddleIcon" format="reference"/>
+
+        <attr name="BadgeColor" format="reference|color"/>
+        <attr name="BadgeDraggable" format="boolean"/>
+        <attr name="BadgePadding" format="dimension|reference"/>
+        <attr name="BadgeTextSize" format="reference|dimension"/>
+        <attr name="BadgeMargin" format="reference|dimension"/>
+    </declare-styleable>
+</resources>
