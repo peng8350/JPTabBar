@@ -182,7 +182,7 @@ class JPTabItem extends BadgeRelativeLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.weight = 3;
         setLayoutParams(params);
-        setBackgroundColor(mBackground);
+        setBackgroundResource(android.R.color.transparent);
         initPaint();
         initImageView();
     }
@@ -451,7 +451,6 @@ class JPTabItem extends BadgeRelativeLayout {
 
         private boolean iconfilter;
 
-        private int tabBg;
 
 
         public Builder(Context context) {
@@ -504,10 +503,6 @@ class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-        public Builder setBackground(int color){
-            this.tabBg = color;
-            return this;
-        }
 
         public Builder setBadgeTextSize(int size) {
             this.badgeTextSize = size;
@@ -578,7 +573,6 @@ class JPTabItem extends BadgeRelativeLayout {
             item.mDuration = duration;
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;
-            item.mBackground = tabBg;
             item.init(context);
             return item;
         }

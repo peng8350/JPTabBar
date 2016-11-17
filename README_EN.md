@@ -29,7 +29,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.3'
+        compile 'com.jpeng:JPTabBar:1.0.4'
     }
 
 ```
@@ -129,7 +129,7 @@
 | BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
 | BadgeTextSize |The textSize of the Badge      |dimension | 11dp |
-| BadgeMargin | The badge margin in the TabBar      |dimension | 9dp |
+| BadgeMargin | The badge right margin in the TabBar      |dimension | 9dp |
 # Matters needing attention
 1.If you have given setContainer TabBar, do not setOnPageChangeListener to ViewPager
 ```JAVA
@@ -158,7 +158,16 @@
     >
 
 ```
+# Update Log
 
+### V1.0.1 
+   - Pulish
+   
+### V1.0.3 
+   - Reserve the Problem of the badgeView which its position offset
+   - Reserve the tabBar Background is filled by the its item background
+   - Reserve the height default value is 56dp and BadgeMargin is 9dp
+   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
 <br><br>

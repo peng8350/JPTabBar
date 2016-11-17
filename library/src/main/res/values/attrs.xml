@@ -9,7 +9,6 @@
         <attr name="TabIconFilter" format="boolean"/>
         <attr name="TabMargin" format="dimension|reference"/>
         <attr name="TabDuration" format="integer"/>
-        <attr name="TabItemBackground" format="reference|color"/>
         <attr name="TabAnimate" format="enum">
             <enum name="Alpha" value="0"/>
             <enum name="Flip" value="1"/>

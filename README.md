@@ -22,7 +22,7 @@
 
    - [x] 提供监听Tab的点击事件,中间点击以及badge被拖拉消失的接口
 
-   - [x] 引用注解方式,构造TabBarItem
+   - [x] 引用注解方式,免去自己手动构造TabBarItem
 
 # 用法:
   1.引入Gradle依赖
@@ -32,7 +32,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.3'
+        compile 'com.jpeng:JPTabBar:1.0.4'
     }
 
 ```
@@ -132,7 +132,7 @@
 | BadgeDraggable |徽章是否可以拖动     |boolean  | false |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
-| BadgeMargin | 徽章距离边缘的间隔      |dimension | 9dp |
+| BadgeMargin | 徽章距离右边边缘的间隔      |dimension | 9dp |
 # 注意事项
 1.假如你已经给TabBar setContainer,不要setOnPageChangeListener给ViewPager
 ```JAVA
@@ -159,6 +159,14 @@
     >
 
 ```
+# 更新日志
+### V1.0.1 
+   - 发布
+
+### V1.0.3 
+   - 修复BadgeView显示位置随着字体位置偏差问题
+   - 修复背景被TabItem背景覆盖问题
+   - 修改高度默认56dp,徽章Margin为9dp
 
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

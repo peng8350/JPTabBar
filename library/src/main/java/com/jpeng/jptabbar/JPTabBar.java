@@ -143,14 +143,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMargin,DensityUtils.dp2px(mContext,DEFAULT_MARGIN));
         int AnimateType = mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, DEFAULT_ANIMATE_TYPE);
         int BadgeColor = mAttribute.getColor(R.styleable.JPTabBar_BadgeColor, DEFAULT_BADGE_COLOR);
-        int itemColor = mAttribute.getColor(R.styleable.JPTabBar_TabItemBackground,DEFAULT_TABBG);
         int BadgetextSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_BadgeTextSize, DensityUtils.sp2px(mContext, DEFAULT_BADGE_TEXTSIZE)));
-        boolean dragable = mAttribute.getBoolean(R.styleable.JPTabBar_BadgeDraggable, false);
+        boolean draggable = mAttribute.getBoolean(R.styleable.JPTabBar_BadgeDraggable, false);
         int badgePadding = DensityUtils.px2dp(mContext,mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgePadding, DensityUtils.dp2px(mContext,DEFAULT_PADDING)));
         int duration = mAttribute.getInteger(R.styleable.JPTabBar_TabDuration, DEFAULT_DURATION);
         int badgeMargin = DensityUtils.px2dp(mContext,mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeMargin, DensityUtils.dp2px(mContext,DEFAULT_BADGEMARGIN)));
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
-
         //开发者定义注解的数组
         String[] titles = null;
         //开发者定义注解的普通图标
@@ -209,9 +207,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(titles[i]).setIndex(temp).setTextSize(textSize)
                     .setNormalColor(normalColor).setAnimateType(AnimateType)
                     .setBadgeMode(modes == null ? BadgeMode.NUMBER : modes[temp]).setBadgeTextSize(BadgetextSize)
-                    .setSelectedColor(selectColor).setNormalIcon(normalIcon[i]).setBadgeDrable(dragable).setBadgeColor(BadgeColor)
+                    .setSelectedColor(selectColor).setNormalIcon(normalIcon[i]).setBadgeDrable(draggable).setBadgeColor(BadgeColor)
                     .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)
-                    .setDurtion(duration).setBadgeMargin(badgeMargin).setMargin(margin).setBackground(itemColor)
+                    .setDurtion(duration).setBadgeMargin(badgeMargin).setMargin(margin)
                     .setSelectIcon(selectedIcon == null ? 0 : selectedIcon[i]).build();
             mJPTabItems[i].setOnClickListener(new OnClickListener() {
                 @Override
