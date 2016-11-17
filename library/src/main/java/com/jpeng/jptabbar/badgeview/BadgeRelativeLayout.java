@@ -21,25 +21,25 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 /**
  * Created by jpeng on 16-11-15.
  */
-public class BadgeImageView extends ImageView implements Badgeable {
+public class BadgeRelativeLayout extends RelativeLayout implements Badgeable {
     private BadgeViewHelper mBadgeViewHeler;
 
-    public BadgeImageView(Context context) {
+    public BadgeRelativeLayout(Context context) {
         this(context, null);
     }
 
-    public BadgeImageView(Context context, AttributeSet attrs) {
+    public BadgeRelativeLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BadgeImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BadgeRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mBadgeViewHeler = new BadgeViewHelper(this, context, attrs, BadgeViewHelper.BadgeGravity.RightTop);
+        mBadgeViewHeler = new BadgeViewHelper(this, context, attrs, BadgeViewHelper.BadgeGravity.RightCenter);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class BadgeImageView extends ImageView implements Badgeable {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
         mBadgeViewHeler.drawBadge(canvas);
     }
 

@@ -118,7 +118,7 @@
 ### 结点说明:
 | 结点名字        |     结点说明     | 参数类型 | 默认值  |
 |-------------|:-------------|:----------:|:-----:|
-| TabHeight      |TabBar的高度,将会覆盖layout_height的设置 |dimension| 48dp |
+| TabHeight      |TabBar的高度,将会覆盖layout_height的设置 |dimension| 56dp |
 | TabNormalColor      |字体和图标的未选中颜色   |color   |   0xffAEAEAE(灰色) |
 | TabSelectColor |字体和图标的选中的颜色     |color  | 0xff59D9B9(青色) |
 | TabTextSize |Tab底部文件大小      |dimension | 14sp |
@@ -130,9 +130,9 @@
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
 | BadgeDraggable |徽章是否可以拖动     |boolean  | false |
-| BadgePadding |徽章的背景扩展距离      |dimension | 8dp |
+| BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
-| BadgeMargin | 徽章距离边缘的间隔      |dimension | 3dp |
+| BadgeMargin | 徽章距离边缘的间隔      |dimension | 9dp |
 # 注意事项
 1.假如你已经给TabBar setContainer,不要setOnPageChangeListener给ViewPager
 ```JAVA

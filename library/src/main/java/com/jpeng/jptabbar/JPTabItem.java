@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.DrawableRes;
@@ -20,7 +19,7 @@ import static android.R.attr.width;
 /**
  * Created by jpeng on 16-11-13.
  */
-class JPTabItem extends RelativeLayout {
+class JPTabItem extends BadgeRelativeLayout {
 
     //Alpha动画
     private static final int ALPHA_TYPE = 0;
@@ -56,6 +55,11 @@ class JPTabItem extends RelativeLayout {
      * Tab的上下编剧
      */
     private int mMargin;
+
+    /**
+     * 背景颜色
+     */
+    private int mBackground;
 
     /**
      * Tab的没有选中图标
@@ -105,7 +109,7 @@ class JPTabItem extends RelativeLayout {
     /**
      * 图标ImageView
      */
-    private BadgeImageView mIconView;
+    private ImageView mIconView;
 
 
     /**
@@ -178,7 +182,7 @@ class JPTabItem extends RelativeLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.weight = 3;
         setLayoutParams(params);
-        setBackgroundDrawable(new ColorDrawable(0xffffffff));
+        setBackgroundColor(mBackground);
         initPaint();
         initImageView();
     }
@@ -187,14 +191,14 @@ class JPTabItem extends RelativeLayout {
      * 初始化徽章
      */
     public void initBadge() {
-        mIconView.getBadgeViewHelper().setBadgeGravity(BadgeViewHelper.BadgeGravity.RightTop);
-        mIconView.getBadgeViewHelper().setDragable(mDragable);
-        mIconView.getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
-        mIconView.getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
-        mIconView.getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);
-        mIconView.getBadgeViewHelper().setBadgeVerticalMarginDp(mBadgeMargin);
-        mIconView.getBadgeViewHelper().setBadgeHorizontalMarginDp(mBadgeMargin);
-        mIconView.getBadgeViewHelper().setDragDismissDelegage(new DragDismissDelegate() {
+        getBadgeViewHelper().setBadgeGravity(BadgeViewHelper.BadgeGravity.RightTop);
+        getBadgeViewHelper().setDragable(mDragable);
+        getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
+        getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
+        getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);
+        getBadgeViewHelper().setBadgeVerticalMarginDp(DensityUtils.px2dp(mContext,mMargin));
+        getBadgeViewHelper().setBadgeHorizontalMarginDp(mBadgeMargin);
+        getBadgeViewHelper().setDragDismissDelegage(new DragDismissDelegate() {
             @Override
             public void onDismiss(Badgeable badgeable) {
                 if (mDismissListener != null)
@@ -221,12 +225,12 @@ class JPTabItem extends RelativeLayout {
      */
     private void initImageView() {
         //设置ImageView布局属性
-        mIconView = new BadgeImageView(mContext);
+        mIconView = new ImageView(mContext);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                mIconSize + mMargin * 2, mIconSize + mMargin);
+                mIconSize , mIconSize );
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.topMargin = mMargin;
         mIconView.setScaleType(ImageView.ScaleType.FIT_XY);
-        mIconView.setPadding(mMargin, mMargin, mMargin, 0);
         mIconView.setLayoutParams(params);
         //设置图标
         if (mSelectIcon == null) {
@@ -238,11 +242,10 @@ class JPTabItem extends RelativeLayout {
         }
         //添加进去主布局
         addView(mIconView);
-
-
         //初始化BadgeView设置回调和属性
         initBadge();
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -254,6 +257,7 @@ class JPTabItem extends RelativeLayout {
      * 画底部文字
      */
     private void DrawText(Canvas canvas) {
+
         Rect textBound = new Rect();
         mTextPaint.getTextBounds(mTitle, 0, mTitle.length(), textBound);
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
@@ -264,7 +268,6 @@ class JPTabItem extends RelativeLayout {
         } else {
             mTextPaint.setColor(mNormalColor);
         }
-
 
         float x = getMeasuredWidth() / 2f;
         float y = getTextY(textBound, fontMetrics);
@@ -278,8 +281,8 @@ class JPTabItem extends RelativeLayout {
         return (getMeasuredHeight() - mMargin - textBound.height() / 2f - fontMetrics.descent + (fontMetrics.descent - fontMetrics.ascent) / 2);
     }
 
-    public boolean isBadgeShow(){
-        return mIconView.isShowBadge();
+    public boolean isBadgeShow() {
+        return isShowBadge();
     }
 
     public void setAnimater(Animatable animatable) {
@@ -314,7 +317,7 @@ class JPTabItem extends RelativeLayout {
      * @param animated
      */
     public void setSelect(boolean selected, boolean animated) {
-
+        setSelected(selected);
         if (mCompundIcon != null) {
             if (selected) {
                 changeAlpha(1f);
@@ -329,9 +332,10 @@ class JPTabItem extends RelativeLayout {
 
             //播放动画
             if (selected && animated) {
-                mAnimater.playAnimate(mIconView, mDuration);
+                if (mAnimater != null) {
+                    mAnimater.playAnimate(mIconView, mDuration);
+                }
             }
-
 
             postInvalidate();
 
@@ -379,12 +383,13 @@ class JPTabItem extends RelativeLayout {
     public void setBadgeVisibility(boolean show) {
         if (mBadgeMode == BadgeMode.OVAL) {
             if (show) {
-                mIconView.showCirclePointBadge();
+                showCirclePointBadge();
             } else {
-                mIconView.hiddenBadge();
+                hiddenBadge();
             }
         }
     }
+
 
     /**
      * 设置徽章的数字
@@ -393,11 +398,11 @@ class JPTabItem extends RelativeLayout {
         //假如是数字模式
         if (mBadgeMode == BadgeMode.NUMBER) {
             if (count == 0) {
-                mIconView.hiddenBadge();
+                hiddenBadge();
             } else if (count > 99) {
-                mIconView.showTextBadge(99 + "+");
+                showTextBadge(99 + "+");
             } else {
-                mIconView.showTextBadge(count + "");
+                showTextBadge(count + "");
             }
         }
     }
@@ -446,6 +451,8 @@ class JPTabItem extends RelativeLayout {
 
         private boolean iconfilter;
 
+        private int tabBg;
+
 
         public Builder(Context context) {
             this.context = context;
@@ -482,7 +489,7 @@ class JPTabItem extends RelativeLayout {
             return this;
         }
 
-        public Builder setMargin(int margin){
+        public Builder setMargin(int margin) {
             this.margin = margin;
             return this;
         }
@@ -494,6 +501,11 @@ class JPTabItem extends RelativeLayout {
 
         public Builder setBadgeMargin(int margin) {
             this.badgeMarin = margin;
+            return this;
+        }
+
+        public Builder setBackground(int color){
+            this.tabBg = color;
             return this;
         }
 
@@ -548,7 +560,7 @@ class JPTabItem extends RelativeLayout {
             JPTabItem item = new JPTabItem(context, width);
             item.setAnimater(animateType);
             item.mTextSize = textSize
-                    ;
+            ;
             item.mTitle = title;
             item.mNormalColor = normalColor;
             item.mSelectColor = selectColor;
@@ -566,7 +578,7 @@ class JPTabItem extends RelativeLayout {
             item.mDuration = duration;
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;
-
+            item.mBackground = tabBg;
             item.init(context);
             return item;
         }

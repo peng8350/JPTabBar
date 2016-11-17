@@ -115,7 +115,7 @@
 ### Attribute Explain:
 | Attribute Name        |     Attribute Explain     | Parameter Type | Default Value  |
 |-------------|:-------------|:----------:|:-----:|
-| TabHeight      |TabBar height, will cover the settings of layout_height |dimension| 48dp |
+| TabHeight      |TabBar height, will cover the settings of layout_height |dimension| 56dp |
 | TabNormalColor      |Font and icon of the normal color   |color   |   0xffAEAEAE(Gray) |
 | TabSelectColor |Font and icon of the selected color     |color  | 0xff59D9B9(Cyan) |
 | TabTextSize |the textsize of the bottom text     |dimension | 14sp |
@@ -127,9 +127,9 @@
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
-| BadgePadding |The background expansion distance of the badge      |dimension | 8dp |
+| BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
 | BadgeTextSize |The textSize of the Badge      |dimension | 11dp |
-| BadgeMargin | The badge margin in the TabBar      |dimension | 3dp |
+| BadgeMargin | The badge margin in the TabBar      |dimension | 9dp |
 # Matters needing attention
 1.If you have given setContainer TabBar, do not setOnPageChangeListener to ViewPager
 ```JAVA

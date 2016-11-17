@@ -18,14 +18,9 @@
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:background="#fff"
-        jp:TabHeight="56dp"
-        jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
-        jp:BadgePadding="4dp"
-        jp:BadgeMargin="5dp"
-        jp:BadgeTextSize="10dp"
+        jp:TabItemBackground="@drawable/color"
         />
 
 
