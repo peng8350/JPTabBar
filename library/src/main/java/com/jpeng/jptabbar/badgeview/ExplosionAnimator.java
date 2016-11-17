@@ -29,9 +29,7 @@ import com.jpeng.jptabbar.DensityUtils;
 import java.util.Random;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/12/5 上午12:21
- * 描述:参考https://github.com/tyrantgit/ExplosionField改成了只有一个View的情况,只刷新徽章附近的区域
+ * Created by jpeng on 16-11-15.
  */
 public class ExplosionAnimator extends ValueAnimator {
     public static final int ANIM_DURATION = 300;

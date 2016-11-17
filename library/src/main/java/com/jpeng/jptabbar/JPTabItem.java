@@ -278,10 +278,13 @@ class JPTabItem extends RelativeLayout {
         return (getMeasuredHeight() - mMargin - textBound.height() / 2f - fontMetrics.descent + (fontMetrics.descent - fontMetrics.ascent) / 2);
     }
 
-    public boolean isSelected() {
-        return mSelected;
+    public boolean isBadgeShow(){
+        return mIconView.isShowBadge();
     }
 
+    public void setAnimater(Animatable animatable) {
+        mAnimater = animatable;
+    }
 
     public void setAnimater(int type) {
         if (type == ALPHA_TYPE) {

@@ -24,9 +24,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/7/6 下午3:04
- * 描述:
+ * Created by jpeng on 16-11-15.
  */
 public class BadgeImageView extends ImageView implements Badgeable {
     private BadgeViewHelper mBadgeViewHeler;

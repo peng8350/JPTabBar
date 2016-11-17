@@ -24,9 +24,7 @@ import android.view.View;
 import android.view.ViewParent;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/7/6 下午10:42
- * 描述:
+ * Created by jpeng on 16-11-15.
  */
 public interface Badgeable {
     /**

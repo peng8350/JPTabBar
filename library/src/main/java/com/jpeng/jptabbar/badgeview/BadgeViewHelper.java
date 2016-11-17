@@ -25,9 +25,7 @@ import android.view.View;
 import com.jpeng.jptabbar.DensityUtils;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/7/6 下午10:13
- * 描述:
+ * Created by jpeng on 16-11-16.
  */
 public class BadgeViewHelper {
     private Bitmap mBitmap;

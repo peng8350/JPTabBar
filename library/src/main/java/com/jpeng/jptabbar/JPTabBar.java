@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import com.jpeng.jptabbar.animate.Animatable;
 import com.jpeng.jptabbar.anno.BadgeModes;
 import com.jpeng.jptabbar.anno.NorIcons;
 import com.jpeng.jptabbar.anno.SeleIcons;
@@ -331,13 +332,30 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     /**
+     * 获取徽章是否在显示
+     */
+    public boolean isBadgeShow(int index){
+        return mJPTabItems[index].isBadgeShow();
+    }
+
+    /**
      * 设置徽章消息数量
      *
      * @param position Tab的位置
-     * @param count    消息的数量
+     * @param   count    消息的数量
      */
     public void setBadgeCount(int position, int count) {
+
         mJPTabItems[position].setBadgeNumber(count);
+    }
+
+    /**
+     * 设置自定义动画
+     */
+    public void setCustomAnimate(Animatable customAnimate){
+        for(JPTabItem item:mJPTabItems){
+            item.setAnimater(customAnimate);
+        }
     }
 
     /**

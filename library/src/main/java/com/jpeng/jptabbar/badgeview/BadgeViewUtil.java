@@ -22,9 +22,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/12/5 上午12:27
- * 描述:
+ * Created by jpeng on 16-11-16.
  */
 public class BadgeViewUtil {
 

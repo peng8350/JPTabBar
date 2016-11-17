@@ -40,9 +40,7 @@ import java.lang.ref.WeakReference;
 
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/7/12 下午3:23
- * 描述:
+ * Created by jpeng on 16-11-15.
  */
 class DragBadgeView extends View {
     private static final String TAG = DragBadgeView.class.getSimpleName();
