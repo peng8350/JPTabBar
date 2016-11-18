@@ -78,6 +78,11 @@ class JPTabItem extends BadgeRelativeLayout {
     private int mNormalColor;
 
     /**
+     * 选中的颜色
+     */
+    private int mSelectBg;
+
+    /**
      * Tab字体大小
      */
     private int mTextSize;
@@ -298,7 +303,6 @@ class JPTabItem extends BadgeRelativeLayout {
      * @param animated
      */
     public void setSelect(boolean selected, boolean animated) {
-        setSelected(selected);
         if (mCompundIcon != null) {
             if (selected) {
                 changeAlpha(1f);
@@ -310,7 +314,12 @@ class JPTabItem extends BadgeRelativeLayout {
         }
         if (mSelected != selected) {
             mSelected = selected;
-
+            if (selected){
+                    setBackgroundColor(mSelectBg);
+            }
+            else{
+                setBackgroundResource(android.R.color.transparent);
+            }
             //播放动画
             if (selected && animated) {
                 if (mAnimater != null) {
@@ -387,6 +396,8 @@ class JPTabItem extends BadgeRelativeLayout {
 
         private int badgepadding;
 
+        private int selectbg;
+
         private String title;
 
         private Context context;
@@ -457,6 +468,11 @@ class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
+        Builder setSelectBg(int res){
+            this.selectbg = res;
+            return this;
+        }
+
         Builder setBadgeDrable(boolean drag) {
             this.dragable = drag;
             return this;
@@ -515,6 +531,7 @@ class JPTabItem extends BadgeRelativeLayout {
             item.mDuration = duration;
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;
+            item.mSelectBg = selectbg;
             item.init(context);
             return item;
         }

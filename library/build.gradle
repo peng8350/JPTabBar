@@ -35,7 +35,7 @@ publish {
     userOrg = 'peng83508440'//bintray.com用户名
     groupId = 'com.jpeng'//jcenter上的路径
     artifactId = 'JPTabBar'//项目名称
-    publishVersion = '1.0.4'//版本号
+    publishVersion = '1.0.5'//版本号
     desc = 'The library can make you build the TabBar more quicky,It contains many animate,and implements the filter like WeChat.'
     licences = ['Apache-2.0']
 }

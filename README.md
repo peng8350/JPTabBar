@@ -32,7 +32,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.4'
+        compile 'com.jpeng:JPTabBar:1.0.5'
     }
 
 ```
@@ -65,8 +65,6 @@
     @NorIcons
     private static final int[] mNormalIcons = {R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal};
 
-    @BadgeModes
-    private static final BadgeMode[] mBadgeModes = {BadgeMode.OVAL,BadgeMode.NUMBER,BadgeMode.OVAL,BadgeMode.NUMBER};
 
 ```
 4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:
@@ -82,23 +80,18 @@
      */
     public void setCustomAnimate(Animatable customAnimate);
 
-    /**
-     * 设置徽章消息数量
-     * ,应用在数字模式
-     * @param position Tab的位置
-     * @param count    消息的数量
-     */
-    public void setBadgeCount(int position, int count);
 
      /**
-     * 显示OVAL原点,应用在圆点模式
+     * 显示BadgeView ,传入字符串
+     * 当然还有一个重载方法,第二个参数为int,设置消息数量
+     * 传入""字符串显示圆点
      */
-    public void ShowOvalBadge(int position);
+    public void ShowBadge(int position,String text);
 
     /**
-     * 隐藏OVAL圆点,应用在圆点模式
+     * 隐藏BadgeView
      */
-    public void HideOvalBadge(int position);
+    public void HideBadge(int position);
 
     /**
      * 切换Tab页面,是否带动画
@@ -125,6 +118,7 @@
 | TabIconSize |Tab图标的大小       |dimension| 24dp |
 | TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
+| TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabDuration |Tab切换的动画时间     |Integer  | 500 |
 | TabAnimate |Tab切换的动画类型      |enum | Flip |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
@@ -174,7 +168,9 @@
 
 ### V1.0.5
    - 解决徽章BadgeMargin不能往左上角移动
-   
+   - Titles注解可支持int[]数组
+   - 干掉徽章BadgeModes注解,提高徽章使用的灵活性,修改了TabBar调用徽章的方法
+   - 添加TabSelectBg结点,用来设置选中的背景
    
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

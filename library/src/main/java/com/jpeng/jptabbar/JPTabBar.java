@@ -100,6 +100,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         init(context, attrs);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        initFromAttribute();
+    }
 
     /**
      * 初始化TabBar
@@ -113,7 +118,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
         mAttribute = context.obtainStyledAttributes(set, R.styleable.JPTabBar);
         setClipChildren(false);
-        initFromAttribute();
+
 
     }
 
@@ -144,6 +149,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int duration = mAttribute.getInteger(R.styleable.JPTabBar_TabDuration, DEFAULT_DURATION);
         int badgeMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEMARGIN)));
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
+        int tabselectbg = mAttribute.getColor(R.styleable.JPTabBar_TabSelectBg,0);
         //开发者定义注解的数组
         String[] titles = null;
         //开发者定义注解的普通图标
@@ -200,7 +206,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             final int temp = i;
 
             mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(titles[i]).setIndex(temp).setTextSize(textSize)
-                    .setNormalColor(normalColor).setAnimateType(AnimateType)
+                    .setNormalColor(normalColor).setAnimateType(AnimateType).setSelectBg(tabselectbg)
                     .setBadgeTextSize(BadgetextSize).setNormalIcon(normalIcon[i])
                     .setSelectedColor(selectColor).setBadgeDrable(draggable).setBadgeColor(BadgeColor)
                     .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)

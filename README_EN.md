@@ -29,7 +29,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.4'
+        compile 'com.jpeng:JPTabBar:1.0.5'
     }
 
 ```
@@ -62,8 +62,6 @@
     @NorIcons
     private static final int[] mNormalIcons = {R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal};
 
-    @BadgeModes
-    private static final BadgeMode[] mBadgeModes = {BadgeMode.OVAL,BadgeMode.NUMBER,BadgeMode.OVAL,BadgeMode.NUMBER};
 
 ```
 4.After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:
@@ -79,23 +77,16 @@
      */
     public void setCustomAnimate(Animatable customAnimate);
 
-    /**
-     * Set The Number of badges
-     * Apply in digital mode
-     * @param position The position of Tab
-     * @param count    Number of Message
-     */
-    public void setBadgeCount(int position, int count);
 
      /**
-     * Show the OVAL Badge, used in the OVAL Mode
+     * Show the BadgeView With Text
      */
-    public void ShowOvalBadge(int position);
+    public void ShowBadge(int position,String text);
 
     /**
-     * Hide the OVAL Badge, used in the OVAL Mode
+     * Hide the OVAL Badge
      */
-    public void HideOvalBadge(int position);
+    public void HideBadge(int position);
 
     /**
      * Switch Tab page, whether with animation
@@ -122,6 +113,7 @@
 | TabIconSize |the icon size of the tab       |dimension| 24dp |
 | TabIconFilter |   Set the icon  change by the font color|boolean | true |
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
+| TabSelectBg |Set the TabItem Selected bg    |color | transparent |
 | TabDuration |The animate time of the Tab Switch     |Integer  | 500 |
 | TabAnimate |The animate type of the Tab Switch      |enum | Flip |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
@@ -159,14 +151,23 @@
 
 ```
 # Update Log
-
-### V1.0.1 
-   - Pulish
+### V1.0.0
+   - Publish,Add README,Upload GIF
    
-### V1.0.3 
-   - Reserve the Problem of the badgeView which its position offset
-   - Reserve the tabBar Background is filled by the its item background
-   - Reserve the height default value is 56dp and BadgeMargin is 9dp
+### V1.0.3
+   - Add some extra Methods
+   - Reverse the Code Style
+
+### V1.0.4
+   - Reverse the BadgePosition show error
+   - Reverse the background covered by the TabItem Bg
+   - Reverse the Default value error
+
+### V1.0.5
+   - Reverse the BadgeView cannot move to LeftTop
+   - Titles annotaion support int
+   - Remove BadgeModes annotation,Enhance the flexibility of the use of badges,Update the TabBar method
+   - Add the TabSelectBg attribute,used to set the selected item bg
    
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

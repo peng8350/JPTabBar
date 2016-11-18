@@ -4,6 +4,7 @@
         <attr name="TabHeight" format="reference|dimension"/>
         <attr name="TabNormalColor" format="reference|color"/>
         <attr name="TabSelectColor" format="reference|color"/>
+        <attr name="TabSelectBg" format="reference|color"/>
         <attr name="TabTextSize" format="dimension|reference"/>
         <attr name="TabIconSize" format="dimension|reference"/>
         <attr name="TabIconFilter" format="boolean"/>
