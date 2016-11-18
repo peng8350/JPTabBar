@@ -25,4 +25,14 @@ public class JumpAnimater implements Animatable {
         set.start();
     }
 
+    @Override
+    public void onPageAnimate(View target,float offset) {
+
+    }
+
+    @Override
+    public boolean isNeedPageAnimate() {
+        return false;
+    }
+
 }

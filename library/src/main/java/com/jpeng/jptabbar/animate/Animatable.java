@@ -12,8 +12,15 @@ public interface Animatable {
      */
     public void playAnimate(View target,int Duration);
 
+    /**
+     * 页面切换时播放动画
+     */
+    public void onPageAnimate(View target,float offset);
 
-
+    /**
+     * 是否需要页面切换动画
+     */
+    public boolean isNeedPageAnimate();
 
 
 

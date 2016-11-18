@@ -27,4 +27,15 @@ public class ScaleAnimater implements Animatable {
 
     }
 
+    @Override
+    public void onPageAnimate(View target,float offset) {
+        ViewHelper.setScaleX(target,1+offset*0.2f);
+        ViewHelper.setScaleY(target,1+offset*0.2f);
+    }
+
+    @Override
+    public boolean isNeedPageAnimate() {
+        return true;
+    }
+
 }

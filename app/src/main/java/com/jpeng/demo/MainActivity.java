@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
+import com.jpeng.jptabbar.OnTabSelectListener;
 import com.jpeng.jptabbar.anno.NorIcons;
 import com.jpeng.jptabbar.anno.SeleIcons;
 import com.jpeng.jptabbar.anno.Titles;
@@ -15,7 +18,7 @@ import java.util.List;
 import static com.jpeng.demo.R.id.tabbar;
 
 
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends FragmentActivity implements BadgeDismissListener, OnTabSelectListener {
 
     private List<Fragment> list=new ArrayList<>();
     @Titles
@@ -32,7 +35,6 @@ public class MainActivity extends FragmentActivity{
     private ViewPager mPager;
 
     private JPTabBar mTabbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +45,31 @@ public class MainActivity extends FragmentActivity{
         list.add(new tab2());
         list.add(new tab3());
         list.add(new tab4());
-
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(),list));
         //显示圆点模式的徽章
-        mTabbar.ShowBadge(3,"设置");
         mTabbar.ShowBadge(0,100);
+        mTabbar.ShowBadge(3,"设置");
         mTabbar.ShowBadge(1,77);
-        mTabbar.ShowBadge(2,"");
+//        mTabbar.HideBadge(0);
         //设置容器
         mTabbar.setContainer(mPager);
-        //切换页面
-        mTabbar.setSelectTab(3,false);
         //设置Badge消失的代理
-//        mTabbar.setDismissListener(this);
-//        mTabbar.setTabListener(this);
+        mTabbar.setDismissListener(this);
+        mTabbar.setTabListener(this);
+
     }
 
+    @Override
+    public void onDismiss(int position) {
+
+    }
+
+    @Override
+    public void onTabSelect(int index) {
+
+    }
+
+    @Override
+    public void onClickMiddle(View middleBtn){
+    }
 }

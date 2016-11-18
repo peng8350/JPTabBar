@@ -2,10 +2,13 @@
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
 # ScreenShots:
    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
-    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)<br>
+    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)
      ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/2.gif) <br>
        ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/3.gif)
-
+         ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/4.gif)<br>
+           ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/5.gif)
+             ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/6.gif)<br>
+             
 # Main functions and features:
    - [x] More Animation effects of multiple Tab switching
 
@@ -29,7 +32,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.5'
+        compile 'com.jpeng:JPTabBar:1.1.0'
     }
 
 ```
@@ -69,6 +72,52 @@
     //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
 ```
+5.The project has provided many animation,If you want to Custom your Animation,You can setCustomAnimate,Duclipte of examples:
+```
+            mTabbar.setCustomAnimate(new Animatable() {
+                /**
+                 * When you Tab Pager,The method will be called
+                 * @param target IconView in the iconview
+                 * @param Duration your animation time
+                 */
+                @Override
+                public void playAnimate(View target, int Duration) {
+                    ViewHelper.setPivotX(target,target.getLayoutParams().width/2);
+                    ViewHelper.setPivotY(target,target.getLayoutParams().height/2);
+    
+                    AnimatorSet set = new AnimatorSet();
+                    set.playTogether(
+                            ObjectAnimator.ofFloat(target,"scaleX",0.2f,1f).setDuration(Duration),
+                            ObjectAnimator.ofFloat(target,"scaleY",0.2f,1f).setDuration(Duration),
+                            ObjectAnimator.ofFloat(target,"alpha",0.3f,1f).setDuration(Duration)
+                    );
+    
+                    set.start();
+                }
+    
+                /**
+                 * The explain of the Method
+                 * When you touch in the ViewPager by User,The method will be called back
+                 * @param target The same in top
+                 * @param offset Range value 0f-1f
+                 */
+                @Override
+                public void onPageAnimate(View target, float offset) {
+                    ViewHelper.setScaleX(target,1+offset*0.2f);
+                    ViewHelper.setScaleY(target,1+offset*0.2f);
+                }
+    
+                /**
+                 * return true can make onPageAnimate method called
+                 * @return
+                 */
+                @Override
+                public boolean isNeedPageAnimate() {
+                    return true;
+                }
+            });
+```
+
 # Method and node description:
 #### The Main Method Of JPTabBar:
 ```JAVA
@@ -115,7 +164,7 @@
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
 | TabDuration |The animate time of the Tab Switch     |Integer  | 500 |
-| TabAnimate |The animate type of the Tab Switch      |enum | Flip |
+| TabAnimate |The animate type of the Tab Switch      |enum | Scale |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
@@ -168,6 +217,11 @@
    - Titles annotaion support int
    - Remove BadgeModes annotation,Enhance the flexibility of the use of badges,Update the TabBar method
    - Add the TabSelectBg attribute,used to set the selected item bg
+  
+### V1.1.0
+   - Reverse the Rending problem in the XML
+   - Reverse the BUG of CLick Tab Event CallBack twice.
+   - Add the OnPageAnimate Method in interface,Enhance the flexibility of animation
    
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

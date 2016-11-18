@@ -22,16 +22,7 @@ import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
  */
 class JPTabItem extends BadgeRelativeLayout {
 
-    //Alpha动画
-    private static final int ALPHA_TYPE = 0;
-    //ROTATE3D动画
-    private static final int ROTATE3D_TYPE = 1;
-    //旋转动画
-    private static final int ROTATE_TYPE = 2;
-    //缩放动画
-    private static final int SCALE_TYPE = 3;
-    //跳跃动画
-    private static final int JUMP_TYPE = 4;
+
 
     /**
      * 上下文
@@ -80,7 +71,7 @@ class JPTabItem extends BadgeRelativeLayout {
     /**
      * 选中的颜色
      */
-    private int mSelectBg;
+    private Drawable mSelectBg;
 
     /**
      * Tab字体大小
@@ -133,10 +124,7 @@ class JPTabItem extends BadgeRelativeLayout {
      */
     private int mBadgeBackground;
 
-    /**
-     * 动画的实现类
-     */
-    private Animatable mAnimater;
+
 
     /**
      * 是否被选中
@@ -168,7 +156,6 @@ class JPTabItem extends BadgeRelativeLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.weight = 3;
         setLayoutParams(params);
-        setBackgroundResource(android.R.color.transparent);
         initPaint();
         initImageView();
     }
@@ -271,22 +258,8 @@ class JPTabItem extends BadgeRelativeLayout {
         return isShowBadge();
     }
 
-    public void setAnimater(Animatable animatable) {
-        mAnimater = animatable;
-    }
-
-    private void setAnimater(int type) {
-        if (type == ALPHA_TYPE) {
-            mAnimater = new AlphaAnimater();
-        } else if (type == SCALE_TYPE) {
-            mAnimater = new ScaleAnimater();
-        } else if (type == ROTATE_TYPE) {
-            mAnimater = new RotateAnimater();
-        } else if (type == ROTATE3D_TYPE) {
-            mAnimater = new FlipAnimater();
-        } else if (type == JUMP_TYPE) {
-            mAnimater = new JumpAnimater();
-        }
+    public ImageView getIconView() {
+        return mIconView;
     }
 
     /**
@@ -302,7 +275,13 @@ class JPTabItem extends BadgeRelativeLayout {
      * @param selected
      * @param animated
      */
-    public void setSelect(boolean selected, boolean animated) {
+    public void setSelect(Animatable animatable,boolean selected, boolean animated) {
+        if (selected&&mSelectBg!=null){
+            setBackgroundDrawable(mSelectBg);
+        }
+        else{
+            setBackgroundResource(android.R.color.transparent);
+        }
         if (mCompundIcon != null) {
             if (selected) {
                 changeAlpha(1f);
@@ -314,16 +293,11 @@ class JPTabItem extends BadgeRelativeLayout {
         }
         if (mSelected != selected) {
             mSelected = selected;
-            if (selected){
-                    setBackgroundColor(mSelectBg);
-            }
-            else{
-                setBackgroundResource(android.R.color.transparent);
-            }
+
             //播放动画
             if (selected && animated) {
-                if (mAnimater != null) {
-                    mAnimater.playAnimate(mIconView, mDuration);
+                if (animatable != null) {
+                    animatable.playAnimate(mIconView, mDuration);
                 }
             }
 
@@ -396,13 +370,11 @@ class JPTabItem extends BadgeRelativeLayout {
 
         private int badgepadding;
 
-        private int selectbg;
+        private Drawable selectbg;
 
         private String title;
 
         private Context context;
-
-        private int animateType;
 
         private int index;
 
@@ -468,7 +440,7 @@ class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-        Builder setSelectBg(int res){
+        Builder setSelectBg(Drawable res){
             this.selectbg = res;
             return this;
         }
@@ -505,14 +477,8 @@ class JPTabItem extends BadgeRelativeLayout {
         }
 
 
-        Builder setAnimateType(int type) {
-            this.animateType = type;
-            return this;
-        }
-
         JPTabItem build() {
             JPTabItem item = new JPTabItem(context);
-            item.setAnimater(animateType);
             item.mTextSize = textSize
             ;
             item.mTitle = title;

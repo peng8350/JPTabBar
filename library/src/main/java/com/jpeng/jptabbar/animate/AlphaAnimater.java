@@ -12,4 +12,14 @@ public class AlphaAnimater implements Animatable {
         ObjectAnimator.ofFloat(target,"alpha",0f,1f).setDuration(Duration).start();
     }
 
+    @Override
+    public void onPageAnimate(View target,float offset) {
+
+    }
+
+    @Override
+    public boolean isNeedPageAnimate() {
+        return false;
+    }
+
 }

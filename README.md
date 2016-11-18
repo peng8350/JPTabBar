@@ -5,10 +5,13 @@
 
 # 效果图
    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
-    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)<br>
+    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)
      ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/2.gif) <br>
        ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/3.gif)
-
+         ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/4.gif)<br>
+           ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/5.gif)
+             ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/6.gif)<br>
+             
 # 主要功能以及特色:
    - [x] 多种Tab切换的动画效果
 
@@ -32,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.0.5'
+        compile 'com.jpeng:JPTabBar:1.1.0'
     }
 
 ```
@@ -72,6 +75,53 @@
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
 ```
+5.本项目中已经提供了部分动画,如果你要使用自己定义的动画,可以setCustomAnimate,传入内部提供的Animatable接口,参考下面的例子
+```
+            mTabbar.setCustomAnimate(new Animatable() {
+                /**
+                 * 这个方法当你点击Tab切换页面的时候会调用
+                 * @param target TabBar里面的IconView
+                 * @param Duration 是你自定义的动画时间
+                 */
+                @Override
+                public void playAnimate(View target, int Duration) {
+                    ViewHelper.setPivotX(target,target.getLayoutParams().width/2);
+                    ViewHelper.setPivotY(target,target.getLayoutParams().height/2);
+    
+                    AnimatorSet set = new AnimatorSet();
+                    set.playTogether(
+                            ObjectAnimator.ofFloat(target,"scaleX",0.2f,1f).setDuration(Duration),
+                            ObjectAnimator.ofFloat(target,"scaleY",0.2f,1f).setDuration(Duration),
+                            ObjectAnimator.ofFloat(target,"alpha",0.3f,1f).setDuration(Duration)
+                    );
+    
+                    set.start();
+                }
+    
+                /**
+                 * 这个方法的解析
+                 * 当你切换用手势滑动ViewPager,这个方法就会回调
+                 * 这个方法生效的条件是下面要return true
+                 * @param target 同上
+                 * @param offset 这个参数代表偏差,范围 0-1
+                 */
+                @Override
+                public void onPageAnimate(View target, float offset) {
+                    ViewHelper.setScaleX(target,1+offset*0.2f);
+                    ViewHelper.setScaleY(target,1+offset*0.2f);
+                }
+    
+                /**
+                 * 代表是否需要滑动中,调用Icon动画
+                 * @return
+                 */
+                @Override
+                public boolean isNeedPageAnimate() {
+                    return true;
+                }
+            });
+```
+
 # 方法和节点说明:
 #### JPTabBar主要方法:
 ```JAVA
@@ -108,6 +158,7 @@
      */
     public void setDismissListener(BadgeDismissListener listener);
 ```
+
 ### 结点说明:
 | 结点名字        |     结点说明     | 参数类型 | 默认值  |
 |-------------|:-------------|:----------:|:-----:|
@@ -120,7 +171,7 @@
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabDuration |Tab切换的动画时间     |Integer  | 500 |
-| TabAnimate |Tab切换的动画类型      |enum | Flip |
+| TabAnimate |Tab切换的动画类型      |enum | Scale |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
 | BadgeDraggable |徽章是否可以拖动     |boolean  | false |
@@ -153,6 +204,7 @@
     >
 
 ```
+
 # 更新日志
 ### V1.0.0
    - 发布,添加README,上传GIF截图
@@ -172,6 +224,11 @@
    - 干掉徽章BadgeModes注解,提高徽章使用的灵活性,修改了TabBar调用徽章的方法
    - 添加TabSelectBg结点,用来设置选中的背景
    
+### V1.1.0
+   - 解决XML布局中渲染报错问题
+   - 修复点击Tab回调两次的BUG
+   - 新增切换对动画的回调接口方法,提高TabBar动画灵活性
+
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
 <br><br>

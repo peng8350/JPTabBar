@@ -18,9 +18,7 @@
             <enum name="Jump" value="4"/>
             <enum name="None" value="5"/>
         </attr>
-
         <attr name="TabMiddleIcon" format="reference"/>
-
         <attr name="BadgeColor" format="reference|color"/>
         <attr name="BadgeDraggable" format="boolean"/>
         <attr name="BadgePadding" format="dimension|reference"/>

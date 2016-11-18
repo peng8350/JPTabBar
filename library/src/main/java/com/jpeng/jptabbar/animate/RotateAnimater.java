@@ -27,4 +27,14 @@ public class RotateAnimater implements Animatable {
         set.setInterpolator(ll);
         set.start();
     }
+
+    @Override
+    public void onPageAnimate(View target,float offset) {
+        ViewHelper.setRotation(target,offset*360);
+    }
+
+    @Override
+    public boolean isNeedPageAnimate() {
+        return true;
+    }
 }

@@ -26,6 +26,15 @@ public class FlipAnimater implements Animatable{
         set.setDuration(Duration).start();
     }
 
+    @Override
+    public void onPageAnimate(View target,float offset) {
+        ViewHelper.setRotationY(target,offset*180);
+    }
+
+    @Override
+    public boolean isNeedPageAnimate() {
+        return true ;
+    }
 
 
 }
