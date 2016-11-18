@@ -135,6 +135,7 @@ public class BadgeViewHelper {
 
         mBadgePadding = DensityUtils.dp2px(context, 4);
         mBadgeVerticalMargin = DensityUtils.dp2px(context, 0);
+
         mBadgeHorizontalMargin = DensityUtils.dp2px(context, 0);
 
         mBadgeGravity = defaultBadgeGravity;
@@ -186,10 +187,8 @@ public class BadgeViewHelper {
     }
 
     public void setBadgeHorizontalMarginDp(int badgeHorizontalMargin) {
-        if (badgeHorizontalMargin >= 0) {
             mBadgeHorizontalMargin = DensityUtils.dp2px(mBadgeable.getContext(), badgeHorizontalMargin);
             mBadgeable.postInvalidate();
-        }
     }
 
     public void setBadgePaddingDp(int badgePadding) {

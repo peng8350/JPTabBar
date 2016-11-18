@@ -5,11 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import com.jpeng.jptabbar.JPTabBar;
-import com.jpeng.jptabbar.anno.BadgeModes;
 import com.jpeng.jptabbar.anno.NorIcons;
 import com.jpeng.jptabbar.anno.SeleIcons;
 import com.jpeng.jptabbar.anno.Titles;
-import com.jpeng.jptabbar.badgeview.BadgeMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ public class MainActivity extends FragmentActivity{
 
     private List<Fragment> list=new ArrayList<>();
     @Titles
-    private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
+    private static final int[] mTitles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
 
     @SeleIcons
     private static final int[] mSeleIcons = {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
@@ -29,8 +27,6 @@ public class MainActivity extends FragmentActivity{
     @NorIcons
     private static final int[] mNormalIcons = {R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal};
 
-    @BadgeModes
-    private static final BadgeMode[] mBadgeModes = {BadgeMode.OVAL,BadgeMode.NUMBER,BadgeMode.OVAL,BadgeMode.NUMBER};
 
 
     private ViewPager mPager;
@@ -50,11 +46,10 @@ public class MainActivity extends FragmentActivity{
 
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(),list));
         //显示圆点模式的徽章
-        mTabbar.ShowOvalBadge(0);
-        mTabbar.ShowOvalBadge(2);
-        //显示数字模式的徽章
-        mTabbar.setBadgeCount(1,100);
-        mTabbar.setBadgeCount(3,3);
+        mTabbar.ShowBadge(3,"设置");
+        mTabbar.ShowBadge(0,100);
+        mTabbar.ShowBadge(1,77);
+        mTabbar.ShowBadge(2,"");
         //设置容器
         mTabbar.setContainer(mPager);
         //切换页面

@@ -12,9 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.jpeng.jptabbar.animate.*;
-import com.jpeng.jptabbar.badgeview.*;
-
-import static android.R.attr.width;
+import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
+import com.jpeng.jptabbar.badgeview.BadgeViewHelper;
+import com.jpeng.jptabbar.badgeview.Badgeable;
+import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
 
 /**
  * Created by jpeng on 16-11-13.
@@ -55,11 +56,6 @@ class JPTabItem extends BadgeRelativeLayout {
      * Tab的上下编剧
      */
     private int mMargin;
-
-    /**
-     * 背景颜色
-     */
-    private int mBackground;
 
     /**
      * Tab的没有选中图标
@@ -111,21 +107,10 @@ class JPTabItem extends BadgeRelativeLayout {
      */
     private ImageView mIconView;
 
-
-    /**
-     * Badge的显示模式
-     */
-    private BadgeMode mBadgeMode;
-
-    /**
-     * Badge是否隐藏
-     */
-    private boolean mBadgeHide;
-
     /**
      * Badge是否可以拖动
      */
-    private boolean mDragable;
+    private boolean mDraggable;
 
     /**
      * Badge的字体大小
@@ -163,12 +148,8 @@ class JPTabItem extends BadgeRelativeLayout {
      */
     private BadgeDismissListener mDismissListener;
 
-
-    public JPTabItem(Context context, int width) {
-
+    public JPTabItem(Context context) {
         super(context);
-
-
     }
 
     /**
@@ -192,7 +173,7 @@ class JPTabItem extends BadgeRelativeLayout {
      */
     public void initBadge() {
         getBadgeViewHelper().setBadgeGravity(BadgeViewHelper.BadgeGravity.RightTop);
-        getBadgeViewHelper().setDragable(mDragable);
+        getBadgeViewHelper().setDragable(mDraggable);
         getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
         getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
         getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);
@@ -289,7 +270,7 @@ class JPTabItem extends BadgeRelativeLayout {
         mAnimater = animatable;
     }
 
-    public void setAnimater(int type) {
+    private void setAnimater(int type) {
         if (type == ALPHA_TYPE) {
             mAnimater = new AlphaAnimater();
         } else if (type == SCALE_TYPE) {
@@ -306,7 +287,7 @@ class JPTabItem extends BadgeRelativeLayout {
     /**
      * 给Item设置代理
      */
-    public void setDismissDelegate(BadgeDismissListener listener) {
+    void setDismissDelegate(BadgeDismissListener listener) {
         this.mDismissListener = listener;
     }
 
@@ -347,7 +328,6 @@ class JPTabItem extends BadgeRelativeLayout {
      * 假如开发者没有提供selected Icon的时候,改变图标颜色
      * 而且要接受过滤
      *
-     * @param selected
      */
     private void changeColorIfneed(boolean selected) {
         if (mAcceptFilter && mSelectIcon == null
@@ -377,36 +357,6 @@ class JPTabItem extends BadgeRelativeLayout {
     }
 
 
-    /**
-     * 设置徽章是否显示
-     */
-    public void setBadgeVisibility(boolean show) {
-        if (mBadgeMode == BadgeMode.OVAL) {
-            if (show) {
-                showCirclePointBadge();
-            } else {
-                hiddenBadge();
-            }
-        }
-    }
-
-
-    /**
-     * 设置徽章的数字
-     */
-    public void setBadgeNumber(int count) {
-        //假如是数字模式
-        if (mBadgeMode == BadgeMode.NUMBER) {
-            if (count == 0) {
-                hiddenBadge();
-            } else if (count > 99) {
-                showTextBadge(99 + "+");
-            } else {
-                showTextBadge(count + "");
-            }
-        }
-    }
-
 
     /**
      * 构造者
@@ -426,8 +376,6 @@ class JPTabItem extends BadgeRelativeLayout {
         private int normalIcon;
 
         private int selectIcon;
-
-        private BadgeMode mode;
 
         private int badgeBackground;
 
@@ -457,116 +405,110 @@ class JPTabItem extends BadgeRelativeLayout {
             this.context = context;
         }
 
-        public Builder setNormalColor(int normalColor) {
+        Builder setNormalColor(int normalColor) {
             this.normalColor = normalColor;
             return this;
         }
 
-        public Builder setIconSize(int size) {
+        Builder setIconSize(int size) {
             this.iconSize = size;
             return this;
         }
 
-        public Builder setIndex(int index) {
+        Builder setIndex(int index) {
             this.index = index;
             return this;
         }
 
-        public Builder setSelectedColor(int selectColor) {
+        Builder setSelectedColor(int selectColor) {
             this.selectColor = selectColor;
             return this;
         }
 
 
-        public Builder setBadgeMode(BadgeMode mode) {
-            this.mode = mode;
-            return this;
-        }
-
-        public Builder setDurtion(int durtion) {
+        Builder setDurtion(int durtion) {
             this.duration = durtion;
             return this;
         }
 
-        public Builder setMargin(int margin) {
+        Builder setMargin(int margin) {
             this.margin = margin;
             return this;
         }
 
-        public Builder setIconFilte(boolean acceptFilte) {
+        Builder setIconFilte(boolean acceptFilte) {
             this.iconfilter = acceptFilte;
             return this;
         }
 
-        public Builder setBadgeMargin(int margin) {
+        Builder setBadgeMargin(int margin) {
             this.badgeMarin = margin;
             return this;
         }
 
 
-        public Builder setBadgeTextSize(int size) {
+        Builder setBadgeTextSize(int size) {
             this.badgeTextSize = size;
             return this;
         }
 
-        public Builder setBadgeColor(int color) {
+        Builder setBadgeColor(int color) {
             this.badgeBackground = color;
             return this;
         }
 
-        public Builder setBadgeDrable(boolean drag) {
+        Builder setBadgeDrable(boolean drag) {
             this.dragable = drag;
             return this;
         }
 
-        public Builder setBadgePadding(int padding) {
+        Builder setBadgePadding(int padding) {
             this.badgepadding = padding;
             return this;
         }
 
 
-        public Builder setNormalIcon(@DrawableRes int icon) {
+        Builder setNormalIcon(@DrawableRes int icon) {
             this.normalIcon = icon;
             return this;
         }
 
-        public Builder setSelectIcon(@DrawableRes int icon) {
+        Builder setSelectIcon(@DrawableRes int icon) {
             this.selectIcon = icon;
             return this;
         }
 
-        public Builder setTextSize(int size) {
+        Builder setTextSize(int size) {
             this.textSize = size;
             return this;
         }
 
-        public Builder setTitle(String title) {
+        Builder setTitle(String title) {
             this.title = title;
             return this;
         }
 
 
-        public Builder setAnimateType(int type) {
+        Builder setAnimateType(int type) {
             this.animateType = type;
             return this;
         }
 
-        public JPTabItem build() {
-            JPTabItem item = new JPTabItem(context, width);
+        JPTabItem build() {
+            JPTabItem item = new JPTabItem(context);
             item.setAnimater(animateType);
             item.mTextSize = textSize
             ;
             item.mTitle = title;
             item.mNormalColor = normalColor;
             item.mSelectColor = selectColor;
-            item.mBadgeMode = mode;
             item.mBadgeTextSize = badgeTextSize;
             item.mNormalIcon = context.getResources().getDrawable(normalIcon);
             if (selectIcon != 0)
                 item.mSelectIcon = context.getResources().getDrawable(selectIcon);
             item.mBadgePadding = badgepadding;
             item.mBadgeBackground = badgeBackground;
-            item.mDragable = dragable;
+            item.mDraggable = dragable;
             item.mIndex = index;
             item.mBadgeMargin = badgeMarin;
             item.mIconSize = iconSize;

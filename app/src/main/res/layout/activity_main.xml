@@ -20,12 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
-        jp:TabHeight="56dp"
         jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
-        jp:BadgePadding="4dp"
-        jp:BadgeMargin="9dp"
-        jp:BadgeTextSize="10dp"
+        jp:BadgeMargin="-15dp"
         />
 
 
