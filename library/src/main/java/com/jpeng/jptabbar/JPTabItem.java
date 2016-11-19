@@ -20,7 +20,7 @@ import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
 /**
  * Created by jpeng on 16-11-13.
  */
-class JPTabItem extends BadgeRelativeLayout {
+public class JPTabItem extends BadgeRelativeLayout {
 
 
 
@@ -275,7 +275,7 @@ class JPTabItem extends BadgeRelativeLayout {
      * @param selected
      * @param animated
      */
-    public void setSelect(Animatable animatable,boolean selected, boolean animated) {
+    void setSelect(Animatable animatable,boolean selected, boolean animated) {
         if (selected&&mSelectBg!=null){
             setBackgroundDrawable(mSelectBg);
         }
@@ -331,7 +331,7 @@ class JPTabItem extends BadgeRelativeLayout {
      *
      * @param offset
      */
-    public void changeAlpha(float offset) {
+    void changeAlpha(float offset) {
         if (mCompundIcon != null) {
 
             mNormalIcon.setAlpha((int) (255 * ((float) (1 - offset))));

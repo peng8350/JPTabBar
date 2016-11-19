@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.jpeng.jptabbar.animate.*;
 import com.jpeng.jptabbar.anno.NorIcons;
@@ -20,6 +22,8 @@ import java.lang.reflect.Field;
  * Created by jpeng on 16-11-13.
  */
 public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener {
+
+
     //Alpha动画
     private static final int ALPHA_TYPE = 0;
     //ROTATE3D动画
@@ -85,7 +89,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 中间按钮
      */
-    private JPMiddleTabItem mMiddleItem;
+    private ImageView mMiddleItem;
 
     /**
      * 监听点击Tab回调的观察者
@@ -245,16 +249,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mTabPager != null&&mTabPager.getAdapter() != null&&mTabPager.getAdapter().getCount()==mJPTabItems.length) {
+                        if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() == mJPTabItems.length) {
                             mNeedAnimate = true;
                             mTabPager.setCurrentItem(temp, false);
-                        }
-                        else if(mTabPager!=null&&mTabPager.getAdapter() != null&&mTabPager.getAdapter().getCount()!=mJPTabItems.length){
+                        } else if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() != mJPTabItems.length) {
                             mTabPager.setCurrentItem(temp, false);
                             setSelectTab(temp);
-                        }
-                        else{
-                            setSelectTab(temp,true);
+                        } else {
+                            setSelectTab(temp, true);
                         }
 
                     }
@@ -298,12 +300,15 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-    private JPMiddleTabItem BuildMiddleBtn(int height, int icon_res) {
+    private ImageView BuildMiddleBtn(int height, int icon_res) {
         if (icon_res == 0) return null;
-        JPMiddleTabItem middleBtn = new JPMiddleTabItem(mContext, height);
-
-        middleBtn.setIcon(mContext.getResources().getDrawable(icon_res));
-
+        ImageView middleBtn = new ImageView(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(height,height);
+        params.setMargins(0,0,0, (int) (height*0.33));
+        params.gravity= Gravity.BOTTOM;
+        middleBtn.setLayoutParams(params);
+        middleBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        middleBtn.setImageDrawable(mContext.getResources().getDrawable(icon_res));
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -330,17 +335,17 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 切换Tab页面,是否带动画
      */
-    public void setSelectTab(int index, boolean animated){
+    public void setSelectTab(int index, boolean animated) {
         mSelectIndex = index;
         //把全部tab selected设置为false
         for (int i = 0; i < mJPTabItems.length; i++) {
             if (i == index) {
                 continue;
             }
-            mJPTabItems[i].setSelect(mAnimater,false, false);
+            mJPTabItems[i].setSelect(mAnimater, false, false);
         }
 
-        mJPTabItems[index].setSelect(mAnimater,true, animated);
+        mJPTabItems[index].setSelect(mAnimater, true, animated);
 
         if (mTabSelectLis != null) {
             mTabSelectLis.onTabSelect(index);
@@ -382,8 +387,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     public void HideBadge(int position) {
-        if(mJPTabItems!=null)
-        mJPTabItems[position].hiddenBadge();
+        if (mJPTabItems != null)
+            mJPTabItems[position].hiddenBadge();
     }
 
     /**
@@ -399,7 +404,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      */
     public boolean isBadgeShow(int index) {
         if (mJPTabItems != null)
-        return mJPTabItems[index].isBadgeShow();
+            return mJPTabItems[index].isBadgeShow();
 
         return false;
     }
@@ -416,7 +421,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      *
      * @return
      */
-    public JPMiddleTabItem getMiddleBtn() {
+    public ImageView getMiddleBtn() {
         return mMiddleItem;
     }
 
@@ -425,7 +430,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置自定义动画
      */
     public void setCustomAnimate(@NonNull Animatable customAnimate) {
-       this.mAnimater = customAnimate;
+        this.mAnimater = customAnimate;
     }
 
     /**
@@ -452,7 +457,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mJPTabItems[position].changeAlpha(1 - positionOffset);
             mJPTabItems[position + 1].changeAlpha(positionOffset);
 
-            if(mAnimater!=null) {
+            if (mAnimater != null) {
                 if (mAnimater.isNeedPageAnimate()) {
                     mNeedAnimate = false;
                     mAnimater.onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
@@ -467,7 +472,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     @Override
     public void onPageSelected(int position) {
-            setSelectTab(position,mNeedAnimate);
+        setSelectTab(position, mNeedAnimate);
     }
 
     @Override
@@ -478,5 +483,5 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-
 }
+

@@ -14,7 +14,6 @@
         android:id="@+id/view_pager"
         android:layout_height="match_parent"/>
 
-
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
         jp:TabMiddleIcon="@drawable/q"
         jp:TabSelectBg="@drawable/tab_btn_bg"
         jp:TabAnimate="Scale"
+        jp:BadgeTextSize="13sp"
         />
 
 

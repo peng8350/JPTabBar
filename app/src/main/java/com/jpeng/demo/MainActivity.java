@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
@@ -43,8 +44,8 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         mTabbar = (JPTabBar) findViewById(tabbar);
         list.add(new tab1());
         list.add(new tab2());
-        list.add(new tab3());
-        list.add(new tab4());
+//        list.add(new tab3());
+//        list.add(new tab4());
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(),list));
         //显示圆点模式的徽章
         mTabbar.ShowBadge(0,100);
@@ -71,5 +72,6 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
 
     @Override
     public void onClickMiddle(View middleBtn){
+        Toast.makeText(this,"点击中间",0).show();
     }
 }
