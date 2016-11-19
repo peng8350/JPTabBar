@@ -1,9 +1,10 @@
 # :blush:JPTabBar:blush:
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
+<br>
 
-### 阅读英文文档 [请点击这里](https://github.com/peng8350/JPTabBar/blob/master/README_EN.md)
+阅读中文文档 [请点击这里](https://github.com/peng8350/JPTabBar/blob/master/README_CN.md)
 
-# 效果图
+# ScreenShots:
    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
     ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)
      ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/2.gif) <br>
@@ -12,23 +13,23 @@
            ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/5.gif)
              ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/6.gif)<br>
              
-# 主要功能以及特色:
-   - [x] 多种Tab切换的动画效果
+# Main functions and features:
+   - [x] More Animation effects of multiple Tab switching
 
-   - [x] 实现底部导航中间按钮凸出的效果
+   - [x] Implements the effect of the middle button of the bottom navigation
 
-   - [x] 实现WeChat那种滑动导航的底部渐变效果,随着滑动的距离变化而变化
+   - [x] Implements the kind of WeChat sliding navigation of the bottom gradient effect, with the change of the sliding distance
 
-   - [x] 实现TabBar上的红色标记,并且可以拖动
+   - [x] Implements the red mark on the TabBar, and can drag
 
-   - [x] 强大的BadgeView功能,智能判断数字隐藏与越界显示,两种显示模式。
+   - [x] The powerful BadgeView function, intelligent judgment digital hiding and cross-border display, two display modes。
 
-   - [x] 提供监听Tab的点击事件,中间点击以及badge被拖拉消失的接口
+   - [x] Provide listening to the click event, middle click and badge is dragged away the interface
 
-   - [x] 引用注解方式,免去自己手动构造TabBarItem
+   - [x] Reference annotation method, construction TabBarItem
 
-# 用法:
-  1.引入Gradle依赖
+# Usage:
+  1.Introducing Gradle dependency
 ```Java
     repositories {
         jcenter()
@@ -39,7 +40,7 @@
     }
 
 ```
-2.添加JPTabBar到你的主界面布局
+2.Add JPTabBar to your main interface layout
 ```JAVA
 
 
@@ -56,7 +57,7 @@
         jp:BadgeTextSize="10dp"
         />
 ```
-3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons和Titles是必须的,每个数组长度要保持一致
+3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is: Titles and NorIcons are required, the length of each array should be consistent
 
 ```JAVA
     @Titles
@@ -70,18 +71,18 @@
 
 
 ```
-4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:
+4.After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:
 ```JAVA
-    //传入一定要集成继承ViewPager
+    //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
 ```
-5.本项目中已经提供了部分动画,如果你要使用自己定义的动画,可以setCustomAnimate,传入内部提供的Animatable接口,参考下面的例子
+5.The project has provided many animation,If you want to Custom your Animation,You can setCustomAnimate,Duclipte of examples:
 ```
             mTabbar.setCustomAnimate(new Animatable() {
                 /**
-                 * 这个方法当你点击Tab切换页面的时候会调用
-                 * @param target TabBar里面的IconView
-                 * @param Duration 是你自定义的动画时间
+                 * When you Tab Pager,The method will be called
+                 * @param target IconView in the iconview
+                 * @param Duration your animation time
                  */
                 @Override
                 public void playAnimate(View target, int Duration) {
@@ -99,11 +100,10 @@
                 }
     
                 /**
-                 * 这个方法的解析
-                 * 当你切换用手势滑动ViewPager,这个方法就会回调
-                 * 这个方法生效的条件是下面要return true
-                 * @param target 同上
-                 * @param offset 这个参数代表偏差,范围 0-1
+                 * The explain of the Method
+                 * When you touch in the ViewPager by User,The method will be called back
+                 * @param target The same in top
+                 * @param offset Range value 0f-1f
                  */
                 @Override
                 public void onPageAnimate(View target, float offset) {
@@ -112,7 +112,7 @@
                 }
     
                 /**
-                 * 代表是否需要滑动中,调用Icon动画
+                 * return true can make onPageAnimate method called
                  * @return
                  */
                 @Override
@@ -122,75 +122,74 @@
             });
 ```
 
-# 方法和节点说明:
-#### JPTabBar主要方法:
+# Method and node description:
+#### The Main Method Of JPTabBar:
 ```JAVA
     /**
-     * 设置自定义Tab切换动画
+     * Set custom Tab toggle animation
      */
     public void setCustomAnimate(Animatable customAnimate);
 
 
      /**
-     * 显示BadgeView ,传入字符串
-     * 当然还有一个重载方法,第二个参数为int,设置消息数量
-     * 传入""字符串显示圆点
+     * Show the BadgeView With Text
      */
     public void ShowBadge(int position,String text);
 
     /**
-     * 隐藏BadgeView
+     * Hide the OVAL Badge
      */
     public void HideBadge(int position);
 
     /**
-     * 切换Tab页面,是否带动画
+     * Switch Tab page, whether with animation
      */
     public void setSelectTab(int index, boolean animated);
 
     /**
-     * 设置点击TabBar事件的观察者
+     * Set the Observer of the Click Tab Event
      */
     public void setTabListener(OnTabSelectListener listener);
 
     /**
-     * 设置badgeView消失的回调事件
+     * set the CallBack of the Badge Dragging Dismiss
      */
     public void setDismissListener(BadgeDismissListener listener);
 ```
-
-### 结点说明:
-| 结点名字        |     结点说明     | 参数类型 | 默认值  |
+### Attribute Explain:
+| Attribute Name        |     Attribute Explain     | Parameter Type | Default Value  |
 |-------------|:-------------|:----------:|:-----:|
-| TabHeight      |TabBar的高度,将会覆盖layout_height的设置 |dimension| 56dp |
-| TabNormalColor      |字体和图标的未选中颜色   |color   |   0xffAEAEAE(灰色) |
-| TabSelectColor |字体和图标的选中的颜色     |color  | 0xff59D9B9(青色) |
-| TabTextSize |Tab底部文件大小      |dimension | 14sp |
-| TabIconSize |Tab图标的大小       |dimension| 24dp |
-| TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
-| TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
-| TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
-| TabDuration |Tab切换的动画时间     |Integer  | 500 |
-| TabAnimate |Tab切换的动画类型      |enum | Scale |
-| TabMiddleIcon |Tab中间的图标      |drawable | 无 |
-| BadgeColor |徽章的背景颜色      |color | #f00(红色) |
-| BadgeDraggable |徽章是否可以拖动     |boolean  | false |
-| BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
-| BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
-| BadgeMargin | 徽章距离右边边缘的间隔      |dimension | 9dp |
-# 注意事项
-1.假如你已经给TabBar setContainer,不要setOnPageChangeListener给ViewPager
+| TabHeight      |TabBar height, will cover the settings of layout_height |dimension| 56dp |
+| TabNormalColor      |Font and icon of the normal color   |color   |   0xffAEAEAE(Gray) |
+| TabSelectColor |Font and icon of the selected color     |color  | 0xff59D9B9(Cyan) |
+| TabTextSize |the textsize of the bottom text     |dimension | 14sp |
+| TabIconSize |the icon size of the tab       |dimension| 24dp |
+| TabIconFilter |   Set the icon  change by the font color|boolean | true |
+| TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
+| TabSelectBg |Set the TabItem Selected bg    |color | transparent |
+| TabDuration |The animate time of the Tab Switch     |Integer  | 500 |
+| TabAnimate |The animate type of the Tab Switch      |enum | Scale |
+| TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
+| BadgeColor |The background of the badgeView      |color | #f00(RED) |
+| BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
+| BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
+| BadgeTextSize |The textSize of the Badge      |dimension | 11dp |
+| BadgeMargin | The badge right margin in the TabBar      |dimension | 9dp |
+# Matters needing attention
+1.If you have given setContainer TabBar, do not setOnPageChangeListener to ViewPager
 ```JAVA
   /**
-    *如果你前面已经给TabBar设置了容器,然后调用这个方法的话,类似WeChat那种拖动渐变效果以及自动切换页面将会失效
-    *假如你要监听页面改变事件,可以使用TabListener
+    *If you already have the TabBar set up the container, 
+    *and then call this method,
+    *the kind of WeChat that drag the gradient effect and automatically switch the page will be invalid
+    *If you want to listen to the page to change the event, you can use the TabListener
    */
   mPager.setOnPageChangeListener(this);
   
   
 ```
 
-2.假如你要实现中间凸出的按钮,必须要在主界面最外围的父结点设置  android:clipChildren="false",否则会遮盖
+2.If you want to achieve the middle of the button, you must set the android:clipChildren= "false" to the parent node at the top of the main interface, otherwise it will be covered.
 ```JAVA
   <?xml version="1.0" encoding="utf-8"?>
   <LinearLayout
@@ -204,40 +203,39 @@
     >
 
 ```
-
-# 更新日志
+# Update Log
 ### V1.0.0
-   - 发布,添加README,上传GIF截图
+   - Publish,Add README,Upload GIF
    
 ### V1.0.3
-   - 添加额外一些方法
-   - 修正代码风格
+   - Add some extra Methods
+   - Reverse the Code Style
 
 ### V1.0.4
-   - 修复BadgeView显示位置随着字体位置偏差问题
-   - 修复背景被TabItem背景覆盖问题
-   - 修改高度默认56dp,徽章Margin为9dp
+   - Reverse the BadgePosition show error
+   - Reverse the background covered by the TabItem Bg
+   - Reverse the Default value error
 
 ### V1.0.5
-   - 解决徽章BadgeMargin不能往左上角移动
-   - Titles注解可支持int[]数组
-   - 干掉徽章BadgeModes注解,提高徽章使用的灵活性,修改了TabBar调用徽章的方法
-   - 添加TabSelectBg结点,用来设置选中的背景
-   
+   - Reverse the BadgeView cannot move to LeftTop
+   - Titles annotaion support int
+   - Remove BadgeModes annotation,Enhance the flexibility of the use of badges,Update the TabBar method
+   - Add the TabSelectBg attribute,used to set the selected item bg
+  
 ### V1.1.0
-   - 解决XML布局中渲染报错问题
-   - 修复点击Tab回调两次的BUG
-   - 新增切换对动画的回调接口方法,提高TabBar动画灵活性
-
-# 希望
-</p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
+   - Reverse the Rending problem in the XML
+   - Reverse the BUG of CLick Tab Event CallBack twice.
+   - Add the OnPageAnimate Method in interface,Enhance the flexibility of animation
+   
+# Hope
+</p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
 <br><br>
-</p>世界上再强的程序员写代码过程中难免会出现BUG,如果使用者发现BUG,可联系我或者直接issue,谢谢！
+</p>The world's strong programmer code process will inevitably appear BUG, if the user found BUG, you can contact me or directly issue, thank you！
 
-# 关于我
-一名在校大学生,目前还在专研学习各种技术中...<br>
+# About Me
+A college student, is still in the study of various techniques...<br>
 QQ:83508440<br>
-邮箱:83508440@qq.com
+E-mail:83508440@qq.com
 
 # License
 ```
@@ -255,3 +253,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
