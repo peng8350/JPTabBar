@@ -31,8 +31,6 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
     @NorIcons
     private static final int[] mNormalIcons = {R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal};
 
-
-
     private ViewPager mPager;
 
     private JPTabBar mTabbar;
@@ -46,9 +44,12 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         list.add(new tab2());
         list.add(new tab3());
         list.add(new tab4());
+        list.add(new tab4());
+        list.add(new tab4());
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(),list));
         //显示圆点模式的徽章
         //设置容器
+        mTabbar.ShowBadge(0,999);
         mTabbar.setContainer(mPager);
         //设置Badge消失的代理
         mTabbar.setDismissListener(this);

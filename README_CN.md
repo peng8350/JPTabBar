@@ -35,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.0'
+        compile 'com.jpeng:JPTabBar:1.1.2'
     }
 
 ```
@@ -227,6 +227,10 @@
    - 解决XML布局中渲染报错问题
    - 修复点击Tab回调两次的BUG
    - 新增切换对动画的回调接口方法,提高TabBar动画灵活性
+
+### V1.1.0
+   - 给动画添加了弹性
+   - 修复当pager没有数据时无法点击问题
 
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

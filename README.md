@@ -37,7 +37,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.0'
+        compile 'com.jpeng:JPTabBar:1.1.2'
     }
 
 ```
@@ -221,7 +221,8 @@
    - Add the OnPageAnimate Method in interface,Enhance the flexibility of animation
    
 ### V1.1.2
-   - 修改动画接口,
+   - Add the Bouncing of the Animation
+   - Reverse don't click when have no Pager in the Adapter
    
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
