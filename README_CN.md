@@ -1,6 +1,6 @@
 # :blush:JPTabBar:blush:
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
-
+<br>[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
 ### 
 
 # 效果图
@@ -170,7 +170,6 @@
 | TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
-| TabDuration |Tab切换的动画时间     |Integer  | 500 |
 | TabAnimate |Tab切换的动画类型      |enum | Scale |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |

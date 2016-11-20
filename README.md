@@ -1,6 +1,7 @@
 # :blush:JPTabBar:blush:
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
 <br>
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
 
 阅读中文文档 [请点击这里](https://github.com/peng8350/JPTabBar/blob/master/README_CN.md)
 
@@ -167,7 +168,6 @@
 | TabIconFilter |   Set the icon  change by the font color|boolean | true |
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
-| TabDuration |The animate time of the Tab Switch     |Integer  | 500 |
 | TabAnimate |The animate type of the Tab Switch      |enum | Scale |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
@@ -204,13 +204,6 @@
 
 ```
 # Update Log
-### V1.0.0
-   - Publish,Add README,Upload GIF
-   
-### V1.0.3
-   - Add some extra Methods
-   - Reverse the Code Style
-
 ### V1.0.4
    - Reverse the BadgePosition show error
    - Reverse the background covered by the TabItem Bg
@@ -226,6 +219,9 @@
    - Reverse the Rending problem in the XML
    - Reverse the BUG of CLick Tab Event CallBack twice.
    - Add the OnPageAnimate Method in interface,Enhance the flexibility of animation
+   
+### V1.1.2
+   - 修改动画接口,
    
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

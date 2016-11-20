@@ -21,7 +21,7 @@
         android:background="#fff"
         jp:TabHeight="56dp"
         jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
+        jp:TabAnimate="Rotate"
         jp:BadgePadding="4dp"
         jp:BadgeMargin="5dp"
         jp:BadgeTextSize="10dp"

@@ -1,38 +1,48 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by jpeng on 16-11-15.
  */
-public class JumpAnimater implements Animatable {
+public class JumpAnimater extends BouncingAnimater implements Animatable {
+
 
     @Override
-    public void playAnimate(View target,int Duration) {
-        ViewHelper.setPivotX(target,target.getLayoutParams().width/2);
-        ViewHelper.setPivotY(target,target.getLayoutParams().height/2);
-        AnimatorSet set = new AnimatorSet();
-        set.playSequentially(
+    public void playAnimate(final View target, final boolean selected) {
+        setPlaying(true);
+        buildSpring();
+        getSpring().addListener(new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float value = (float) spring.getCurrentValue();
+                if (isPlaying()) {
+                    ViewHelper.setTranslationY(target, -value * 15);
+                    ViewHelper.setRotationY(target, value * 180);
+                }
 
-                ObjectAnimator.ofFloat(target, "translationY", -10).setDuration(Duration/4),
-                ObjectAnimator.ofFloat(target, "translationY", 0).setDuration(Duration/6),
-                ObjectAnimator.ofFloat(target, "translationY", -20).setDuration(Duration/4),
-                ObjectAnimator.ofFloat(target, "translationY", 0).setDuration(Duration/6)
-        );
-        set.start();
+            }
+        });
+        getSpring().setCurrentValue(selected?0f:1);
+        getSpring().setEndValue(selected?1f:0f);
+
     }
 
     @Override
-    public void onPageAnimate(View target,float offset) {
+    public void onPageAnimate(final View target, float offset) {
+        setPlaying(false);
 
+        ViewHelper.setTranslationY(target, offset * -15);
+        ViewHelper.setRotationY(target, offset * 180);
     }
 
     @Override
     public boolean isNeedPageAnimate() {
-        return false;
+        return true;
     }
+
 
 }

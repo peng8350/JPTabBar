@@ -129,7 +129,7 @@ public class JPTabItem extends BadgeRelativeLayout {
     /**
      * 是否被选中
      */
-    private boolean mSelected = true;
+    private boolean mSelected;
 
     /**
      * badge的间距
@@ -158,6 +158,7 @@ public class JPTabItem extends BadgeRelativeLayout {
         setLayoutParams(params);
         initPaint();
         initImageView();
+        setBackgroundResource(android.R.color.transparent);
     }
 
     /**
@@ -213,6 +214,7 @@ public class JPTabItem extends BadgeRelativeLayout {
             mCompundIcon = new LayerDrawable(new Drawable[]{mNormalIcon, mSelectIcon});
             mIconView.setImageDrawable(mCompundIcon);
         }
+
         //添加进去主布局
         addView(mIconView);
         //初始化BadgeView设置回调和属性
@@ -293,11 +295,10 @@ public class JPTabItem extends BadgeRelativeLayout {
         }
         if (mSelected != selected) {
             mSelected = selected;
-
             //播放动画
-            if (selected && animated) {
+            if ( animated) {
                 if (animatable != null) {
-                    animatable.playAnimate(mIconView, mDuration);
+                    animatable.playAnimate(mIconView,mSelected);
                 }
             }
 
@@ -306,7 +307,9 @@ public class JPTabItem extends BadgeRelativeLayout {
         }
     }
 
-
+    boolean isSelect(){
+        return mSelected;
+    }
     /**
      * 假如开发者没有提供selected Icon的时候,改变图标颜色
      * 而且要接受过滤
@@ -333,7 +336,6 @@ public class JPTabItem extends BadgeRelativeLayout {
      */
     void changeAlpha(float offset) {
         if (mCompundIcon != null) {
-
             mNormalIcon.setAlpha((int) (255 * ((float) (1 - offset))));
             mSelectIcon.setAlpha((int) (offset * 255));
         }
@@ -408,11 +410,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-
-        Builder setDurtion(int durtion) {
-            this.duration = durtion;
-            return this;
-        }
 
         Builder setMargin(int margin) {
             this.margin = margin;
@@ -494,7 +491,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             item.mIndex = index;
             item.mBadgeMargin = badgeMarin;
             item.mIconSize = iconSize;
-            item.mDuration = duration;
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;
             item.mSelectBg = selectbg;

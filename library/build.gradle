@@ -29,6 +29,7 @@ dependencies {
 
     provided 'com.android.support:support-v4:24.2.1'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.facebook.rebound:rebound:0.3.8'
 }
 
 publish {
