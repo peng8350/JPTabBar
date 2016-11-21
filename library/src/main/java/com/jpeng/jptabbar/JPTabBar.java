@@ -248,10 +248,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() == mJPTabItems.length) {
+                        if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
                             mNeedAnimate = true;
                             mTabPager.setCurrentItem(temp, false);
-                        } else if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() != mJPTabItems.length) {
+                        } else if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() <= mJPTabItems.length) {
+                            mNeedAnimate=true;
                             mTabPager.setCurrentItem(temp, false);
                             setSelectTab(temp);
                         } else {
@@ -337,6 +338,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 切换Tab页面,是否带动画
      */
     public void setSelectTab(int index, boolean animated) {
+        if (index>mJPTabItems.length-1)return;
         mSelectIndex = index;
         //把全部tab selected设置为false
         for (int i = 0; i < mJPTabItems.length; i++) {
@@ -454,6 +456,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if(position>mJPTabItems.length-1||1+position>mJPTabItems.length-1)return;
         if (positionOffset > 0f) {
             mJPTabItems[position].changeAlpha(1 - positionOffset);
             mJPTabItems[position + 1].changeAlpha(positionOffset);
