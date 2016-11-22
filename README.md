@@ -232,6 +232,12 @@ Or, you can init in the oncreate
    - Add the Bouncing of the Animation
    - Reverse don't click when have no Pager in the Adapter
    
+### V1.1.4
+   - Reverse the Bug of When the Pagers count of ViewPager less than or more than the count of tab
+   - Add the Color FIlter to the Tab Icon When user Switch Tab
+   - Add the Another init item method
+   - solve the drawable in the same memory problem,Every time finish the activity,have no Icon show.
+   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
 <br><br>

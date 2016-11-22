@@ -19,15 +19,15 @@ import java.util.List;
 import static com.jpeng.demo.R.id.tabbar;
 
 
-public class MainActivity extends FragmentActivity implements BadgeDismissListener, OnTabSelectListener {
+public class MainActivity extends FragmentActivity implements BadgeDismissListener, OnTabSelectListener{
 
     private List<Fragment> list = new ArrayList<>();
-//    @Titles
-//    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
-//    @NorIcons
-//    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
-//    @SeleIcons
-//    private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
+    @Titles
+    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
+    @NorIcons
+    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
+    @SeleIcons
+    private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
     private ViewPager mPager;
 
     private JPTabBar mTabbar;
@@ -38,10 +38,10 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         setContentView(R.layout.activity_main);
         mPager = (ViewPager) findViewById(R.id.view_pager);
         mTabbar = (JPTabBar) findViewById(tabbar);
-        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
-                .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
-                .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
-                .generate();
+//        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
+//                .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
+//                .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
+//                .generate();
         list.add(new tab1());
         list.add(new tab2());
         list.add(new tab3());
@@ -51,12 +51,11 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(), list));
         //显示圆点模式的徽章
         //设置容器
-//        mTabbar.ShowBadge(0,999);
-        mTabbar.setContainer(mPager);
-        mTabbar.setSelectTab(0);
-//        //设置Badge消失的代理
-//        mTabbar.setDismissListener(this);
-//        mTabbar.setTabListener(this);
+        mTabbar.ShowBadge(0,999);
+//        mTabbar.setContainer(mPager);
+        //设置Badge消失的代理
+        mTabbar.setDismissListener(this);
+        mTabbar.setTabListener(this);
     }
 
     @Override
@@ -74,4 +73,5 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
     public void onClickMiddle(View middleBtn) {
         Toast.makeText(this, "点击中间", 0).show();
     }
+
 }

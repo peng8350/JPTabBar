@@ -376,6 +376,29 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         return middleBtn;
     }
 
+    /**
+     * 这个方法是拿来回调,当你有必要给ViewPager设置onPageChange的监听
+     * @param position
+     * @param positionOffset
+     */
+    private void onPageScrolled(int position, float positionOffset) {
+        if (mJPTabItems == null || position > mJPTabItems.length - 1 || 1 + position > mJPTabItems.length - 1) return;
+        if (positionOffset > 0f) {
+            mJPTabItems[position].changeAlpha(1 - positionOffset);
+            mJPTabItems[position + 1].changeAlpha(positionOffset);
+
+            if (mAnimater != null) {
+                if (mAnimater.isNeedPageAnimate()) {
+                    mNeedAnimate = false;
+                    mAnimater.onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
+                    mAnimater.onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
+                } else {
+                    mNeedAnimate = true;
+                }
+            }
+        }
+    }
+
 
     /****-------提供给开发者调用的方法---------****/
 
@@ -423,28 +446,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    /**
-     * 这个方法是拿来回调,当你有必要给ViewPager设置onPageChange的监听
-     * @param position
-     * @param positionOffset
-     */
-    public void onPageScrolled(int position, float positionOffset) {
-        if (mJPTabItems == null || position > mJPTabItems.length - 1 || 1 + position > mJPTabItems.length - 1) return;
-        if (positionOffset > 0f) {
-            mJPTabItems[position].changeAlpha(1 - positionOffset);
-            mJPTabItems[position + 1].changeAlpha(positionOffset);
-
-            if (mAnimater != null) {
-                if (mAnimater.isNeedPageAnimate()) {
-                    mNeedAnimate = false;
-                    mAnimater.onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
-                    mAnimater.onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
-                } else {
-                    mNeedAnimate = true;
-                }
-            }
-        }
-    }
 
     /**
      * 隐藏徽章

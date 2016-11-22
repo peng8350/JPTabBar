@@ -498,9 +498,9 @@ public class JPTabItem extends BadgeRelativeLayout {
             item.mNormalColor = normalColor;
             item.mSelectColor = selectColor;
             item.mBadgeTextSize = badgeTextSize;
-            item.mNormalIcon = context.getResources().getDrawable(normalIcon);
+            item.mNormalIcon = context.getResources().getDrawable(normalIcon).mutate();
             if (selectIcon != 0)
-                item.mSelectIcon = context.getResources().getDrawable(selectIcon);
+                item.mSelectIcon = context.getResources().getDrawable(selectIcon).mutate();
             item.mBadgePadding = badgepadding;
             item.mBadgeBackground = badgeBackground;
             item.mDraggable = dragable;
