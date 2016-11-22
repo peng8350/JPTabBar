@@ -214,6 +214,7 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         } else {
             mCompundIcon = new LayerDrawable(new Drawable[]{mNormalIcon, mSelectIcon});
+            mNormalIcon.setAlpha(255);
             mSelectIcon.setAlpha(0);
             mIconView.setImageDrawable(mCompundIcon);
         }
@@ -287,10 +288,8 @@ public class JPTabItem extends BadgeRelativeLayout {
         else{
             setBackgroundResource(android.R.color.transparent);
         }
-
         if (mSelected != selected) {
             mSelected = selected;
-
             if (mCompundIcon != null) {
                 if (selected) {
                     if(!animated) {
@@ -312,7 +311,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             } else {
                 changeColorIfneed(selected);
             }
-
             //播放动画
             if ( animated) {
                 if (animatable != null) {
@@ -338,6 +336,7 @@ public class JPTabItem extends BadgeRelativeLayout {
                 ) {
             if (selected) {
                 mIconView.setColorFilter(mSelectColor);
+
             } else {
                 mIconView.setColorFilter(mNormalColor);
             }
@@ -358,7 +357,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             mSelectIcon.setAlpha((int) (offset * 255));
         }
     }
-
 
 
     /**

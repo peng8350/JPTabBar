@@ -70,6 +70,14 @@
 
 
 ```
+或者，你可以在oncreate方法里面初始化导航的item
+```JAVA
+        mTabbar = (JPTabBar) findViewById(tabbar);
+        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
+                .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
+                .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
+                .generate();
+```
 4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:
 ```JAVA
     //传入一定要集成继承ViewPager
