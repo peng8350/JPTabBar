@@ -1,5 +1,6 @@
 package com.jpeng.jptabbar;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import com.jpeng.jptabbar.animate.*;
+import com.jpeng.jptabbar.animate.Animatable;
 import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
 import com.jpeng.jptabbar.badgeview.BadgeViewHelper;
 import com.jpeng.jptabbar.badgeview.Badgeable;
@@ -23,7 +24,8 @@ import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
 public class JPTabItem extends BadgeRelativeLayout {
 
 
-
+    //颜色渐变时间
+    private static final int FILTER_DURATION = 400;
     /**
      * 上下文
      */
@@ -212,6 +214,7 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         } else {
             mCompundIcon = new LayerDrawable(new Drawable[]{mNormalIcon, mSelectIcon});
+            mSelectIcon.setAlpha(0);
             mIconView.setImageDrawable(mCompundIcon);
         }
 
@@ -284,17 +287,32 @@ public class JPTabItem extends BadgeRelativeLayout {
         else{
             setBackgroundResource(android.R.color.transparent);
         }
-        if (mCompundIcon != null) {
-            if (selected) {
-                changeAlpha(1f);
-            } else {
-                changeAlpha(0f);
-            }
-        } else {
-            changeColorIfneed(selected);
-        }
+
         if (mSelected != selected) {
             mSelected = selected;
+
+            if (mCompundIcon != null) {
+                if (selected) {
+                    if(!animated) {
+                        changeAlpha(1f);
+                    }
+                    else {
+                        ObjectAnimator.ofInt(mSelectIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
+                        ObjectAnimator.ofInt(mNormalIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
+                    }
+                } else {
+                    if(!animated) {
+                        changeAlpha(0f);
+                    }
+                    else {
+                        ObjectAnimator.ofInt(mNormalIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
+                        ObjectAnimator.ofInt(mSelectIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
+                    }
+                }
+            } else {
+                changeColorIfneed(selected);
+            }
+
             //播放动画
             if ( animated) {
                 if (animatable != null) {

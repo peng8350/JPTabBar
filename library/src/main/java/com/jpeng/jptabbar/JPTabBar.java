@@ -49,10 +49,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int DEFAULT_SELECT_COLOR = 0xff59D9B9;
     //默认是否接受颜色随着字体变化
     private static final boolean DEFAULT_ACEEPTFILTER = true;
-    //默认的动画类型是3D旋转
-    private static final int DEFAULT_ANIMATE_TYPE = 1;
-    //默认的动画时间
-    private static final int DEFAULT_DURATION = 400;
+    //默认的动画类型是放大
+    private static final int DEFAULT_ANIMATE_TYPE = 3;
+
     //默认的徽章背景颜色
     private static final int DEFAULT_BADGE_COLOR = 0xffff0000;
     //默认的徽章字体大小
@@ -107,6 +106,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private ViewPager mTabPager;
 
 
+
     public JPTabBar(Context context) {
         super(context);
         init(context, null);
@@ -135,7 +135,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         mAttribute = context.obtainStyledAttributes(set, R.styleable.JPTabBar);
         setClipChildren(false);
         initFromAttribute();
-
     }
 
     private void setAnimater(int type) {
@@ -151,6 +150,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mAnimater = new JumpAnimater();
         }
     }
+
 
 
     @Override

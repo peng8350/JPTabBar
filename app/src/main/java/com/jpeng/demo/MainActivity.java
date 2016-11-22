@@ -44,8 +44,8 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         list.add(new tab2());
         list.add(new tab3());
         list.add(new tab4());
-        list.add(new tab4());
-        list.add(new tab4());
+//        list.add(new tab4());
+//        list.add(new tab4());
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(),list));
         //显示圆点模式的徽章
         //设置容器
