@@ -211,6 +211,8 @@ Or, you can init in the oncreate
     >
 
 ```
+3.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
+
 # Update Log
 ### V1.0.4
    - Reverse the BadgePosition show error

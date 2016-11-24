@@ -16,20 +16,17 @@
 
 package com.jpeng.jptabbar.badgeview;
 
-import android.animation.ValueAnimator;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import com.jpeng.jptabbar.DensityUtils;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.Random;
 
 /**
  * Created by jpeng on 16-11-15.
+ * 徽章爆炸动画
  */
 public class ExplosionAnimator extends ValueAnimator {
     public static final int ANIM_DURATION = 300;

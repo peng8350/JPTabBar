@@ -7,6 +7,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by jpeng on 16-11-15.
+ * 实现跳跃图标的动画类
  */
 public class JumpAnimater extends BouncingAnimater implements Animatable {
 

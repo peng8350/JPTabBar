@@ -10,8 +10,8 @@ android {
     }
     defaultConfig {
         applicationId "com.jpeng.jptabbar"
-        minSdkVersion 15
-        targetSdkVersion 23
+        minSdkVersion 11
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }

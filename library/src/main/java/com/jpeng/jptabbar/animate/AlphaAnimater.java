@@ -7,6 +7,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by jpeng on 16-11-14.
+ * Alpha动画类
  */
 public class AlphaAnimater extends BouncingAnimater implements Animatable {
     @Override

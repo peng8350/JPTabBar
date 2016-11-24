@@ -130,6 +130,7 @@
             });
 ```
 
+
 # 方法和节点说明:
 #### JPTabBar主要方法:
 ```JAVA
@@ -211,6 +212,7 @@
     >
 
 ```
+3.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
 
 # 更新日志
 ### V1.0.4

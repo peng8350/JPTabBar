@@ -3,9 +3,7 @@ package com.jpeng.demo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
@@ -28,7 +26,7 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
     private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
     @SeleIcons
     private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
-    private ViewPager mPager;
+    private NoScrollViewPager mPager;
 
     private JPTabBar mTabbar;
 
@@ -36,12 +34,13 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPager = (ViewPager) findViewById(R.id.view_pager);
+        mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
         mTabbar = (JPTabBar) findViewById(tabbar);
 //        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
 //                .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
 //                .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
 //                .generate();
+        mPager.setNoScroll(false);
         list.add(new tab1());
         list.add(new tab2());
         list.add(new tab3());
@@ -52,7 +51,9 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
         //显示圆点模式的徽章
         //设置容器
         mTabbar.ShowBadge(0,999);
-//        mTabbar.setContainer(mPager);
+        mTabbar.ShowBadge(1,99);
+        mTabbar.ShowBadge(2,"设置");
+        mTabbar.setContainer(mPager);
         //设置Badge消失的代理
         mTabbar.setDismissListener(this);
         mTabbar.setTabListener(this);
@@ -71,7 +72,6 @@ public class MainActivity extends FragmentActivity implements BadgeDismissListen
 
     @Override
     public void onClickMiddle(View middleBtn) {
-        Toast.makeText(this, "点击中间", 0).show();
     }
 
 }

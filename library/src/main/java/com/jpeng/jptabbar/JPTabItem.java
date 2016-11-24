@@ -1,6 +1,5 @@
 package com.jpeng.jptabbar;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -17,9 +16,11 @@ import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
 import com.jpeng.jptabbar.badgeview.BadgeViewHelper;
 import com.jpeng.jptabbar.badgeview.Badgeable;
 import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * Created by jpeng on 16-11-13.
+ * TabBarItem类
  */
 public class JPTabItem extends BadgeRelativeLayout {
 

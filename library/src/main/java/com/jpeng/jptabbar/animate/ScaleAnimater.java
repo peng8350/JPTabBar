@@ -7,6 +7,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by jpeng on 16-11-14.
+ * 实现图标缩放动画者
  */
 public class ScaleAnimater extends BouncingAnimater implements Animatable {
 
@@ -19,9 +20,6 @@ public class ScaleAnimater extends BouncingAnimater implements Animatable {
             public void onSpringUpdate(Spring spring) {
                 float value = (float) spring.getCurrentValue();
                 if (isPlaying()) {
-                    System.out.println(
-                            "qqqq"
-                    );
                     ViewHelper.setScaleY(target, value);
                     ViewHelper.setScaleX(target, value);
                 }

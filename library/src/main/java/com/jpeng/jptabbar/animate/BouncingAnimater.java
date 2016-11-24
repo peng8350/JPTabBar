@@ -6,6 +6,7 @@ import com.facebook.rebound.SpringSystem;
 
 /**
  * Created by jpeng on 16-11-20.
+ * 实现弹性的动画父类
  */
 public abstract class BouncingAnimater {
     //动画对象

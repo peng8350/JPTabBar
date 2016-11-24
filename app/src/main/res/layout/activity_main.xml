@@ -9,7 +9,7 @@
     android:orientation="vertical"
     >
 
-    <android.support.v4.view.ViewPager
+    <com.jpeng.demo.NoScrollViewPager
         android:layout_width="match_parent"
         android:id="@+id/view_pager"
         android:layout_height="match_parent"/>
@@ -18,12 +18,12 @@
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="#fff"
+        jp:TabHeight="56dp"
         jp:BadgeDraggable="true"
-        jp:TabAnimate="Scale"
+        jp:TabAnimate="Jump"
         jp:BadgePadding="4dp"
-        jp:BadgeMargin="5dp"
-        jp:BadgeTextSize="10dp"
+        jp:BadgeMargin="4dp"
         />
 
 

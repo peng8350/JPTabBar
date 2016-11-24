@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 /**
  * Created by jpeng on 16-11-14.
+ * 密度工具类
  */
 public class DensityUtils {
 
