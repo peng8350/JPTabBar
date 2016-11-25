@@ -26,7 +26,7 @@ public abstract class BouncingAnimater {
 
     public void setPlaying(boolean play){
         this.mPlaying = play;
-        if (!play){
+        if (!play&&mSpring!=null){
             mSpring.setAtRest();
         }
     }

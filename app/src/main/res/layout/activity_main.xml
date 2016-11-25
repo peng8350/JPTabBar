@@ -11,6 +11,7 @@
 
     <com.jpeng.demo.NoScrollViewPager
         android:layout_width="match_parent"
+        android:layout_marginTop="48dp"
         android:id="@+id/view_pager"
         android:layout_height="match_parent"/>
 
@@ -18,12 +19,15 @@
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
-        jp:TabHeight="56dp"
+        android:background="@drawable/tab_bg"
+        jp:TabHeight="58dp"
         jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
+        jp:TabAnimate="Scale"
         jp:BadgePadding="4dp"
-        jp:BadgeMargin="4dp"
+        jp:TabMiddleIcon="@drawable/q"
+        jp:TabSelectBg="@drawable/tab_btn_bg"
+        jp:BadgeMargin="10dp"
+        jp:TabMargin="7dp"
         />
 
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">JPTabBar</string>
-    <string name="tab1">页面一</string>
-    <string name="tab2">页面二</string>
-    <string name="tab3">页面三</string>
+    <string name="tab1">徽章测试</string>
+    <string name="tab2">动画类型</string>
+    <string name="tab3">徽章测试</string>
     <string name="tab4">页面4</string>
 </resources>

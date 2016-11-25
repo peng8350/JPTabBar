@@ -390,6 +390,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         setSelectTab(index, true);
     }
 
+    /**
+     * 得到TabItem的数量
+     */
+    public int getTabsCount(){
+        return mJPTabItems==null?0:mJPTabItems.length;
+    }
 
 
     /**

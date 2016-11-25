@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="match_parent"
-          android:textSize="30sp"
-          android:textColor="#fff"
-          android:gravity="center"
-          android:text="大家好，\n我是第二个页面"
-          android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:padding="15dp"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
 
-</TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择的动画类型"
+        android:layout_marginBottom="10dp"
+        android:textSize="19sp"
+        android:id="@+id/textView"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alpha"
+            android:id="@+id/radioButton1"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="缩放"
+            android:checked="true"
+            android:id="@+id/radioButton2"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳跃"
+            android:id="@+id/radioButton3"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="翻转"
+            android:id="@+id/radioButton4"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="旋转"
+            android:id="@+id/radioButton5"/>
+    </RadioGroup>
+
+</LinearLayout>
