@@ -7,12 +7,7 @@
 
 # ScreenShots:
    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
-    ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/1.gif)
-     ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/2.gif) <br>
-       ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/3.gif)
-         ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/4.gif)<br>
-           ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/5.gif)
-             ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/6.gif)<br>
+    
              
 # Main functions and features:
    - [x] More Animation effects of multiple Tab switching

@@ -24,9 +24,8 @@
         jp:BadgeDraggable="true"
         jp:TabAnimate="Scale"
         jp:BadgePadding="4dp"
-        jp:TabMiddleIcon="@drawable/q"
+        jp:TabMiddleIcon="@mipmap/circle"
         jp:TabSelectBg="@drawable/tab_btn_bg"
-        jp:BadgeMargin="10dp"
         jp:TabMargin="7dp"
         />
 
