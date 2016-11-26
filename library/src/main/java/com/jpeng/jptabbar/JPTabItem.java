@@ -205,7 +205,8 @@ public class JPTabItem extends BadgeRelativeLayout {
         mIconView = new ImageView(mContext);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 mIconSize , mIconSize );
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(mTitle==null?RelativeLayout.CENTER_IN_PARENT:RelativeLayout.CENTER_HORIZONTAL);
+        if(mTitle!=null)
         params.topMargin = mMargin;
         mIconView.setScaleType(ImageView.ScaleType.FIT_XY);
         mIconView.setLayoutParams(params);
@@ -229,6 +230,7 @@ public class JPTabItem extends BadgeRelativeLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if(mTitle!=null)
         DrawText(canvas);
     }
 

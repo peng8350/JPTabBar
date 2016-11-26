@@ -133,10 +133,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         init(context, attrs);
     }
 
-    public JPTabBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
 
     /**
      * 初始化TabBar
@@ -262,12 +258,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
             //计算Tab的宽度
             int MiddleIconId = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0);
-            mJPTabItems = new JPTabItem[mTitles.length];
+            mJPTabItems = new JPTabItem[mNormalIcons.length];
             //实例化TabItem添加进去
-            for (int i = 0; i < mTitles.length; i++) {
+            for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
 
-                mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles[i]).setIndex(temp).setTextSize(textSize)
+                mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles==null?null:mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
                         .setSelectedColor(selectColor).setBadgeDrable(draggable).setBadgeColor(BadgeColor)
@@ -293,7 +289,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 addView(mJPTabItems[i]);
 
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
-                if (i == (mTitles.length / 2 - 1)) {
+                if (i == (mJPTabItems.length / 2 - 1)) {
 
                     mMiddleItem = BuildMiddleBtn(mHeight, MiddleIconId);
 
@@ -344,14 +340,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * @param selectedIcon 选中的图标
      */
     private void CheckIfAssertError(String[] titles, int[] normalIcon, int[] selectedIcon) {
-        if (titles == null || normalIcon == null) {
-            throw new TabException("you must set the Titles Annotation and NormalIcon Annotation for the JPTabbar!!!");
+        if (normalIcon == null) {
+            throw new TabException("you must set the NormalIcon for the JPTabbar!!!");
         }
-        int originlen = titles.length;
+        int originlen = normalIcon.length;
         //判断注解里面的数组长度是否一样
-        if ((originlen != normalIcon.length)
+        if ((mTitles != null &&originlen != titles.length)
                 || (selectedIcon != null && originlen != selectedIcon.length)) {
-            throw new TabException("the Annotation Array length is not equal,Please Check Your Annotation in your Activity,Ensure Every Array length is equals!");
+            throw new TabException("Every Array length is not equal,Please Check Your Annotation in your Activity,Ensure Every Array length is equals!");
         }
     }
 
