@@ -63,7 +63,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     private Context mContext;
 
-    private int mLimit=99;
+    private int mLimit = 99;
 
 
     private TypedArray mAttribute;
@@ -121,6 +121,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * Tab对应的ViewPager
      */
     private ViewPager mTabPager;
+
+    /**
+     * 渐变判断
+     */
+    private boolean mFilter = true;
 
 
     public JPTabBar(Context context) {
@@ -306,8 +311,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-
-
     /**
      * 切换Tab页面,是否带动画
      */
@@ -358,7 +361,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         if (icon_res == 0) return null;
         ImageView middleBtn = new ImageView(mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mHeight, mHeight);
-        params.setMargins(0, 0, 0, (int) (mHeight*0.33));
+        params.setMargins(0, 0, 0, (int) (mHeight * 0.33));
         params.gravity = Gravity.BOTTOM;
         middleBtn.setLayoutParams(params);
         middleBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -406,9 +409,16 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 设置Badge消息数量最大限制
      */
-    public void setCountLimit(int limit){
+    public void setCountLimit(int limit) {
         mLimit = limit;
 
+    }
+
+    /**
+     * 禁用渐变(like wechat)
+     */
+    public void DisableFilter() {
+        this.mFilter = false;
     }
 
     /**
@@ -422,8 +432,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 显示圆点徽章
      */
-    public void showCircleBadge(int pos){
-        if(mJPTabItems!=null)
+    public void showCircleBadge(int pos) {
+        if (mJPTabItems != null)
             mJPTabItems[pos].showCirclePointBadge();
     }
 
@@ -437,7 +447,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mJPTabItems[pos].hiddenBadge();
 
         } else if (count > mLimit) {
-            mJPTabItems[pos].showTextBadge(mLimit+"+");
+            mJPTabItems[pos].showTextBadge(mLimit + "+");
         } else {
             mJPTabItems[pos].showTextBadge(count + "");
         }
@@ -558,8 +568,10 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mJPTabItems == null || position > mJPTabItems.length - 1 || 1 + position > mJPTabItems.length - 1) return;
         if (positionOffset > 0f) {
-            mJPTabItems[position].changeAlpha(1 - positionOffset);
-            mJPTabItems[position + 1].changeAlpha(positionOffset);
+            if (mFilter) {
+                mJPTabItems[position].changeAlpha(1 - positionOffset);
+                mJPTabItems[position + 1].changeAlpha(positionOffset);
+            }
 
             if (mAnimater != null) {
                 if (mAnimater.isNeedPageAnimate()) {

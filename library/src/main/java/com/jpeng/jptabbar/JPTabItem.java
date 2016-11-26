@@ -131,7 +131,7 @@ public class JPTabItem extends BadgeRelativeLayout {
      */
     private int mBadgeBackground;
 
-
+    private int mOffset;
 
     /**
      * 是否被选中
@@ -208,10 +208,10 @@ public class JPTabItem extends BadgeRelativeLayout {
         //设置ImageView布局属性
         mIconView = new ImageView(mContext);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                mIconSize , mIconSize );
-        params.addRule(mTitle==null?RelativeLayout.CENTER_IN_PARENT:RelativeLayout.CENTER_HORIZONTAL);
-        if(mTitle!=null)
-        params.topMargin = mMargin;
+                mIconSize, mIconSize);
+        params.addRule(mTitle == null ? RelativeLayout.CENTER_IN_PARENT : RelativeLayout.CENTER_HORIZONTAL);
+        if (mTitle != null)
+            params.topMargin = mMargin;
         mIconView.setScaleType(ImageView.ScaleType.FIT_XY);
         mIconView.setLayoutParams(params);
         //设置图标
@@ -234,8 +234,8 @@ public class JPTabItem extends BadgeRelativeLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(mTitle!=null)
-        DrawText(canvas);
+        if (mTitle != null)
+            DrawText(canvas);
     }
 
 
@@ -248,15 +248,14 @@ public class JPTabItem extends BadgeRelativeLayout {
         mTextPaint.getTextBounds(mTitle, 0, mTitle.length(), textBound);
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
 
-        if (mSelected) {
-            //选中
-            mTextPaint.setColor(mSelectColor);
-        } else {
-            mTextPaint.setColor(mNormalColor);
-        }
 
         float x = getMeasuredWidth() / 2f;
         float y = getTextY(textBound, fontMetrics);
+        mTextPaint.setColor(mNormalColor);
+        mTextPaint.setAlpha(255-mOffset);
+        canvas.drawText(mTitle, x, y, mTextPaint);
+        mTextPaint.setColor(mSelectColor);
+        mTextPaint.setAlpha(mOffset);
         canvas.drawText(mTitle, x, y, mTextPaint);
     }
 
@@ -288,29 +287,26 @@ public class JPTabItem extends BadgeRelativeLayout {
      * @param selected
      * @param animated
      */
-    void setSelect(Animatable animatable,boolean selected, boolean animated) {
-        if (selected&&mSelectBg!=null){
+    void setSelect(Animatable animatable, boolean selected, boolean animated) {
+        if (selected && mSelectBg != null) {
             setBackgroundDrawable(mSelectBg);
-        }
-        else{
+        } else {
             setBackgroundResource(android.R.color.transparent);
         }
         if (mSelected != selected) {
             mSelected = selected;
             if (mCompundIcon != null) {
                 if (selected) {
-                    if(!animated) {
+                    if (!animated) {
                         changeAlpha(1f);
-                    }
-                    else {
+                    } else {
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
                 } else {
-                    if(!animated) {
+                    if (!animated) {
                         changeAlpha(0f);
-                    }
-                    else {
+                    } else {
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
@@ -319,24 +315,28 @@ public class JPTabItem extends BadgeRelativeLayout {
                 changeColorIfneed(selected);
             }
             //播放动画
-            if ( animated) {
+            if (animated) {
                 if (animatable != null) {
-                    animatable.playAnimate(mIconView,mSelected);
+                    animatable.playAnimate(mIconView, mSelected);
                 }
             }
 
+            if(mSelected)
+                mOffset=255;
+            else
+                mOffset=0;
             postInvalidate();
-
         }
+
     }
 
-    boolean isSelect(){
+    boolean isSelect() {
         return mSelected;
     }
+
     /**
      * 假如开发者没有提供selected Icon的时候,改变图标颜色
      * 而且要接受过滤
-     *
      */
     private void changeColorIfneed(boolean selected) {
         if (mAcceptFilter && mSelectIcon == null
@@ -362,7 +362,11 @@ public class JPTabItem extends BadgeRelativeLayout {
         if (mCompundIcon != null) {
             mNormalIcon.setAlpha((int) (255 * ((float) (1 - offset))));
             mSelectIcon.setAlpha((int) (offset * 255));
+            this.mOffset = (int) (offset * 255);
+            postInvalidate();
         }
+
+
     }
 
 
@@ -408,7 +412,6 @@ public class JPTabItem extends BadgeRelativeLayout {
         private int duration;
 
         private boolean iconfilter;
-
 
 
         public Builder(Context context) {
@@ -466,7 +469,7 @@ public class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-        Builder setSelectBg(Drawable res){
+        Builder setSelectBg(Drawable res) {
             this.selectbg = res;
             return this;
         }
