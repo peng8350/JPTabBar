@@ -25,8 +25,6 @@ import java.lang.reflect.Field;
 public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener {
 
 
-    //Alpha动画
-    private static final int ALPHA_TYPE = 0;
     //ROTATE3D动画
     private static final int FLIP_TYPE = 1;
     //旋转动画
@@ -35,7 +33,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int SCALE_TYPE = 3;
     //跳跃动画
     private static final int JUMP_TYPE = 4;
-
     //默认TABBAR的高度
     private static final int DEFAULT_HEIGHT = 56;
     //默认的图标大小
@@ -56,12 +53,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     //默认的徽章背景颜色
     private static final int DEFAULT_BADGE_COLOR = 0xffff0000;
     //默认的徽章字体大小
-    private static final int DEFAULT_BADGE_TEXTSIZE = 11;
-    //默认的徽章距离中心点距离
+    private static final int DEFAULT_BADGE_TEXTSIZE = 9;
+    //默认的徽章狂站距离
     private static final int DEFAULT_PADDING = 4;
-    //默认徽章编剧
-    private static final int DEFAULT_BADGEMARGIN = 9;
-
+    //默认徽章距离右边间距
+    private static final int DEFAULT_BADGEHORIZONAL_MARGIN = 20;
+    //默认徽章距离上面间距
+    private static final int DEFAULT_BADGEVERTICAL_MARGIN = 3;
 
     private Context mContext;
 
@@ -115,7 +113,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 判断是否需要动画,解决Viewpager回调onpageChange冲突事件
      */
-    private boolean mNeedAnimate=true;
+    private boolean mNeedAnimate = true;
 
     /**
      * Tab对应的ViewPager
@@ -156,9 +154,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     private void setAnimater(int type) {
-        if (type == ALPHA_TYPE) {
-            mAnimater = new AlphaAnimater();
-        } else if (type == SCALE_TYPE) {
+        if (type == SCALE_TYPE) {
             mAnimater = new ScaleAnimater();
         } else if (type == ROTATE_TYPE) {
             mAnimater = new RotateAnimater();
@@ -243,7 +239,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int BadgetextSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_BadgeTextSize, DensityUtils.sp2px(mContext, DEFAULT_BADGE_TEXTSIZE)));
         boolean draggable = mAttribute.getBoolean(R.styleable.JPTabBar_BadgeDraggable, false);
         int badgePadding = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgePadding, DensityUtils.dp2px(mContext, DEFAULT_PADDING)));
-        int badgeMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEMARGIN)));
+        int badgeVerMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeVerticalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEVERTICAL_MARGIN)));
+        int badgeHorMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeHorizonalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEHORIZONAL_MARGIN)));
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
         Drawable tabselectbg = mAttribute.getDrawable(R.styleable.JPTabBar_TabSelectBg);
 
@@ -263,12 +260,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
 
-                mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles==null?null:mTitles[i]).setIndex(temp).setTextSize(textSize)
+                mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
                         .setSelectedColor(selectColor).setBadgeDrable(draggable).setBadgeColor(BadgeColor)
                         .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)
-                        .setBadgeMargin(badgeMargin).setMargin(margin)
+                        .setBadgeVerMargin(badgeVerMargin).setMargin(margin).setBadgeHorMargin(badgeHorMargin)
                         .setSelectIcon(mSelectedIcons == null ? 0 : mSelectedIcons[i]).build();
                 mJPTabItems[i].setOnClickListener(new OnClickListener() {
                     @Override
@@ -305,6 +302,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mAttribute.recycle();
         }
     }
+
 
     /**
      * 切换Tab页面,是否带动画
@@ -345,7 +343,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
         int originlen = normalIcon.length;
         //判断注解里面的数组长度是否一样
-        if ((mTitles != null &&originlen != titles.length)
+        if ((mTitles != null && originlen != titles.length)
                 || (selectedIcon != null && originlen != selectedIcon.length)) {
             throw new TabException("Every Array length is not equal,Please Check Your Annotation in your Activity,Ensure Every Array length is equals!");
         }
@@ -374,8 +372,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-
-
     /****-------提供给开发者调用的方法---------****/
 
 
@@ -389,8 +385,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 得到TabItem的数量
      */
-    public int getTabsCount(){
-        return mJPTabItems==null?0:mJPTabItems.length;
+    public int getTabsCount() {
+        return mJPTabItems == null ? 0 : mJPTabItems.length;
     }
 
 
@@ -407,7 +403,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 显示图标的Badge
      */
-    public void ShowBadge(int pos, String text) {
+    public void showBadge(int pos, String text) {
         if (mJPTabItems != null)
             mJPTabItems[pos].showTextBadge(text);
     }
@@ -416,7 +412,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 重载方法
      * 设置徽章,传入int
      */
-    public void ShowBadge(int pos, int count) {
+    public void showBadge(int pos, int count) {
         if (mJPTabItems[pos] == null) return;
         if (count == 0) {
             mJPTabItems[pos].hiddenBadge();
@@ -434,7 +430,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      *
      * @param position
      */
-    public void HideBadge(int position) {
+    public void hideBadge(int position) {
         if (mJPTabItems != null)
             mJPTabItems[position].hiddenBadge();
     }

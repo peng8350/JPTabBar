@@ -16,18 +16,18 @@
 
 package com.jpeng.jptabbar.badgeview;
 
-import android.graphics.Bitmap;
-import android.graphics.PointF;
-import android.graphics.Rect;
-import android.view.View;
+    import android.graphics.Bitmap;
+    import android.graphics.PointF;
+    import android.graphics.Rect;
+    import android.view.View;
 
-/**
- * Created by jpeng on 16-11-16.
- */
-public class BadgeViewUtil {
+    /**
+     * Created by jpeng on 16-11-16.
+     */
+    public class BadgeViewUtil {
 
-    private BadgeViewUtil() {
-    }
+        private BadgeViewUtil() {
+        }
 
     public static int getStatusBarHeight(View view) {
         Rect rectangle = new Rect();

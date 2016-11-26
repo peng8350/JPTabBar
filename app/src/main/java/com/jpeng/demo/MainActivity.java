@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
         mTabbar = (JPTabBar) findViewById(tabbar);
-        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
+        mTabbar.setTitles(R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(), list));
         //显示圆点模式的徽章
         //设置容器
-        mTabbar.ShowBadge(0,50);
+        mTabbar.showBadge(0, 50);
         mTabbar.setContainer(mPager);
         //设置Badge消失的代理
         mTabbar.setDismissListener(this);

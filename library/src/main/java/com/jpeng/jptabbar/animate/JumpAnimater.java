@@ -21,7 +21,7 @@ public class JumpAnimater extends BouncingAnimater implements Animatable {
             public void onSpringUpdate(Spring spring) {
                 float value = (float) spring.getCurrentValue();
                 if (isPlaying()) {
-                    ViewHelper.setTranslationY(target, -value * 15);
+                    ViewHelper.setTranslationY(target, -value * 7);
                     ViewHelper.setRotationY(target, value * 180);
                 }
 
@@ -36,7 +36,7 @@ public class JumpAnimater extends BouncingAnimater implements Animatable {
     public void onPageAnimate(final View target, float offset) {
         setPlaying(false);
 
-        ViewHelper.setTranslationY(target, offset * -15);
+        ViewHelper.setTranslationY(target, offset * -7);
         ViewHelper.setRotationY(target, offset * 180);
     }
 

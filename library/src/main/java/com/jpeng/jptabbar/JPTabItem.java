@@ -117,10 +117,14 @@ public class JPTabItem extends BadgeRelativeLayout {
     private int mBadgeTextSize;
 
     /**
-     * 徽章Margin
+     * 徽章垂直Margin
      */
-    private int mBadgeMargin;
+    private int mBadgeVerMargin;
 
+    /**
+     * 徽章水平Margin
+     */
+    private int mBadgeHorMargin;
 
     /**
      * Badge的背景颜色
@@ -173,8 +177,8 @@ public class JPTabItem extends BadgeRelativeLayout {
         getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
         getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
         getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);
-        getBadgeViewHelper().setBadgeVerticalMarginDp(DensityUtils.px2dp(mContext,mMargin));
-        getBadgeViewHelper().setBadgeHorizontalMarginDp(mBadgeMargin);
+        getBadgeViewHelper().setBadgeVerticalMarginDp(mBadgeVerMargin);
+        getBadgeViewHelper().setBadgeHorizontalMarginDp(mBadgeHorMargin);
         getBadgeViewHelper().setDragDismissDelegage(new DragDismissDelegate() {
             @Override
             public void onDismiss(Badgeable badgeable) {
@@ -383,7 +387,9 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         private int badgeBackground;
 
-        private int badgeMarin;
+        private int badgeVerMargin;
+
+        private int badgeHorMargin;
 
         private boolean dragable;
 
@@ -440,11 +446,15 @@ public class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-        Builder setBadgeMargin(int margin) {
-            this.badgeMarin = margin;
+        Builder setBadgeVerMargin(int margin) {
+            this.badgeVerMargin = margin;
             return this;
         }
 
+        Builder setBadgeHorMargin(int margin) {
+            this.badgeHorMargin = margin;
+            return this;
+        }
 
         Builder setBadgeTextSize(int size) {
             this.badgeTextSize = size;
@@ -508,7 +518,8 @@ public class JPTabItem extends BadgeRelativeLayout {
             item.mBadgeBackground = badgeBackground;
             item.mDraggable = dragable;
             item.mIndex = index;
-            item.mBadgeMargin = badgeMarin;
+            item.mBadgeHorMargin = badgeHorMargin;
+            item.mBadgeVerMargin = badgeVerMargin;
             item.mIconSize = iconSize;
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;

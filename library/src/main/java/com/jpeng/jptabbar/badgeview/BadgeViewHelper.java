@@ -338,18 +338,32 @@ public class BadgeViewHelper {
         }
 
         // 计算徽章背景上下的值
-        mBadgeRectF.top = mBadgeVerticalMargin-(mBadgeNumberRect.height()/2);
-        mBadgeRectF.bottom = mBadgeRectF.top+badgeHeight;
+        mBadgeRectF.top = mBadgeVerticalMargin;
+        mBadgeRectF.bottom = mBadgeable.getHeight() - mBadgeVerticalMargin;
+        switch (mBadgeGravity) {
+            case RightTop:
+                mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
+                break;
+            case RightCenter:
+                mBadgeRectF.top = (mBadgeable.getHeight() - badgeHeight) / 2;
+                mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
+                break;
+            case RightBottom:
+                mBadgeRectF.top = mBadgeRectF.bottom - badgeHeight;
+                break;
+            default:
+                break;
+        }
 
         // 计算徽章背景左右的值
-        mBadgeRectF.left =mBadgeable.getWidth()/2-mBadgeNumberRect.width()/2+mBadgeHorizontalMargin;
-        mBadgeRectF.right =   mBadgeRectF.left + badgeWidth;
+        mBadgeRectF.right = mBadgeable.getWidth() - mBadgeHorizontalMargin;
+        mBadgeRectF.left = mBadgeRectF.right - badgeWidth;
 
         if (mBadgeBorderWidth > 0) {
             // 设置徽章边框景色
             mBadgePaint.setColor(mBadgeBorderColor);
             // 绘制徽章边框背景
-            canvas.drawRoundRect(mBadgeRectF, badgeHeight / 2+mBadgeNumberRect.centerX()/2, badgeHeight / 2, mBadgePaint);
+            canvas.drawRoundRect(mBadgeRectF, badgeHeight / 2, badgeHeight / 2, mBadgePaint);
 
             // 设置徽章背景色
             mBadgePaint.setColor(mBadgeBgColor);

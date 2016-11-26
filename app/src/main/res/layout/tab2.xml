@@ -22,29 +22,24 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alpha"
+            android:text="缩放"
             android:id="@+id/radioButton1"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="缩放"
+            android:text="跳跃"
             android:checked="true"
             android:id="@+id/radioButton2"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="跳跃"
+            android:text="翻转"
             android:id="@+id/radioButton3"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="翻转"
-            android:id="@+id/radioButton4"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="旋转"
-            android:id="@+id/radioButton5"/>
+            android:id="@+id/radioButton4"/>
     </RadioGroup>
 
 </LinearLayout>

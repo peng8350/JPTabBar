@@ -20,13 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/tab_bg"
-        jp:TabHeight="58dp"
         jp:BadgeDraggable="true"
-        jp:TabAnimate="Scale"
-        jp:BadgePadding="4dp"
+        jp:TabAnimate="Rotate"
         jp:TabMiddleIcon="@mipmap/circle"
         jp:TabSelectBg="@drawable/tab_btn_bg"
-        jp:TabMargin="7dp"
         />
 
 

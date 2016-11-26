@@ -21,8 +21,6 @@ public class Tab2Pager extends Fragment implements RadioGroup.OnCheckedChangeLis
     private JPTabBar mTabBar;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout =inflater.inflate(R.layout.tab2,null);
@@ -40,18 +38,15 @@ public class Tab2Pager extends Fragment implements RadioGroup.OnCheckedChangeLis
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId){
             case R.id.radioButton1:
-                mTabBar.setCustomAnimate(new AlphaAnimater());
-                break;
-            case R.id.radioButton2:
                 mTabBar.setCustomAnimate(new ScaleAnimater());
                 break;
-            case R.id.radioButton3:
+            case R.id.radioButton2:
                 mTabBar.setCustomAnimate(new JumpAnimater());
                 break;
-            case R.id.radioButton4:
+            case R.id.radioButton3:
                 mTabBar.setCustomAnimate(new FlipAnimater());
                 break;
-            case R.id.radioButton5:
+            case R.id.radioButton4:
                 mTabBar.setCustomAnimate(new RotateAnimater());
                 break;
         }

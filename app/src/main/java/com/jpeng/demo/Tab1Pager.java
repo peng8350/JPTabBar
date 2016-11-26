@@ -58,13 +58,13 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
             mNumberEt.setText(count + "");
         }
         else if(v==mShowTextBtn){
-            mTabBar.ShowBadge(0,"文字");
+            mTabBar.showBadge(0,"文字");
         }
         else if(v==mShowCircleBtn){
-            mTabBar.ShowBadge(0,"");
+            mTabBar.showBadge(0,"");
         }
         else{
-            mTabBar.HideBadge(0);
+            mTabBar.hideBadge(0);
         }
     }
 
@@ -82,12 +82,12 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
     public void afterTextChanged(Editable s) {
 
         if (s.toString().equals("")) {
-            mTabBar.ShowBadge(0, 0);
+            mTabBar.showBadge(0, 0);
             return;
         }
         int count = Integer.parseInt(s.toString());
         if(mTabBar!=null)
-            mTabBar.ShowBadge(0, count);
+            mTabBar.showBadge(0, count);
     }
 
     public void clearCount() {

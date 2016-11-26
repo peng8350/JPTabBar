@@ -53,7 +53,7 @@
         jp:BadgeTextSize="10dp"
         />
 ```
-3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is: Titles and NorIcons are required, the length of each array should be consistent
+3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is:NorIcons are required, the length of each array should be consistent
 
 ```JAVA
     @Titles
@@ -146,9 +146,9 @@ Or, you can init in the oncreate
     public void HideBadge(int position);
 
     /**
-     * Switch Tab page, whether with animation
+     * Switch Tab page
      */
-    public void setSelectTab(int index, boolean animated);
+    public void setSelectTab(int index);
 
     /**
      * Set the Observer of the Click Tab Event

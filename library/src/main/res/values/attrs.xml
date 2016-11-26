@@ -10,7 +10,6 @@
         <attr name="TabIconFilter" format="boolean"/>
         <attr name="TabMargin" format="dimension|reference"/>
         <attr name="TabAnimate" format="enum">
-            <enum name="Alpha" value="0"/>
             <enum name="Flip" value="1"/>
             <enum name="Rotate" value="2"/>
             <enum name="Scale" value="3"/>
@@ -22,6 +21,7 @@
         <attr name="BadgeDraggable" format="boolean"/>
         <attr name="BadgePadding" format="dimension|reference"/>
         <attr name="BadgeTextSize" format="reference|dimension"/>
-        <attr name="BadgeMargin" format="reference|dimension"/>
+        <attr name="BadgeVerticalMargin" format="reference|dimension"/>
+        <attr name="BadgeHorizonalMargin" format="reference|dimension"/>
     </declare-styleable>
 </resources>
