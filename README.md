@@ -14,11 +14,9 @@
 
    - [x] Implements the effect of the middle button of the bottom navigation
 
-   - [x] Implements the kind of WeChat sliding navigation of the bottom gradient effect, with the change of the sliding distance
+   - [x] Implements like Wechat icon filter and provide animation change.
 
    - [x] Implements the red mark on the TabBar, and can drag
-
-   - [x] The powerful BadgeView function, intelligent judgment digital hiding and cross-border display, two display modes。
 
    - [x] Provide listening to the click event, middle click and badge is dragged away the interface
 
@@ -32,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.4'
+        compile 'com.jpeng:JPTabBar:1.1.5'
     }
 
 ```
@@ -48,9 +46,6 @@
         jp:TabHeight="56dp"
         jp:BadgeDraggable="true"
         jp:TabAnimate="Jump"
-        jp:BadgePadding="4dp"
-        jp:BadgeMargin="5dp"
-        jp:BadgeTextSize="10dp"
         />
 ```
 3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is:NorIcons are required, the length of each array should be consistent
@@ -69,7 +64,6 @@
 ```
 Or, you can init in the oncreate
 ```JAVA
-        mTabbar = (JPTabBar) findViewById(tabbar);
         mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
@@ -80,51 +74,7 @@ Or, you can init in the oncreate
     //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
 ```
-5.The project has provided many animation,If you want to Custom your Animation,You can setCustomAnimate,Duclipte of examples:
-```
-            mTabbar.setCustomAnimate(new Animatable() {
-                /**
-                 * When you Tab Pager,The method will be called
-                 * @param target IconView in the iconview
-                 * @param Duration your animation time
-                 */
-                @Override
-                public void playAnimate(View target, int Duration) {
-                    ViewHelper.setPivotX(target,target.getLayoutParams().width/2);
-                    ViewHelper.setPivotY(target,target.getLayoutParams().height/2);
-    
-                    AnimatorSet set = new AnimatorSet();
-                    set.playTogether(
-                            ObjectAnimator.ofFloat(target,"scaleX",0.2f,1f).setDuration(Duration),
-                            ObjectAnimator.ofFloat(target,"scaleY",0.2f,1f).setDuration(Duration),
-                            ObjectAnimator.ofFloat(target,"alpha",0.3f,1f).setDuration(Duration)
-                    );
-    
-                    set.start();
-                }
-    
-                /**
-                 * The explain of the Method
-                 * When you touch in the ViewPager by User,The method will be called back
-                 * @param target The same in top
-                 * @param offset Range value 0f-1f
-                 */
-                @Override
-                public void onPageAnimate(View target, float offset) {
-                    ViewHelper.setScaleX(target,1+offset*0.2f);
-                    ViewHelper.setScaleY(target,1+offset*0.2f);
-                }
-    
-                /**
-                 * return true can make onPageAnimate method called
-                 * @return
-                 */
-                @Override
-                public boolean isNeedPageAnimate() {
-                    return true;
-                }
-            });
-```
+
 
 # Method and node description:
 #### The Main Method Of JPTabBar:
@@ -138,17 +88,32 @@ Or, you can init in the oncreate
      /**
      * Show the BadgeView With Text
      */
-    public void ShowBadge(int position,String text);
+    public void showBadge(int position,String text);
+    
+    /**
+      *Show the Circle point
+      */ 
+    public void showCircleBadge(int pos);
+    
+    /**
+      * Set the Badge Message Count Limit
+      * If you use ShowBadge(int position,int count)
+      * If the Second parameters > limit , it will show "limit+"
+      * you can see the screenshots
+      */
+    public void setCountLimit(int limit);
 
     /**
      * Hide the OVAL Badge
      */
-    public void HideBadge(int position);
+    public void hideBadge(int position);
 
     /**
      * Switch Tab page
      */
     public void setSelectTab(int index);
+    
+    
 
     /**
      * Set the Observer of the Click Tab Event
@@ -176,8 +141,10 @@ Or, you can init in the oncreate
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
-| BadgeTextSize |The textSize of the Badge      |dimension | 11dp |
-| BadgeMargin | The badge right margin in the TabBar      |dimension | 9dp |
+| BadgeTextSize |The textSize of the Badge      |dimension | 10dp |
+| BadgeVerticalMargin | The badge vertical margin     |dimension | 3dp |
+| BadgeHorticalMargin | The badge hortical margin     |dimension | 20dp |
+
 # Matters needing attention
 1.If you have given setContainer TabBar, do not setOnPageChangeListener to ViewPager
 ```JAVA
@@ -234,7 +201,12 @@ Or, you can init in the oncreate
    - Add the Color FIlter to the Tab Icon When user Switch Tab
    - Add the Another init item method
    - solve the drawable in the same memory problem,Every time finish the activity,have no Icon show.
-   
+  
+### V1.1.5
+  - Remove the limit of the titles,You can set without titles
+  - Fix the position of the badge again
+  - Add some methods and Update some method's name
+  
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
 <br><br>
@@ -242,12 +214,11 @@ Or, you can init in the oncreate
 
 # About Me
 A college student, is still in the study of various techniques...<br>
-QQ:83508440<br>
 E-mail:83508440@qq.com
 
 # License
 ```
-Copyright 2016 [JPeng]
+Copyright 2016 JPeng
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -12,11 +12,9 @@
 
    - [x] 实现底部导航中间按钮凸出的效果
 
-   - [x] 实现WeChat那种滑动导航的底部渐变效果,随着滑动的距离变化而变化
+   - [x] 实现类似Wechat图标渐变，并且带动画
 
    - [x] 实现TabBar上的红色标记,并且可以拖动
-
-   - [x] 强大的BadgeView功能,智能判断数字隐藏与越界显示,两种显示模式。
 
    - [x] 提供监听Tab的点击事件,中间点击以及badge被拖拉消失的接口
 
@@ -30,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.4'
+        compile 'com.jpeng:JPTabBar:1.1.5'
     }
 
 ```
@@ -46,12 +44,9 @@
         jp:TabHeight="56dp"
         jp:BadgeDraggable="true"
         jp:TabAnimate="Jump"
-        jp:BadgePadding="4dp"
-        jp:BadgeMargin="5dp"
-        jp:BadgeTextSize="10dp"
         />
 ```
-3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons和Titles是必须的,每个数组长度要保持一致
+3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons是必须的,每个数组长度要保持一致
 
 ```JAVA
     @Titles
@@ -67,7 +62,6 @@
 ```
 或者，你可以在oncreate方法里面初始化导航的item
 ```JAVA
-        mTabbar = (JPTabBar) findViewById(tabbar);
         mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
@@ -78,52 +72,7 @@
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
 ```
-5.本项目中已经提供了部分动画,如果你要使用自己定义的动画,可以setCustomAnimate,传入内部提供的Animatable接口,参考下面的例子
-```
-            mTabbar.setCustomAnimate(new Animatable() {
-                /**
-                 * 这个方法当你点击Tab切换页面的时候会调用
-                 * @param target TabBar里面的IconView
-                 * @param Duration 是你自定义的动画时间
-                 */
-                @Override
-                public void playAnimate(View target, int Duration) {
-                    ViewHelper.setPivotX(target,target.getLayoutParams().width/2);
-                    ViewHelper.setPivotY(target,target.getLayoutParams().height/2);
-    
-                    AnimatorSet set = new AnimatorSet();
-                    set.playTogether(
-                            ObjectAnimator.ofFloat(target,"scaleX",0.2f,1f).setDuration(Duration),
-                            ObjectAnimator.ofFloat(target,"scaleY",0.2f,1f).setDuration(Duration),
-                            ObjectAnimator.ofFloat(target,"alpha",0.3f,1f).setDuration(Duration)
-                    );
-    
-                    set.start();
-                }
-    
-                /**
-                 * 这个方法的解析
-                 * 当你切换用手势滑动ViewPager,这个方法就会回调
-                 * 这个方法生效的条件是下面要return true
-                 * @param target 同上
-                 * @param offset 这个参数代表偏差,范围 0-1
-                 */
-                @Override
-                public void onPageAnimate(View target, float offset) {
-                    ViewHelper.setScaleX(target,1+offset*0.2f);
-                    ViewHelper.setScaleY(target,1+offset*0.2f);
-                }
-    
-                /**
-                 * 代表是否需要滑动中,调用Icon动画
-                 * @return
-                 */
-                @Override
-                public boolean isNeedPageAnimate() {
-                    return true;
-                }
-            });
-```
+
 
 
 # 方法和节点说明:
@@ -140,17 +89,30 @@
      * 当然还有一个重载方法,第二个参数为int,设置消息数量
      * 传入""字符串显示圆点
      */
-    public void ShowBadge(int position,String text);
+    public void showBadge(int position,String text);
+    
+        /**
+          *显示圆点徽章
+          */ 
+        public void showCircleBadge(int pos);
+        
+        /**
+          * 设置徽章消息数量限制数
+          * 如果你使用这个方法 ShowBadge(int position,int count)
+          * 如果第二个参数 > limit , Badge将会显示 "limit+"
+          * 可以看下参考图
+          */
+        public void setCountLimit(int limit);
 
     /**
      * 隐藏BadgeView
      */
-    public void HideBadge(int position);
+    public void hideBadge(int position);
 
     /**
-     * 切换Tab页面,是否带动画
+     * 切换Tab页面
      */
-    public void setSelectTab(int index, boolean animated);
+    public void setSelectTab(int index);
 
     /**
      * 设置点击TabBar事件的观察者
@@ -180,7 +142,9 @@
 | BadgeDraggable |徽章是否可以拖动     |boolean  | false |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
-| BadgeMargin | 徽章距离右边边缘的间隔      |dimension | 9dp |
+| BadgeVerticalMargin | 徽章垂直间距     |dimension | 3dp |
+| BadgeHorticalMargin | 徽章水平间距     |dimension | 20dp |
+
 # 注意事项
 1.假如你已经给TabBar setContainer,不要setOnPageChangeListener给ViewPager
 ```JAVA
@@ -236,6 +200,11 @@
    - 增加另一套初始化TabBarItems的方法
    - 解决因为drawable共用内存,每次finish后,没有图标的问题。
    
+### V1.1.5
+  - 移除标题必须设置的限制,可以没有标题
+  - 再次修复徽章位置问题
+  - 添加了一些调用方法和修改了一些方法命名规范
+   
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
 <br><br>
@@ -243,12 +212,11 @@
 
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>
-QQ:83508440<br>
 邮箱:83508440@qq.com
 
 # License
 ```
-Copyright 2016 [JPeng]
+Copyright 2016 JPeng
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

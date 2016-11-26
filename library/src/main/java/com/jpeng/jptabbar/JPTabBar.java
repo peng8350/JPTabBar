@@ -53,7 +53,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     //默认的徽章背景颜色
     private static final int DEFAULT_BADGE_COLOR = 0xffff0000;
     //默认的徽章字体大小
-    private static final int DEFAULT_BADGE_TEXTSIZE = 9;
+    private static final int DEFAULT_BADGE_TEXTSIZE = 10;
     //默认的徽章狂站距离
     private static final int DEFAULT_PADDING = 4;
     //默认徽章距离右边间距
@@ -62,6 +62,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int DEFAULT_BADGEVERTICAL_MARGIN = 3;
 
     private Context mContext;
+
+    private int mLimit=99;
 
 
     private TypedArray mAttribute;
@@ -304,6 +306,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
+
+
     /**
      * 切换Tab页面,是否带动画
      */
@@ -353,8 +357,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private ImageView BuildMiddleBtn(int height, int icon_res) {
         if (icon_res == 0) return null;
         ImageView middleBtn = new ImageView(mContext);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(height, height);
-        params.setMargins(0, 0, 0, (int) (height * 0.33));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mHeight, mHeight);
+        params.setMargins(0, 0, 0, (int) (mHeight*0.33));
         params.gravity = Gravity.BOTTOM;
         middleBtn.setLayoutParams(params);
         middleBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -389,7 +393,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         return mJPTabItems == null ? 0 : mJPTabItems.length;
     }
 
-
     /**
      * 设置容器和TabBar联系在一起
      */
@@ -401,11 +404,27 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     /**
+     * 设置Badge消息数量最大限制
+     */
+    public void setCountLimit(int limit){
+        mLimit = limit;
+
+    }
+
+    /**
      * 显示图标的Badge
      */
     public void showBadge(int pos, String text) {
         if (mJPTabItems != null)
             mJPTabItems[pos].showTextBadge(text);
+    }
+
+    /**
+     * 显示圆点徽章
+     */
+    public void showCircleBadge(int pos){
+        if(mJPTabItems!=null)
+            mJPTabItems[pos].showCirclePointBadge();
     }
 
     /**
@@ -417,8 +436,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         if (count == 0) {
             mJPTabItems[pos].hiddenBadge();
 
-        } else if (count >= 100) {
-            mJPTabItems[pos].showTextBadge("99+");
+        } else if (count > mLimit) {
+            mJPTabItems[pos].showTextBadge(mLimit+"+");
         } else {
             mJPTabItems[pos].showTextBadge(count + "");
         }

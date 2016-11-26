@@ -61,7 +61,7 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
             mTabBar.showBadge(0,"文字");
         }
         else if(v==mShowCircleBtn){
-            mTabBar.showBadge(0,"");
+            mTabBar.showCircleBadge(0);
         }
         else{
             mTabBar.hideBadge(0);
