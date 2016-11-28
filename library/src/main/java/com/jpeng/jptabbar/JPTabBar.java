@@ -365,6 +365,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
+
     private ImageView BuildMiddleBtn(int icon_res) {
         if (icon_res == 0) return null;
         ImageView middleBtn = new ImageView(mContext);
@@ -386,6 +387,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         addView(middleBtn);
         return middleBtn;
     }
+
 
 
     /****-------提供给开发者调用的方法---------****/
