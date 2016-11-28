@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:jp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
     android:clipChildren="false"
     android:orientation="vertical"
     >
 
     <com.jpeng.demo.NoScrollViewPager
         android:layout_width="match_parent"
-        android:layout_marginTop="48dp"
         android:id="@+id/view_pager"
+        android:layout_marginBottom="48dp"
         android:layout_height="match_parent"/>
 
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         jp:TabMiddleIcon="@mipmap/circle"
         jp:TabSelectBg="@drawable/tab_btn_bg"
@@ -27,4 +27,4 @@
         />
 
 
-</LinearLayout>
+</RelativeLayout>

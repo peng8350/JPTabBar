@@ -272,8 +272,11 @@ public class JPTabItem extends BadgeRelativeLayout {
     /**
      * 设置TabItem选中的状态
      */
-    void setSelect(JPTabBar tabbar, boolean selected, boolean animated){
-        Animatable animater = tabbar.getAnimater();
+    void setSelect(Animatable animater, boolean selected, boolean animated){
+        setSelect(animater,selected,animated,true);
+    }
+
+    void setSelect(Animatable animater,boolean selected,boolean animated,boolean filter){
         if (selected && mSelectBg != null) {
             setBackgroundDrawable(mSelectBg);
         } else {
@@ -283,14 +286,14 @@ public class JPTabItem extends BadgeRelativeLayout {
             mSelected = selected;
             if (mCompundIcon != null) {
                 if (selected) {
-                    if (!animated||animater==null) {
+                    if (!animated||animater==null||!filter) {
                         changeAlpha(1f);
                     } else{
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
                 } else {
-                    if (!animated||animater==null) {
+                    if (!animated||animater==null||!filter) {
                         changeAlpha(0f);
                     } else{
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();

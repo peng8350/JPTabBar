@@ -2,7 +2,6 @@ package com.jpeng.jptabbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.jpeng.jptabbar.animate.*;
@@ -154,7 +152,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         mContext = context;
 
         mAttribute = context.obtainStyledAttributes(set, R.styleable.JPTabBar);
-        setClipChildren(false);
+
+        setMinimumHeight(DensityUtils.dp2px(mContext,48));
         boolean haveAnno = reflectAnnotation();
         if (haveAnno) {
             initFromAttribute();
@@ -175,10 +174,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-        super.onVisibilityChanged(changedView, visibility);
-    }
+
+
 
     /**
      * 从类获取注解,映射值到mTiles,mNormalIcons,mSelectedIcons
@@ -305,10 +302,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
             }
 
-
-            setSelectTab(0);
+            mJPTabItems[0].setSelect(mAnimater,true,true,false);
             for (int i = 1; i < mJPTabItems.length; i++) {
-                mJPTabItems[i].setSelect(this, false, false);
+                mJPTabItems[i].setSelect(mAnimater, false, false);
             }
             mAttribute.recycle();
         }
@@ -327,14 +323,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 continue;
             }
             if (!mJPTabItems[i].isSelect()) {
-                mJPTabItems[i].setSelect(this, false, animated);
+                mJPTabItems[i].setSelect(mAnimater, false, animated);
             } else {
-                mJPTabItems[i].setSelect(this, false, animated);
+                mJPTabItems[i].setSelect(mAnimater, false, animated);
             }
 
         }
 
-        mJPTabItems[index].setSelect(this, true, animated);
+        mJPTabItems[index].setSelect(mAnimater, true, animated);
 
         if (mTabSelectLis != null) {
             mTabSelectLis.onTabSelect(index);
@@ -362,22 +358,21 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
 
 
+
+
+
     private ImageView BuildMiddleBtn(int icon_res) {
         if (icon_res == 0) return null;
-        Drawable drawable = mContext.getResources().getDrawable(icon_res);
-        WindowManager manager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-
         ImageView middleBtn = new ImageView(mContext);
-        int width = drawable.getMinimumWidth();
-        int height = drawable.getMinimumHeight();
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.width = width;
-        params.height = height;
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        params.gravity= Gravity.BOTTOM;
-        params.format =  PixelFormat.TRANSLUCENT;
+        Drawable icon = mContext.getResources().getDrawable(icon_res);
+        int width = icon.getIntrinsicWidth();
+        int height = icon.getIntrinsicHeight();
+        LayoutParams params = new LayoutParams(width   , height);
+        params.setMargins(0, -DensityUtils.dp2px(mContext,10), 0, 0);
+        params.gravity = Gravity.TOP;
+        middleBtn.setLayoutParams(params);
         middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
-        middleBtn.setImageDrawable(drawable);
+        middleBtn.setImageDrawable(icon);
 
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -386,10 +381,10 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                     mTabSelectLis.onClickMiddle(mMiddleItem);
             }
         });
-        manager.addView(middleBtn,params);
+
+        addView(middleBtn);
         return middleBtn;
     }
-
 
 
     /****-------提供给开发者调用的方法---------****/
@@ -555,6 +550,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 生成TabItem
      */
     public void generate() {
+        int[] pos = new int[2];
+        getLocationOnScreen(pos);
+        System.out.println(pos[0]);
         if (mJPTabItems == null)
             initFromAttribute();
     }
