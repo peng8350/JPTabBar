@@ -187,17 +187,6 @@ Or, you can init in the oncreate
 3.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
 
 # Update Log
-### V1.0.4
-   - Reverse the BadgePosition show error
-   - Reverse the background covered by the TabItem Bg
-   - Reverse the Default value error
-
-### V1.0.5
-   - Reverse the BadgeView cannot move to LeftTop
-   - Titles annotaion support int
-   - Remove BadgeModes annotation,Enhance the flexibility of the use of badges,Update the TabBar method
-   - Add the TabSelectBg attribute,used to set the selected item bg
-  
 ### V1.1.0
    - Reverse the Rending problem in the XML
    - Reverse the BUG of CLick Tab Event CallBack twice.

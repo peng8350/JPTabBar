@@ -186,17 +186,6 @@
 3.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
 
 # 更新日志
-### V1.0.4
-   - 修复BadgeView显示位置随着字体位置偏差问题
-   - 修复背景被TabItem背景覆盖问题
-   - 修改高度默认56dp,徽章Margin为9dp
-
-### V1.0.5
-   - 解决徽章BadgeMargin不能往左上角移动
-   - Titles注解可支持int[]数组
-   - 干掉徽章BadgeModes注解,提高徽章使用的灵活性,修改了TabBar调用徽章的方法
-   - 添加TabSelectBg结点,用来设置选中的背景
-   
 ### V1.1.0
    - 解决XML布局中渲染报错问题
    - 修复点击Tab回调两次的BUG
