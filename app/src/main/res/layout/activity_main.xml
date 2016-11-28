@@ -20,9 +20,6 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
-        jp:TabMiddleIcon="@mipmap/circle"
-        jp:TabSelectBg="@drawable/tab_btn_bg"
-        jp:TabMargin="6dp"
         jp:TabTextSize="12sp"
         />
 

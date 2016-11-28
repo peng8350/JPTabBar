@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.6'
+        compile 'com.jpeng:JPTabBar:1.1.7'
     }
 
 ```
@@ -39,11 +39,9 @@
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="#fff"
-        jp:TabHeight="56dp"
-        jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
+         jp:TabTextSize="12sp"
         />
 ```
 3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons是必须的,每个数组长度要保持一致
@@ -144,7 +142,6 @@
 ### 结点说明:
 | 结点名字        |     结点说明     | 参数类型 | 默认值  |
 |-------------|:-------------|:----------:|:-----:|
-| TabHeight      |TabBar的高度,将会覆盖layout_height的设置 |dimension| 56dp |
 | TabNormalColor      |字体和图标的未选中颜色   |color   |   0xffAEAEAE(灰色) |
 | TabSelectColor |字体和图标的选中的颜色     |color  | 0xff59D9B9(青色) |
 | TabTextSize |Tab底部文件大小      |dimension | 14sp |
@@ -224,6 +221,10 @@
   - 添加之前忘记的标题渐变效果
   - 删除BadgeDraggable结点,用ShowBadge方法设置是否可以拖动
   - 添加几个方法，减少TabBar的限制性
+  
+### V1.1.7
+  - 修复高度问题,还有移除TabHeight结点(粗心导致)
+  - 修复这个BUG,当用户每次运行APP图标渐变问题
   
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

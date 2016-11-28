@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.6'
+        compile 'com.jpeng:JPTabBar:1.1.7'
     }
 
 ```
@@ -41,11 +41,9 @@
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="#fff"
-        jp:TabHeight="56dp"
-        jp:BadgeDraggable="true"
-        jp:TabAnimate="Jump"
+         jp:TabTextSize="12sp"
         />
 ```
 3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is:NorIcons are required, the length of each array should be consistent
@@ -143,7 +141,6 @@ Or, you can init in the oncreate
 ### Attribute Explain:
 | Attribute Name        |     Attribute Explain     | Parameter Type | Default Value  |
 |-------------|:-------------|:----------:|:-----:|
-| TabHeight      |TabBar height, will cover the settings of layout_height |dimension| 56dp |
 | TabNormalColor      |Font and icon of the normal color   |color   |   0xffAEAEAE(Gray) |
 | TabSelectColor |Font and icon of the selected color     |color  | 0xff59D9B9(Cyan) |
 | TabTextSize |the textsize of the bottom text     |dimension | 14sp |
@@ -225,6 +222,10 @@ Or, you can init in the oncreate
   - Add the title Filter
   - Remove the BadgeDraggable Attribute,and replace with the ShowBadge method
   - Add several methods to reduce the TabBar limit 
+  
+### V1.1.7
+  - Fix the problem of height and remove the TabHeight attribute
+  - Fix BUG, when the app run gradient problem
   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

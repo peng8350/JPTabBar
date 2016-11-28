@@ -3,6 +3,7 @@ package com.jpeng.jptabbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -368,12 +369,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int width = icon.getIntrinsicWidth();
         int height = icon.getIntrinsicHeight();
         LayoutParams params = new LayoutParams(width   , height);
-        params.setMargins(0, -DensityUtils.dp2px(mContext,10), 0, 0);
+        params.setMargins(0, (int) (-height*0.2), 0, 0);
         params.gravity = Gravity.TOP;
         middleBtn.setLayoutParams(params);
         middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
         middleBtn.setImageDrawable(icon);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            middleBtn.setElevation(30);
+        }
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
