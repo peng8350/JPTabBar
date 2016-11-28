@@ -18,7 +18,6 @@
         </attr>
         <attr name="TabMiddleIcon" format="reference"/>
         <attr name="BadgeColor" format="reference|color"/>
-        <attr name="BadgeDraggable" format="boolean"/>
         <attr name="BadgePadding" format="dimension|reference"/>
         <attr name="BadgeTextSize" format="reference|dimension"/>
         <attr name="BadgeVerticalMargin" format="reference|dimension"/>

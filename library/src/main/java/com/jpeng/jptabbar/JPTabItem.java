@@ -26,7 +26,7 @@ public class JPTabItem extends BadgeRelativeLayout {
 
 
     //颜色渐变时间
-    private static final int FILTER_DURATION = 400;
+    private static final int FILTER_DURATION = 300;
     /**
      * 上下文
      */
@@ -91,11 +91,6 @@ public class JPTabItem extends BadgeRelativeLayout {
     private boolean mAcceptFilter;
 
     /**
-     * 动画的长度
-     */
-    private int mDuration;
-
-    /**
      * 图标的图层
      */
     private LayerDrawable mCompundIcon;
@@ -105,11 +100,6 @@ public class JPTabItem extends BadgeRelativeLayout {
      * 图标ImageView
      */
     private ImageView mIconView;
-
-    /**
-     * Badge是否可以拖动
-     */
-    private boolean mDraggable;
 
     /**
      * Badge的字体大小
@@ -155,7 +145,6 @@ public class JPTabItem extends BadgeRelativeLayout {
     /**
      * 初始化布局和数据
      *
-     * @param context
      */
     private void init(Context context) {
         mContext = context;
@@ -171,9 +160,8 @@ public class JPTabItem extends BadgeRelativeLayout {
     /**
      * 初始化徽章
      */
-    public void initBadge() {
+    private void initBadge() {
         getBadgeViewHelper().setBadgeGravity(BadgeViewHelper.BadgeGravity.RightTop);
-        getBadgeViewHelper().setDragable(mDraggable);
         getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
         getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
         getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);
@@ -283,11 +271,9 @@ public class JPTabItem extends BadgeRelativeLayout {
 
     /**
      * 设置TabItem选中的状态
-     *
-     * @param selected
-     * @param animated
      */
-    void setSelect(Animatable animatable, boolean selected, boolean animated) {
+    void setSelect(JPTabBar tabbar, boolean selected, boolean animated){
+        Animatable animater = tabbar.getAnimater();
         if (selected && mSelectBg != null) {
             setBackgroundDrawable(mSelectBg);
         } else {
@@ -297,16 +283,16 @@ public class JPTabItem extends BadgeRelativeLayout {
             mSelected = selected;
             if (mCompundIcon != null) {
                 if (selected) {
-                    if (!animated) {
+                    if (!animated||animater==null) {
                         changeAlpha(1f);
-                    } else {
+                    } else{
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
                 } else {
-                    if (!animated) {
+                    if (!animated||animater==null) {
                         changeAlpha(0f);
-                    } else {
+                    } else{
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
@@ -316,8 +302,8 @@ public class JPTabItem extends BadgeRelativeLayout {
             }
             //播放动画
             if (animated) {
-                if (animatable != null) {
-                    animatable.playAnimate(mIconView, mSelected);
+                if (animater != null) {
+                    animater.playAnimate(mIconView, mSelected);
                 }
             }
 
@@ -355,12 +341,10 @@ public class JPTabItem extends BadgeRelativeLayout {
      * 在滑动Viewpager回调onScroll方法
      * 传入1时,selectedicon将会显示
      * 传入0时,NormalIcon将会显示
-     *
-     * @param offset
      */
     void changeAlpha(float offset) {
         if (mCompundIcon != null) {
-            mNormalIcon.setAlpha((int) (255 * ((float) (1 - offset))));
+            mNormalIcon.setAlpha((int) (255 * (1 - offset)));
             mSelectIcon.setAlpha((int) (offset * 255));
             this.mOffset = (int) (offset * 255);
             postInvalidate();
@@ -395,8 +379,6 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         private int badgeHorMargin;
 
-        private boolean dragable;
-
         private int badgeTextSize;
 
         private int badgepadding;
@@ -409,12 +391,10 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         private int index;
 
-        private int duration;
-
         private boolean iconfilter;
 
 
-        public Builder(Context context) {
+        Builder(Context context) {
             this.context = context;
         }
 
@@ -474,10 +454,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             return this;
         }
 
-        Builder setBadgeDrable(boolean drag) {
-            this.dragable = drag;
-            return this;
-        }
 
         Builder setBadgePadding(int padding) {
             this.badgepadding = padding;
@@ -519,7 +495,6 @@ public class JPTabItem extends BadgeRelativeLayout {
                 item.mSelectIcon = context.getResources().getDrawable(selectIcon).mutate();
             item.mBadgePadding = badgepadding;
             item.mBadgeBackground = badgeBackground;
-            item.mDraggable = dragable;
             item.mIndex = index;
             item.mBadgeHorMargin = badgeHorMargin;
             item.mBadgeVerMargin = badgeVerMargin;

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="跳跃"
 
+
             android:id="@+id/radioButton2"/>
         <RadioButton
             android:layout_width="wrap_content"

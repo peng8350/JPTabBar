@@ -1,5 +1,5 @@
 # :blush:JPTabBar:blush:
-[![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
+[![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/bintray/jcenter/JPTabBar)
 <br>
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
 
@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.5'
+        compile 'com.jpeng:JPTabBar:1.1.6'
     }
 
 ```
@@ -69,7 +69,7 @@ Or, you can init in the oncreate
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
-4.After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:
+4.After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:(Of curse,If you don't use ViewPager,You needn't use this method)
 ```JAVA
     //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
@@ -87,8 +87,25 @@ Or, you can init in the oncreate
 
      /**
      * Show the BadgeView With Text
+     * default is false ,cannot drag
      */
     public void showBadge(int position,String text);
+    
+    /**
+     * It is the same with the up method,But the different is,
+     * The Badge Can draggable when you use true.
+     */
+    public void showBadge(int position,String text,boolean draggable);
+        
+    /**
+     * set the icon and title filter when scroll page and click the tab
+     */
+    public JPTabBar setUseFilter(boolean filter);
+        
+    /**
+     * Set the boolean If Need the PageAnimate
+     */
+    public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
     
     /**
       *Show the Circle point
@@ -112,8 +129,6 @@ Or, you can init in the oncreate
      * Switch Tab page
      */
     public void setSelectTab(int index);
-    
-    
 
     /**
      * Set the Observer of the Click Tab Event
@@ -139,7 +154,6 @@ Or, you can init in the oncreate
 | TabAnimate |The animate type of the Tab Switch      |enum | Scale |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
-| BadgeDraggable |Can drag on the badge touched by user     |boolean  | false |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
 | BadgeTextSize |The textSize of the Badge      |dimension | 10dp |
 | BadgeVerticalMargin | The badge vertical margin     |dimension | 3dp |
@@ -206,6 +220,11 @@ Or, you can init in the oncreate
   - Remove the limit of the titles,You can set without titles
   - Fix the position of the badge again
   - Add some methods and Update some method's name
+  
+### V1.1.6
+  - Add the title Filter
+  - Remove the BadgeDraggable Attribute,and replace with the ShowBadge method
+  - Add several methods to reduce the TabBar limit 
   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

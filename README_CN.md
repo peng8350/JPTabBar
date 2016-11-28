@@ -1,5 +1,5 @@
 # :blush:JPTabBar:blush:
-[![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/peng83508440/maven/JPTabBar)
+[![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/bintray/jcenter/JPTabBar)
 <br>[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
 ### 
 
@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.5'
+        compile 'com.jpeng:JPTabBar:1.1.6'
     }
 
 ```
@@ -67,7 +67,7 @@
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
-4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:
+4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:(当然如果你不使用ViewPager的话，不调用这个方法)
 ```JAVA
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
@@ -88,21 +88,37 @@
      * 显示BadgeView ,传入字符串
      * 当然还有一个重载方法,第二个参数为int,设置消息数量
      * 传入""字符串显示圆点
+     * 默认为false,不可拖动
      */
     public void showBadge(int position,String text);
     
-        /**
-          *显示圆点徽章
-          */ 
-        public void showCircleBadge(int pos);
+    /**
+     * 与上面方法是一样的,唯一不同就是,传入true的时候,这个徽章可以拖动
+     */
+   public void showBadge(int position,String text,boolean draggable);
+    
+    /**
+     * 设置图标和标题的滑动渐变以及点击渐变是否使用
+     */
+    public JPTabBar setUseFilter(boolean filter);
+    
+    /**
+     * 设置是否需要页面滚动动画
+     */
+    public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
+    
+    /**
+    *显示圆点徽章
+    */ 
+    public void showCircleBadge(int pos);
         
-        /**
-          * 设置徽章消息数量限制数
-          * 如果你使用这个方法 ShowBadge(int position,int count)
-          * 如果第二个参数 > limit , Badge将会显示 "limit+"
-          * 可以看下参考图
-          */
-        public void setCountLimit(int limit);
+    /**
+     * 设置徽章消息数量限制数
+     * 如果你使用这个方法 ShowBadge(int position,int count)
+     * 如果第二个参数 > limit , Badge将会显示 "limit+"
+     * 可以看下参考图
+     */
+    public void setCountLimit(int limit);
 
     /**
      * 隐藏BadgeView
@@ -139,7 +155,6 @@
 | TabAnimate |Tab切换的动画类型      |enum | Scale |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
-| BadgeDraggable |徽章是否可以拖动     |boolean  | false |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
 | BadgeVerticalMargin | 徽章垂直间距     |dimension | 3dp |
@@ -205,6 +220,11 @@
   - 再次修复徽章位置问题
   - 添加了一些调用方法和修改了一些方法命名规范
    
+### V1.1.6
+  - 添加之前忘记的标题渐变效果
+  - 删除BadgeDraggable结点,用ShowBadge方法设置是否可以拖动
+  - 添加几个方法，减少TabBar的限制性
+  
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
 <br><br>

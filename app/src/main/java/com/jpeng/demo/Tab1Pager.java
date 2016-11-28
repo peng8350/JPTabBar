@@ -87,7 +87,7 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
         }
         int count = Integer.parseInt(s.toString());
         if(mTabBar!=null)
-            mTabBar.showBadge(0, count);
+            mTabBar.showBadge(0, count,true);
     }
 
     public void clearCount() {
