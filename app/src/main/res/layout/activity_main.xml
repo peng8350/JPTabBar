@@ -18,10 +18,12 @@
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="@drawable/tab_bg"
         jp:TabMiddleIcon="@mipmap/circle"
         jp:TabSelectBg="@drawable/tab_btn_bg"
+        jp:TabMargin="6dp"
+        jp:TabTextSize="12sp"
         />
 
 

@@ -2,6 +2,7 @@ package com.jpeng.jptabbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.jpeng.jptabbar.animate.*;
@@ -68,10 +70,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     private TypedArray mAttribute;
 
-    /**
-     *
-     */
-    private int mHeight = DEFAULT_HEIGHT;
     /**
      * 选中的当前Tab的位置
      */
@@ -180,7 +178,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        getLayoutParams().height = mHeight != 0 ? DensityUtils.dp2px(mContext, DEFAULT_HEIGHT) : mHeight;
     }
 
     /**
@@ -243,7 +240,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      */
     private void initFromAttribute() {
 
-        mHeight = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabHeight, DensityUtils.dp2px(mContext, DEFAULT_HEIGHT));
         int normalColor = mAttribute.getColor(R.styleable.JPTabBar_TabNormalColor, DEFAULT_NORMAL_COLOR);
         int selectColor = mAttribute.getColor(R.styleable.JPTabBar_TabSelectColor, DEFAULT_SELECT_COLOR);
         int textSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabTextSize, DensityUtils.sp2px(mContext, DEFAULT_TEXTSIZE)));
@@ -368,13 +364,20 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     private ImageView BuildMiddleBtn(int icon_res) {
         if (icon_res == 0) return null;
+        Drawable drawable = mContext.getResources().getDrawable(icon_res);
+        WindowManager manager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+
         ImageView middleBtn = new ImageView(mContext);
-        LayoutParams params = new LayoutParams(mHeight, mHeight);
-        params.setMargins(0, 0, 0, (int) (mHeight * 0.33));
-        params.gravity = Gravity.BOTTOM;
-        middleBtn.setLayoutParams(params);
+        int width = drawable.getMinimumWidth();
+        int height = drawable.getMinimumHeight();
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.width = width;
+        params.height = height;
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        params.gravity= Gravity.BOTTOM;
+        params.format =  PixelFormat.TRANSLUCENT;
         middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
-        middleBtn.setImageDrawable(mContext.getResources().getDrawable(icon_res));
+        middleBtn.setImageDrawable(drawable);
 
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -383,8 +386,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                     mTabSelectLis.onClickMiddle(mMiddleItem);
             }
         });
-
-        addView(middleBtn);
+        manager.addView(middleBtn,params);
         return middleBtn;
     }
 

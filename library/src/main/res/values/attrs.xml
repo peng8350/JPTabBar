@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="JPTabBar">
-        <attr name="TabHeight" format="reference|dimension"/>
         <attr name="TabNormalColor" format="reference|color"/>
         <attr name="TabSelectColor" format="reference|color"/>
         <attr name="TabSelectBg" format="reference|color"/>
