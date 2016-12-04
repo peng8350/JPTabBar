@@ -122,12 +122,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 渐变判断
      */
-    private boolean mFilter = true;
+    private boolean mFilter;
 
     /**
      * 是否滚动页面的动画
      */
-    private boolean mNeedScrollAnimate = true;
+    private boolean mNeedScrollAnimate;
 
 
     public JPTabBar(Context context) {
@@ -632,11 +632,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                     mNeedAnimate = true;
                 }
             }
+            else mNeedAnimate=true;
         }
     }
 
     @Override
     public void onPageSelected(int position) {
+        System.out.println(mNeedAnimate);
         setSelectTab(position, mNeedAnimate);
     }
 

@@ -97,11 +97,13 @@
     
     /**
      * 设置图标和标题的滑动渐变以及点击渐变是否使用
+     * 默认为false
      */
     public JPTabBar setUseFilter(boolean filter);
     
     /**
      * 设置是否需要页面滚动动画
+     * 默认为false
      */
     public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
     
@@ -149,7 +151,7 @@
 | TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
-| TabAnimate |Tab切换的动画类型      |enum | Scale |
+| TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | Scale |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
@@ -222,7 +224,7 @@
 
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>
-邮箱:83508440@qq.com
+邮箱:peng8350@gmail.com
 
 # License
 ```

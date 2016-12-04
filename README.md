@@ -97,11 +97,13 @@ Or, you can init in the oncreate
         
     /**
      * set the icon and title filter when scroll page and click the tab
+     * default value is false
      */
     public JPTabBar setUseFilter(boolean filter);
         
     /**
      * Set the boolean If Need the PageAnimate
+     * default value is false
      */
     public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
     
@@ -148,7 +150,7 @@ Or, you can init in the oncreate
 | TabIconFilter |   Set the icon  change by the font color|boolean | true |
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
-| TabAnimate |The animate type of the Tab Switch      |enum | Scale |
+| TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | Scale |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
@@ -223,7 +225,7 @@ Or, you can init in the oncreate
 
 # About Me
 A college student, is still in the study of various techniques...<br>
-E-mail:83508440@qq.com
+E-mail:peng8350@gmail.com
 
 # License
 ```

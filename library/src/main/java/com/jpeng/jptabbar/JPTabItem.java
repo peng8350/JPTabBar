@@ -66,6 +66,7 @@ public class JPTabItem extends BadgeRelativeLayout {
      */
     private int mSelectColor;
 
+
     /**
      * 没有选中的颜色(包括底部文字和图标)
      */
@@ -132,6 +133,7 @@ public class JPTabItem extends BadgeRelativeLayout {
      * badge的间距
      */
     private int mBadgePadding;
+
 
     /**
      * 徽章被用户拖出去的回调事件

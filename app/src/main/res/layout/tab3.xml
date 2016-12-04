@@ -24,12 +24,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="打开"
-                android:checked="true"
+
                 android:id="@+id/radioButton1"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="关闭"
                 android:id="@+id/radioButton2"/>
         </RadioGroup>
@@ -53,13 +54,14 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+
                 android:text="打开"
                 android:id="@+id/radioButton3"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="关闭"
                 android:id="@+id/radioButton4"/>
         </RadioGroup>
