@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.7'
+        compile 'com.jpeng:JPTabBar:1.1.9'
     }
 
 ```
@@ -216,7 +216,11 @@
 ### V1.1.7
   - 修复高度问题,还有移除TabHeight结点(粗心导致)
   - 修复这个BUG,当用户每次运行APP图标渐变问题
-  
+
+### V1.1.9
+  - 修正BUG,当setUseScrollAnimate(false),滑动TAB动画未有还原
+  - 改变滚动动画和渐变默认关闭
+  - 改变Badge的位置为水平居上方,以适应屏幕适配
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
 <br><br>

@@ -34,8 +34,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int SCALE_TYPE = 3;
     //跳跃动画
     private static final int JUMP_TYPE = 4;
-    //默认TABBAR的高度
-    private static final int DEFAULT_HEIGHT = 56;
     //默认的图标大小
     private static final int DEFAULT_ICONSIZE = 24;
     //字体默认大小

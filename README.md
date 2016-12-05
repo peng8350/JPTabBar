@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.7'
+        compile 'com.jpeng:JPTabBar:1.1.9'
     }
 
 ```
@@ -217,6 +217,11 @@ Or, you can init in the oncreate
 ### V1.1.7
   - Fix the problem of height and remove the TabHeight attribute
   - Fix BUG, when the app run gradient problem
+  
+### V1.1.9
+  - Fix Bug,When setUseScrollAnimate (false), the slide TAB animation is not restored
+  - Change the Filter and ScrollAnimate default is not open
+  - Change the location of the Badge to the top of the level, in order to adapt to the screen adaptation
   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
