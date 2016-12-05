@@ -17,12 +17,12 @@
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
+
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         jp:TabTextSize="12sp"
         jp:TabAnimate="Scale"
-        jp:TabMiddleIcon="@mipmap/circle"
         />
 
 

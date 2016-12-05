@@ -555,7 +555,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public void generate() {
         int[] pos = new int[2];
         getLocationOnScreen(pos);
-        System.out.println(pos[0]);
         if (mJPTabItems == null)
             initFromAttribute();
     }
@@ -638,7 +637,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     @Override
     public void onPageSelected(int position) {
-        System.out.println(mNeedAnimate);
         setSelectTab(position, mNeedAnimate);
     }
 

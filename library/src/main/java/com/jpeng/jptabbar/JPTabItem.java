@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.jpeng.jptabbar.animate.Animatable;
 import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
-import com.jpeng.jptabbar.badgeview.BadgeViewHelper;
 import com.jpeng.jptabbar.badgeview.Badgeable;
 import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -163,7 +162,6 @@ public class JPTabItem extends BadgeRelativeLayout {
      * 初始化徽章
      */
     private void initBadge() {
-        getBadgeViewHelper().setBadgeGravity(BadgeViewHelper.BadgeGravity.RightTop);
         getBadgeViewHelper().setBadgeBgColorInt(mBadgeBackground);
         getBadgeViewHelper().setBadgeTextSizeSp(mBadgeTextSize);
         getBadgeViewHelper().setBadgePaddingDp(mBadgePadding);

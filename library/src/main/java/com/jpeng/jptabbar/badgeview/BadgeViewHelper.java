@@ -323,24 +323,10 @@ public class BadgeViewHelper {
 
         // 计算徽章背景上下的值
         mBadgeRectF.top = mBadgeVerticalMargin;
-        mBadgeRectF.bottom = mBadgeable.getHeight() - mBadgeVerticalMargin;
-        switch (mBadgeGravity) {
-            case RightTop:
-                mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
-                break;
-            case RightCenter:
-                mBadgeRectF.top = (mBadgeable.getHeight() - badgeHeight) / 2;
-                mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
-                break;
-            case RightBottom:
-                mBadgeRectF.top = mBadgeRectF.bottom - badgeHeight;
-                break;
-            default:
-                break;
-        }
+        mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
 
         // 计算徽章背景左右的值
-        mBadgeRectF.right = mBadgeable.getWidth() - mBadgeHorizontalMargin;
+        mBadgeRectF.right = mBadgeable.getWidth()/2 + mBadgeHorizontalMargin;
         mBadgeRectF.left = mBadgeRectF.right - badgeWidth;
 
         if (mBadgeBorderWidth > 0) {
