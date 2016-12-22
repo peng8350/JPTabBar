@@ -4,9 +4,11 @@
     xmlns:jp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:orientation="vertical"
     >
+
+
+
+
 
     <com.jpeng.demo.NoScrollViewPager
         android:layout_width="match_parent"
@@ -14,16 +16,17 @@
         android:layout_marginBottom="48dp"
         android:layout_height="match_parent"/>
 
+
+
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
-
+        android:layout_gravity="bottom"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         jp:TabTextSize="12sp"
         jp:TabAnimate="Scale"
+        jp:TabMiddleIcon="@mipmap/circle"
         />
-
-
 </RelativeLayout>
