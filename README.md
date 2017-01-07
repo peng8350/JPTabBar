@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.9'
+        compile 'com.jpeng:JPTabBar:1.2.0'
     }
 
 ```
@@ -152,6 +152,8 @@ Or, you can init in the oncreate
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
 | TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | Scale |
 | TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
+| TabMiddleBottomDis | Midlle icon bottomMargin from TabBar  |dimension | 20dp |
+| TabMiddleHMargin | MiddleIcon both the left and right margin |dimension | 24dp |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
 | BadgeTextSize |The textSize of the Badge      |dimension | 10dp |
@@ -172,28 +174,23 @@ Or, you can init in the oncreate
   
 ```
 
-2.If you want to achieve the middle of the button, you must set the android:clipChildren= "false" to the parent node at the top of the main interface, otherwise it will be covered.
+2.If you want to achieve the middle of the button, you parent ViewGroup must be RelativeLayout or FrameLayout,because the TabBar Add MiddleIcon into it is depend on the parent Layout
 ```JAVA
   <?xml version="1.0" encoding="utf-8"?>
-  <LinearLayout
+  <!--Use RelativeLayout or FrameLayout --!>
+  <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:jp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:gravity="bottom"
-    android:orientation="vertical"
     >
+    <!--TabBar --!>
+   </RelativeLayout>
 
 ```
 3.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
 
 # Update Log
-### V1.1.0
-   - Reverse the Rending problem in the XML
-   - Reverse the BUG of CLick Tab Event CallBack twice.
-   - Add the OnPageAnimate Method in interface,Enhance the flexibility of animation
-   
 ### V1.1.2
    - Add the Bouncing of the Animation
    - Reverse don't click when have no Pager in the Adapter
@@ -222,6 +219,11 @@ Or, you can init in the oncreate
   - Fix Bug,When setUseScrollAnimate (false), the slide TAB animation is not restored
   - Change the Filter and ScrollAnimate default is not open
   - Change the location of the Badge to the top of the level, in order to adapt to the screen adaptation
+  
+### V1.2.0
+  - Fix the bug of Touch outside area not responseable in the MiddleIcon Click Event
+  - Add some dymanic Methods in TabBar
+  - Add Attributes in MiddleIcon set
   
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。

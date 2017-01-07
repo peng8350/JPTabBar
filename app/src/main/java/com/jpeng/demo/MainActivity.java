@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
@@ -19,7 +18,7 @@ import static com.jpeng.demo.R.id.tabbar;
 public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener {
 
     private List<Fragment> list = new ArrayList<>();
-    //    @Titles
+//        @Titles
 //    private int[] titles = {R.string.Tab1Pager,R.string.Tab2Pager,R.string.Tab3Pager,R.string.Tab4Pager};
 //    @NorIcons
 //    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
@@ -41,36 +40,32 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
         mTabbar = (JPTabBar) findViewById(tabbar);
+        mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
         mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
-        mPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
-
-        mPager.setNoScroll(false);
+//
+//
         mTab1 = new Tab1Pager();
+
         mTab2 = new Tab2Pager();
+        mTab3 = new Tab3Pager();
+        mTabbar.setTabListener(this);
+        mTab4 = new Tab4Pager();
         list.add(mTab1);
         list.add(mTab2);
-        list.add(new Tab3Pager());
-        list.add(new Tab4Pager());
-//        list.add(new Tab4Pager());
-//        list.add(new Tab4Pager());
-        mPager.setAdapter(new com.jpeng.demo.Adapter(getSupportFragmentManager(), list));
-        //显示圆点模式的徽章
-        //设置容器
-        mTabbar.showBadge(0, 50);
+        list.add(mTab3);
+        list.add(mTab4);
+        mPager.setAdapter(new Adapter(getSupportFragmentManager(),list));
         mTabbar.setContainer(mPager);
-        //设置Badge消失的代理
-        mTabbar.setDismissListener(this);
-        mTabbar.setTabListener(this);
+//        //显示圆点模式的徽章
+//        //设置容器
+//        mTabbar.showBadge(0, 50);
+//        //设置Badge消失的代理
+//        mTabbar.setDismissListener(this);
+//        mTabbar.setTabListener(this);
     }
 
     @Override

@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.1.9'
+        compile 'com.jpeng:JPTabBar:1.2.0'
     }
 
 ```
@@ -153,6 +153,8 @@
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | Scale |
 | TabMiddleIcon |Tab中间的图标      |drawable | 无 |
+| TabMiddleBottomDis | 中间图标底部距离 |dimension | 20dp |
+| TabMiddleHMargin | 中间图标的左右间距 |dimension | 24dp |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
@@ -171,28 +173,23 @@
   
 ```
 
-2.假如你要实现中间凸出的按钮,必须要在主界面最外围的父结点设置  android:clipChildren="false",否则会遮盖
+2.如果你要使用中间凸出按钮,一定要使用RelativeLayout或者FrameLayout作为根结点,因为凸出按钮是依靠父layout添加进去的。
 ```JAVA
   <?xml version="1.0" encoding="utf-8"?>
-  <LinearLayout
+  <!--Use RelativeLayout or FrameLayout --!>
+  <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:jp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:gravity="bottom"
-    android:orientation="vertical"
     >
+    <!--TabBar --!>
+   </RelativeLayout>
 
 ```
 3.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
 
 # 更新日志
-### V1.1.0
-   - 解决XML布局中渲染报错问题
-   - 修复点击Tab回调两次的BUG
-   - 新增切换对动画的回调接口方法,提高TabBar动画灵活性
-
 ### V1.1.2
    - 给动画添加了弹性
    - 修复当pager没有数据时无法点击问题
@@ -221,6 +218,11 @@
   - 修正BUG,当setUseScrollAnimate(false),滑动TAB动画未有还原
   - 改变滚动动画和渐变默认关闭
   - 改变Badge的位置为水平居上方,以适应屏幕适配
+  
+### V1.2.0
+  - 修正之前一直没有解决的中间图标点击外面没有响应问题
+  - 添加一些动态的方法
+  - 添加两个结点设置中间图标的属性
   
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

@@ -27,6 +27,7 @@
         jp:TabTextSize="12sp"
         jp:TabMiddleHMargin="36dp"
         jp:TabAnimate="Scale"
+        jp:TabMiddleBottomDis="14dp"
         jp:TabMiddleIcon="@mipmap/circle"
         />
 </RelativeLayout>
