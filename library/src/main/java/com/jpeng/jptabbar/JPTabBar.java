@@ -3,7 +3,7 @@ package com.jpeng.jptabbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -65,7 +65,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     //默认中间图标底部距离
     private static final int DEFAULT_MIDDLEICONBOTTOM = 20;
     //默认中间的左右间距
-    private static final int DEFAULT_MIDDLEMARGIN= 24;
+    private static final int DEFAULT_MIDDLEMARGIN = 24;
 
     private Context mContext;
 
@@ -363,7 +363,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private ImageView BuildMiddleBtn() {
         int icon_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0);
         int bottom_dis = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabMiddleBottomDis, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEICONBOTTOM));
-        int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin,DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
+        int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
         if (icon_res == 0) return null;
         ImageView middleBtn = new ImageView(mContext);
         Drawable icon = mContext.getResources().getDrawable(icon_res);
@@ -372,9 +372,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
         middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
         middleBtn.setImageDrawable(icon);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            middleBtn.setElevation(30);
-        }
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -383,17 +380,16 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             }
         });
         if (getParent().getClass().equals(RelativeLayout.class)) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
             params.setMargins(0, 0, 0, bottom_dis);
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            params.addRule(RelativeLayout.ALIGN_BOTTOM, getId());
 
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             middleBtn.setLayoutParams(params);
-        }
-        else if(getParent().getClass().equals(FrameLayout.class)){
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width,height);
-            params.setMargins(0,0,0,bottom_dis);
-            params.gravity = Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL;
+        } else if (getParent().getClass().equals(FrameLayout.class)) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+            params.setMargins(0, 0, 0, bottom_dis);
+            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             middleBtn.setLayoutParams(params);
         }
         ((ViewGroup) getParent()).addView(middleBtn);
@@ -570,8 +566,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 生成TabItem
      */
     public void generate() {
-        int[] pos = new int[2];
-        getLocationOnScreen(pos);
         if (mJPTabItems == null)
             initFromAttribute();
     }
@@ -603,6 +597,104 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public ImageView getMiddleBtn() {
         return mMiddleItem;
     }
+
+    /**
+     * 改变图标大小
+     */
+    public void setIconSize(int size) {
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getIconView().getLayoutParams().width = DensityUtils.dp2px(mContext, size);
+                item.getIconView().getLayoutParams().height = DensityUtils.dp2px(mContext, size);
+            }
+        }
+    }
+
+    /**
+     * 改变TabBar上边距
+     */
+    public void setTabMargin(int margin) {
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                ((RelativeLayout.LayoutParams) item.getIconView().getLayoutParams()).topMargin = DensityUtils.dp2px(mContext, margin);
+            }
+        }
+    }
+
+    /**
+     * 改变普通颜色(包括字体和图标)
+     */
+    public void setNormalColor(@ColorInt int color){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.setNormalColor(color);
+            }
+        }
+    }
+
+    /**
+     * 改变选中颜色(包括字体和图标)
+     */
+    public void setSelectedColor(@ColorInt int color){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.setSelectedColor(color);
+            }
+        }
+    }
+
+    /**
+     * 改变文字大小
+     */
+    public void setTabTextSize(int textSize)
+    {
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.setTextSize(DensityUtils.sp2px(mContext,textSize));
+            }
+        }
+    }
+
+    public void setBadgeColor(@ColorInt int badgeColor){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getBadgeViewHelper().setBadgeBgColorInt(badgeColor);
+            }
+        }
+    }
+
+    public void setBadgeHorMargin(@ColorInt int horMargin){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getBadgeViewHelper().setBadgeHorizontalMarginDp(horMargin);
+            }
+        }
+    }
+
+    public void setBadgeTextSize(@ColorInt int badgeTextSize){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getBadgeViewHelper().setBadgeTextSizeSp(badgeTextSize);
+            }
+        }
+    }
+
+    public void setBadgePadding(@ColorInt int padding){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getBadgeViewHelper().setBadgePaddingDp(padding);
+            }
+        }
+    }
+
+    public void setBadgeVerMargin(@ColorInt int verMargin){
+        if (mJPTabItems != null) {
+            for (JPTabItem item : mJPTabItems) {
+                item.getBadgeViewHelper().setBadgeVerticalMarginDp(verMargin);
+            }
+        }
+    }
+
 
 
     /**

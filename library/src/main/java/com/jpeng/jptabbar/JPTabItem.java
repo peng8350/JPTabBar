@@ -269,6 +269,19 @@ public class JPTabItem extends BadgeRelativeLayout {
         this.mDismissListener = listener;
     }
 
+    void setNormalColor(int color){
+        this.mNormalColor = color;
+    }
+
+    void setSelectedColor(int color){
+        this.mSelectColor = color;
+    }
+
+    void setTextSize(int size){
+        this.mTextSize = size;
+        mTextPaint.setTextSize(mTextSize);
+    }
+
     /**
      * 设置TabItem选中的状态
      */
@@ -401,10 +414,6 @@ public class JPTabItem extends BadgeRelativeLayout {
             this.context = context;
         }
 
-        Builder setNormalColor(int normalColor) {
-            this.normalColor = normalColor;
-            return this;
-        }
 
         Builder setIconSize(int size) {
             this.iconSize = size;
@@ -415,6 +424,12 @@ public class JPTabItem extends BadgeRelativeLayout {
             this.index = index;
             return this;
         }
+
+        Builder setNormalColor(int normalColor) {
+            this.normalColor = normalColor;
+            return this;
+        }
+
 
         Builder setSelectedColor(int selectColor) {
             this.selectColor = selectColor;

@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
                 return false;
             }
         });
+
         mPager.setNoScroll(false);
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
