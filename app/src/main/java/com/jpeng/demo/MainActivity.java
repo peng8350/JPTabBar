@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
 
     private List<Fragment> list = new ArrayList<>();
 //        @Titles
-//    private int[] titles = {R.string.Tab1Pager,R.string.Tab2Pager,R.string.Tab3Pager,R.string.Tab4Pager};
+//    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
 //    @NorIcons
 //    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
 //    @SeleIcons
@@ -42,12 +42,9 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
-        mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
-                .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
-                .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
-                .generate();
-//
-//
+        mTabbar.setTitles("qwe","asd").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal)
+                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected).generate();
+
         mTab1 = new Tab1Pager();
 
         mTab2 = new Tab2Pager();
@@ -60,12 +57,12 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         list.add(mTab4);
         mPager.setAdapter(new Adapter(getSupportFragmentManager(),list));
         mTabbar.setContainer(mPager);
-//        //显示圆点模式的徽章
-//        //设置容器
-//        mTabbar.showBadge(0, 50);
-//        //设置Badge消失的代理
-//        mTabbar.setDismissListener(this);
-//        mTabbar.setTabListener(this);
+        //显示圆点模式的徽章
+        //设置容器
+        mTabbar.showBadge(0, 50);
+        //设置Badge消失的代理
+        mTabbar.setDismissListener(this);
+        mTabbar.setTabListener(this);
     }
 
     @Override

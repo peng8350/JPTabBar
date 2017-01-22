@@ -2,6 +2,8 @@ package com.jpeng.jptabbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -179,6 +181,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mMiddleItem = BuildMiddleBtn();
+    }
 
     /**
      * 从类获取注解,映射值到mTiles,mNormalIcons,mSelectedIcons
@@ -252,6 +259,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int badgePadding = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgePadding, DensityUtils.dp2px(mContext, DEFAULT_PADDING)));
         int badgeVerMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeVerticalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEVERTICAL_MARGIN)));
         int badgeHorMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeHorizonalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEHORIZONAL_MARGIN)));
+        int hMargin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
         Drawable tabselectbg = mAttribute.getDrawable(R.styleable.JPTabBar_TabSelectBg);
 
@@ -299,8 +307,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
                 if (i == (mJPTabItems.length / 2 - 1)) {
 
-                    mMiddleItem = BuildMiddleBtn();
 
+                    //添加中间的占位距离控件
+                    View stement_view = new View(mContext);
+                    ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(hMargin, ViewGroup.LayoutParams.MATCH_PARENT);
+                    stement_view.setLayoutParams(params);
+                    addView(stement_view);
                 }
 
             }
@@ -309,7 +321,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             for (int i = 1; i < mJPTabItems.length; i++) {
                 mJPTabItems[i].setSelect(mAnimater, false, false);
             }
-            mAttribute.recycle();
+
         }
     }
 
@@ -363,15 +375,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private ImageView BuildMiddleBtn() {
         int icon_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0);
         int bottom_dis = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabMiddleBottomDis, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEICONBOTTOM));
-        int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
+
         if (icon_res == 0) return null;
         ImageView middleBtn = new ImageView(mContext);
-        Drawable icon = mContext.getResources().getDrawable(icon_res);
-        int width = icon.getIntrinsicWidth();
-        int height = icon.getIntrinsicHeight();
-
+        Bitmap icon = BitmapFactory.decodeResource(mContext.getResources(),icon_res);
+        int width =icon.getWidth();
+        int height = icon.getHeight();
         middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
-        middleBtn.setImageDrawable(icon);
+        middleBtn.setImageBitmap(icon);
         middleBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -393,12 +404,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             middleBtn.setLayoutParams(params);
         }
         ((ViewGroup) getParent()).addView(middleBtn);
-
-        //添加中间的占位距离控件
-        View stement_view = new View(mContext);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(margin, ViewGroup.LayoutParams.MATCH_PARENT);
-        stement_view.setLayoutParams(params);
-        addView(stement_view);
+        mAttribute.recycle();
         return middleBtn;
     }
 

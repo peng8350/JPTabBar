@@ -25,8 +25,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         jp:TabTextSize="12sp"
-        jp:TabMiddleHMargin="36dp"
-        jp:TabAnimate="Scale"
+        jp:TabMiddleHMargin="16dp"
         jp:TabMiddleBottomDis="14dp"
         jp:TabMiddleIcon="@mipmap/circle"
         />
