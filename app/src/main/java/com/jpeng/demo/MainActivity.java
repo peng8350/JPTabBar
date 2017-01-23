@@ -8,6 +8,9 @@ import android.view.View;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
+import com.jpeng.jptabbar.anno.NorIcons;
+import com.jpeng.jptabbar.anno.SeleIcons;
+import com.jpeng.jptabbar.anno.Titles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +21,12 @@ import static com.jpeng.demo.R.id.tabbar;
 public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener {
 
     private List<Fragment> list = new ArrayList<>();
-//        @Titles
-//    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
-//    @NorIcons
-//    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
-//    @SeleIcons
-//    private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
+        @Titles
+    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
+    @NorIcons
+    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
+    @SeleIcons
+    private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
     private NoScrollViewPager mPager;
 
     private JPTabBar mTabbar;
@@ -42,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
-        mTabbar.setTitles("qwe","asd").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal)
-                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected).generate();
+//        mTabbar.setTitles("qwe","asd").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal)
+//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected).generate();
 
         mTab1 = new Tab1Pager();
 
