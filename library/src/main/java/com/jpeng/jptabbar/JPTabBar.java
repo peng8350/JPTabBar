@@ -305,7 +305,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 addView(mJPTabItems[i]);
 
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
-                if (i == (mJPTabItems.length / 2 - 1)) {
+                if (i == (mJPTabItems.length / 2 - 1)&&mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0)!=0) {
 
 
                     //添加中间的占位距离控件
