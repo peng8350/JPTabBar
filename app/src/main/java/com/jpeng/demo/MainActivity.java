@@ -1,10 +1,9 @@
 package com.jpeng.demo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
@@ -20,14 +19,18 @@ import static com.jpeng.demo.R.id.tabbar;
 
 public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener {
 
-    private List<Fragment> list = new ArrayList<>();
-        @Titles
-    private int[] titles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
-    @NorIcons
-    private int[] mNormalIcons = {R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal};
+    @Titles
+    private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
+
     @SeleIcons
-    private int[] mSelectedIcons =  {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
-    private NoScrollViewPager mPager;
+    private static final int[] mSeleIcons = {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
+
+    @NorIcons
+    private static final int[] mNormalIcons = {R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal};
+
+    private List<Fragment> list = new ArrayList<>();
+
+    private ViewPager mPager;
 
     private JPTabBar mTabbar;
 
@@ -44,12 +47,10 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
-        mPager = (NoScrollViewPager) findViewById(R.id.view_pager);
-//        mTabbar.setTitles("qwe","asd").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal)
-//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected).generate();
-
+        mPager = (ViewPager) findViewById(R.id.view_pager);
+        mTabbar.setTitles("qwe","asd","qwe","asdsa").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
+                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
         mTab1 = new Tab1Pager();
-
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
         mTabbar.setTabListener(this);
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         //设置容器
         mTabbar.showBadge(0, 50);
         //设置Badge消失的代理
-        mTabbar.setDismissListener(this);
         mTabbar.setTabListener(this);
     }
 
@@ -81,11 +81,6 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
 
     }
 
-    @Override
-    public void onClickMiddle(View middleBtn) {
-        Intent intent = new Intent(this, SayActivity.class);
-        startActivity(intent);
-    }
 
     public JPTabBar getTabbar() {
         return mTabbar;

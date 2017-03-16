@@ -2,8 +2,6 @@ package com.jpeng.jptabbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -11,10 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.jpeng.jptabbar.animate.*;
@@ -109,7 +107,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 中间按钮
      */
-    private ImageView mMiddleItem;
+    private View mMiddleItem;
 
     /**
      * 监听点击Tab回调的观察者
@@ -181,11 +179,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        mMiddleItem = BuildMiddleBtn();
-    }
 
     /**
      * 从类获取注解,映射值到mTiles,mNormalIcons,mSelectedIcons
@@ -305,14 +298,15 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 addView(mJPTabItems[i]);
 
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
-                if (i == (mJPTabItems.length / 2 - 1)&&mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0)!=0) {
+                if (i == (mJPTabItems.length / 2 - 1) && mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0) != 0) {
 
-
+                    mMiddleItem = BuildMiddleView();
                     //添加中间的占位距离控件
                     View stement_view = new View(mContext);
                     ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(hMargin, ViewGroup.LayoutParams.MATCH_PARENT);
                     stement_view.setLayoutParams(params);
                     addView(stement_view);
+
                 }
 
             }
@@ -372,42 +366,42 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-    private ImageView BuildMiddleBtn() {
-        int icon_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleIcon, 0);
-        int bottom_dis = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabMiddleBottomDis, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEICONBOTTOM));
+    private View BuildMiddleView() {
+        int layout_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0);
 
-        if (icon_res == 0) return null;
-        ImageView middleBtn = new ImageView(mContext);
-        Bitmap icon = BitmapFactory.decodeResource(mContext.getResources(),icon_res);
-        int width =icon.getWidth();
-        int height = icon.getHeight();
-        middleBtn.setScaleType(ImageView.ScaleType.FIT_XY);
-        middleBtn.setImageBitmap(icon);
-        middleBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTabSelectLis != null)
-                    mTabSelectLis.onClickMiddle(mMiddleItem);
-            }
-        });
-        if (getParent().getClass().equals(RelativeLayout.class)) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-            params.setMargins(0, 0, 0, bottom_dis);
-            params.addRule(RelativeLayout.ALIGN_BOTTOM, getId());
+        if (layout_res == 0) return null;
+        View middleView = LayoutInflater.from(mContext).inflate(layout_res, null);
 
-            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            middleBtn.setLayoutParams(params);
-        } else if (getParent().getClass().equals(FrameLayout.class)) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.setMargins(0, 0, 0, bottom_dis);
-            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            middleBtn.setLayoutParams(params);
-        }
-        ((ViewGroup) getParent()).addView(middleBtn);
-        mAttribute.recycle();
-        return middleBtn;
+
+
+        return middleView;
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if(mMiddleItem!=null)
+        fillMiddleParams();
+    }
+
+    private void fillMiddleParams() {
+        int bottom_dis = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabMiddleBottomDis, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEICONBOTTOM));
+        if (getParent().getClass().equals(RelativeLayout.class)) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, bottom_dis);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            mMiddleItem.setLayoutParams(params);
+        } else if (getParent().getClass().equals(FrameLayout.class)) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, bottom_dis);
+            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            mMiddleItem.setLayoutParams(params);
+        }
+        ((ViewGroup)getParent()).addView(mMiddleItem);
+        mAttribute.recycle();
+    }
 
     /****-------提供给开发者调用的方法---------****/
 
@@ -507,7 +501,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置徽章,传入int,是否可拖动
      */
     public void showBadge(int pos, int count, boolean draggable) {
-        if (mJPTabItems[pos] == null) return;
+        if (mJPTabItems == null || mJPTabItems[pos] == null) return;
         mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
         if (count == 0) {
             mJPTabItems[pos].hiddenBadge();
@@ -600,7 +594,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      *
      * @return
      */
-    public ImageView getMiddleBtn() {
+    public View getMiddleView() {
         return mMiddleItem;
     }
 
@@ -630,7 +624,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 改变普通颜色(包括字体和图标)
      */
-    public void setNormalColor(@ColorInt int color){
+    public void setNormalColor(@ColorInt int color) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.setNormalColor(color);
@@ -641,7 +635,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 改变选中颜色(包括字体和图标)
      */
-    public void setSelectedColor(@ColorInt int color){
+    public void setSelectedColor(@ColorInt int color) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.setSelectedColor(color);
@@ -652,16 +646,15 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 改变文字大小
      */
-    public void setTabTextSize(int textSize)
-    {
+    public void setTabTextSize(int textSize) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
-                item.setTextSize(DensityUtils.sp2px(mContext,textSize));
+                item.setTextSize(DensityUtils.sp2px(mContext, textSize));
             }
         }
     }
 
-    public void setBadgeColor(@ColorInt int badgeColor){
+    public void setBadgeColor(@ColorInt int badgeColor) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.getBadgeViewHelper().setBadgeBgColorInt(badgeColor);
@@ -669,7 +662,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    public void setBadgeHorMargin(@ColorInt int horMargin){
+    public void setBadgeHorMargin(@ColorInt int horMargin) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.getBadgeViewHelper().setBadgeHorizontalMarginDp(horMargin);
@@ -677,7 +670,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    public void setBadgeTextSize(@ColorInt int badgeTextSize){
+    public void setBadgeTextSize(@ColorInt int badgeTextSize) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.getBadgeViewHelper().setBadgeTextSizeSp(badgeTextSize);
@@ -685,7 +678,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    public void setBadgePadding(@ColorInt int padding){
+    public void setBadgePadding(@ColorInt int padding) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.getBadgeViewHelper().setBadgePaddingDp(padding);
@@ -693,14 +686,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    public void setBadgeVerMargin(@ColorInt int verMargin){
+    public void setBadgeVerMargin(@ColorInt int verMargin) {
         if (mJPTabItems != null) {
             for (JPTabItem item : mJPTabItems) {
                 item.getBadgeViewHelper().setBadgeVerticalMarginDp(verMargin);
             }
         }
     }
-
 
 
     /**

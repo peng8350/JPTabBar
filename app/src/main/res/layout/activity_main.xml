@@ -10,7 +10,7 @@
 
 
 
-    <com.jpeng.demo.NoScrollViewPager
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:id="@+id/view_pager"
         android:layout_marginBottom="48dp"
@@ -23,9 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        jp:TabMiddleView="@layout/view_mitem"
         android:background="@drawable/tab_bg"
-        jp:TabTextSize="12sp"
-        jp:TabMiddleHMargin="26dp"
-        jp:TabMiddleBottomDis="14dp"
+        jp:TabMiddleBottomDis="10dp"
         />
 </RelativeLayout>

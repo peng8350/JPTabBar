@@ -1,7 +1,5 @@
 package com.jpeng.jptabbar;
 
-import android.view.View;
-
 /**
  * Created by jpeng on 16-11-13.
  * 点击回调监听
@@ -14,10 +12,6 @@ public interface OnTabSelectListener {
      */
     void onTabSelect(int index);
 
-    /**
-     * 用户点击中间的图标
-     */
-    void onClickMiddle(View middleBtn);
 
 
 
