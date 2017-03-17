@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.2.1'
+        compile 'com.jpeng:JPTabBar:1.2.3'
     }
 
 ```
@@ -139,6 +139,11 @@ Or, you can init in the oncreate
      * set the CallBack of the Badge Dragging Dismiss
      */
     public void setDismissListener(BadgeDismissListener listener);
+    
+     /**
+      * get the TabMiddleItem View that you set in "TabMiddleView" attribute
+     */
+    public View getMiddleView();
 ```
 ### Attribute Explain:
 | Attribute Name        |     Attribute Explain     | Parameter Type | Default Value  |
@@ -151,7 +156,7 @@ Or, you can init in the oncreate
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
 | TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | Scale |
-| TabMiddleIcon |The middle Icon of the tab      |drawable | 无 |
+| TabMiddleView |The middle View of the tab      |layout | 无 |
 | TabMiddleBottomDis | Midlle icon bottomMargin from TabBar  |dimension | 20dp |
 | TabMiddleHMargin | MiddleIcon both the left and right margin |dimension | 24dp |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
@@ -225,6 +230,11 @@ Or, you can init in the oncreate
   - Add some dymanic Methods in TabBar
   - Add Attributes in MiddleIcon set
   
+### V1.2.3
+  - Fix some problems or bugs.
+  - Updated RotateAnimater
+  - Add Custom Middle View to replace only Icon
+    
 # Hope
 </p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
 <br><br>

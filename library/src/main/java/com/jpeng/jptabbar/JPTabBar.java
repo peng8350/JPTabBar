@@ -518,6 +518,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
+
     /**
      * 隐藏徽章
      *

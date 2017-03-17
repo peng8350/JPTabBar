@@ -23,7 +23,7 @@ public class RotateAnimater extends BouncingAnimater implements Animatable {
                 ViewHelper.setRotation(target, value);
             }
         });
-        getSpring().setCurrentValue(selected?0f:360f);
+        getSpring().setCurrentValue(selected?0f:180f);
         getSpring().setEndValue(selected?360f:0f);
 
     }

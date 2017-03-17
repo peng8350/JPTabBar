@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.2.1'
+        compile 'com.jpeng:JPTabBar:1.2.3'
     }
 
 ```
@@ -139,6 +139,11 @@
      * 设置badgeView消失的回调事件
      */
     public void setDismissListener(BadgeDismissListener listener);
+    
+    /**
+     * 这个方法用来获得中间TabItem的View对象(即你在XML设置的"TabMiddleView")
+     */
+    public View getMiddleView();
 ```
 
 ### 结点说明:
@@ -152,7 +157,7 @@
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | Scale |
-| TabMiddleIcon |Tab中间的图标      |drawable | 无 |
+| TabMiddleView |Tab中间自定义View      |layout | 无 |
 | TabMiddleBottomDis | 中间图标底部距离 |dimension | 20dp |
 | TabMiddleHMargin | 中间图标的左右间距 |dimension | 24dp |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
@@ -223,6 +228,11 @@
   - 修正之前一直没有解决的中间图标点击外面没有响应问题
   - 添加一些动态的方法
   - 添加两个结点设置中间图标的属性
+  
+### V1.2.3
+  - 修改一些存在问题和BUG
+  - 优化了旋转动画弹性
+  - 中间TabItem 使用自定义View代替只可以一个图标
   
 # 希望
 </p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。

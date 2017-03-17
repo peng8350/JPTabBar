@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (ViewPager) findViewById(R.id.view_pager);
-//        mTabbar.setTitles("qwe","asd","qwe","asdsa").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
-//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
+        mTabbar.setTitles("qwe","asd","qwe","asdsa").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
+                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         list.add(mTab4);
         mPager.setAdapter(new Adapter(getSupportFragmentManager(),list));
         mTabbar.setContainer(mPager);
+        mTabbar.setDismissListener(this);
         //显示圆点模式的徽章
         //设置容器
         mTabbar.showBadge(0, 50);
