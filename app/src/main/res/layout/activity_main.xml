@@ -23,8 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        jp:TabMiddleView="@layout/view_mitem"
         android:background="@drawable/tab_bg"
-        jp:TabMiddleBottomDis="10dp"
         />
 </RelativeLayout>

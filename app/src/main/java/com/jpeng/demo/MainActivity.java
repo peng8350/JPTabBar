@@ -17,7 +17,7 @@ import java.util.List;
 import static com.jpeng.demo.R.id.tabbar;
 
 
-public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener {
+public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener{
 
     @Titles
     private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (ViewPager) findViewById(R.id.view_pager);
-        mTabbar.setTitles("qwe","asd","qwe","asdsa").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
-                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
+//        mTabbar.setTitles("qwe","asd","qwe","asdsa").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
+//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
@@ -85,5 +85,6 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
     public JPTabBar getTabbar() {
         return mTabbar;
     }
+
 
 }

@@ -316,6 +316,10 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setSelect(mAnimater, false, false);
             }
 
+            if(mMiddleItem==null){
+                //假如用户没有设置中间View,就回收节省内存
+                mAttribute.recycle();
+            }
         }
     }
 
@@ -713,6 +717,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置badgeView消失的回调事件
      */
     public void setDismissListener(BadgeDismissListener listener) {
+        if(mJPTabItems!=null)
         for (JPTabItem item : mJPTabItems) {
             item.setDismissDelegate(listener);
         }

@@ -25,7 +25,7 @@ public class JPTabItem extends BadgeRelativeLayout {
 
 
     //颜色渐变时间
-    private static final int FILTER_DURATION = 300;
+    private static final int FILTER_DURATION = 10;
     /**
      * 上下文
      */
