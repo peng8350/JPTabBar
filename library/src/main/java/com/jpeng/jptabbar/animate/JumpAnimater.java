@@ -15,7 +15,7 @@ public class JumpAnimater extends BouncingAnimater implements Animatable {
     @Override
     public void playAnimate(final View target, final boolean selected) {
         setPlaying(true);
-        buildSpring();
+        buildSpring(50,2);
         getSpring().addListener(new SimpleSpringListener() {
             @Override
             public void onSpringUpdate(Spring spring) {

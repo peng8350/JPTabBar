@@ -14,7 +14,7 @@ public class RotateAnimater extends BouncingAnimater implements Animatable {
     @Override
     public void playAnimate(final View target, boolean selected) {
         setPlaying(true);
-        buildSpring();
+        buildSpring(12.5,4);
         getSpring().addListener(new SimpleSpringListener() {
             @Override
             public void onSpringUpdate(Spring spring) {

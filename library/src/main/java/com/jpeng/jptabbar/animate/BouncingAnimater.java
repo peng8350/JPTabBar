@@ -31,10 +31,10 @@ public abstract class BouncingAnimater {
         }
     }
 
-    public Spring buildSpring(){
+    public Spring buildSpring(double qcTension,double qcFriction){
         SpringSystem mSystem = SpringSystem.create();
         mSpring = mSystem.createSpring();
-        mSpring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(50, 2));
+        mSpring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(qcTension,qcFriction));
         return mSpring;
     };
 }
