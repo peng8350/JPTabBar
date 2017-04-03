@@ -35,7 +35,6 @@
 2.添加JPTabBar到你的主界面布局
 ```JAVA
 
-
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
@@ -43,6 +42,7 @@
         android:background="#fff"
          jp:TabTextSize="12sp"
         />
+     
 ```
 3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons是必须的,每个数组长度要保持一致
 
@@ -65,12 +65,15 @@
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
-4.经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:(当然如果你不使用ViewPager的话，不调用这个方法)
+经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:(当然如果你不使用ViewPager的话，不调用这个方法)
 ```JAVA
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
 ```
-
+此外,如果想要达到凸出按钮的效果,需要在XML的当前控件追加以下代码,在JAVA代码可以通过getMiddleView获得凸出按钮的View对象
+```JAVA
+    jp:TabMiddleView="@layout/你自定义的layout"
+```
 
 
 # 方法和节点说明:
@@ -157,7 +160,7 @@
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | Scale |
-| TabMiddleView |Tab中间自定义View      |layout | 无 |
+| TabMiddleView |Tab中间自定义View     |layout | 无 |
 | TabMiddleBottomDis | 中间图标底部距离 |dimension | 20dp |
 | TabMiddleHMargin | 中间图标的左右间距 |dimension | 24dp |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
@@ -234,11 +237,6 @@
   - 优化了旋转动画弹性
   - 中间TabItem 使用自定义View代替只可以一个图标
   
-# 希望
-</p>如果你觉得这个项目快速和有用,有帮助,别忘记点一下右上角的星星,因为我要在下下年挑战BAT校招。
-<br><br>
-</p>世界上再强的程序员写代码过程中难免会出现BUG,如果使用者发现BUG,可联系我或者直接issue,谢谢！
-
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>
 邮箱:peng8350@gmail.com

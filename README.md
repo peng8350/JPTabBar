@@ -67,10 +67,14 @@ Or, you can init in the oncreate
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
-4.After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:(Of curse,If you don't use ViewPager,You needn't use this method)
+After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:(Of curse,If you don't use ViewPager,You needn't use this method)
 ```JAVA
     //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
+```
+In addition, if you want to achieve the effect of the highlight button, you need to add the following code in the current widget of the XML, you can use getMiddleView method to get the view you custom in attribute.
+```JAVA
+    jp:TabMiddleView="@layout/你自定义的layout"
 ```
 
 
@@ -235,11 +239,6 @@ Or, you can init in the oncreate
   - Updated RotateAnimater
   - Add Custom Middle View to replace only Icon
     
-# Hope
-</p>If you think this project is fast and useful, help, don't forget to click on the upper right corner of the star, because I want to challenge the BAT school recruit in the next year。
-<br><br>
-</p>The world's strong programmer code process will inevitably appear BUG, if the user found BUG, you can contact me or directly issue, thank you！
-
 # About Me
 A college student, is still in the study of various techniques...<br>
 E-mail:peng8350@gmail.com
