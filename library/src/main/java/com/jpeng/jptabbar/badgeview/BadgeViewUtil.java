@@ -30,9 +30,39 @@ package com.jpeng.jptabbar.badgeview;
         }
 
     public static int getStatusBarHeight(View view) {
-        Rect rectangle = new Rect();
-        view.getRootView().getWindowVisibleDisplayFrame(rectangle);
-        return rectangle.top;
+        int statusBarHeight = 0;
+
+        //尝试通过系统尺寸资源获取状态栏高度
+        try {
+            //获取status_bar_height资源的ID
+            int resourceId = view.getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = view.getContext().getResources().getDimensionPixelSize(resourceId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //尝试借助应用区域的top属性获取状态栏高度
+        //此方式只有onWindowFocusChanged()回调后方会生效，onCreate中调用无效
+        if (0 == statusBarHeight) {
+            Rect rectangle = new Rect();
+            view.getRootView().getWindowVisibleDisplayFrame(rectangle);
+            statusBarHeight = rectangle.top;
+        }
+
+        //尝试借助反射R类实例域方式获取状态栏高度
+        if (0 == statusBarHeight){
+            try {
+                Class<?> clazz = Class.forName("com.android.internal.R$dimen");
+                Object object = clazz.newInstance();
+                int height = Integer.parseInt(clazz.getField("status_bar_height")
+                        .get(object).toString());
+                statusBarHeight = view.getContext().getResources().getDimensionPixelSize(height);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return statusBarHeight;
     }
 
     public static Bitmap createBitmapSafely(DragBadgeView dragBadgeView, Rect rect, int retryCount) {
