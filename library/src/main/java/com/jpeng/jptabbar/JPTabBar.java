@@ -327,7 +327,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 切换Tab页面,是否带动画
      */
-    private void setSelectTab(int index, boolean animated) {
+    public void setSelectTab(int index, boolean animated) {
         if (mJPTabItems == null || index > mJPTabItems.length - 1) return;
         mSelectIndex = index;
         //把全部tab selected设置为false
