@@ -300,7 +300,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
                 if (i == (mJPTabItems.length / 2 - 1) && mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0) != 0) {
 
-                    mMiddleItem = BuildMiddleView();
                     //添加中间的占位距离控件
                     View stement_view = new View(mContext);
                     ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(hMargin, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -316,10 +315,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setSelect(mAnimater, false, false);
             }
 
-            if(mMiddleItem==null){
-                //假如用户没有设置中间View,就回收节省内存
-                mAttribute.recycle();
-            }
         }
     }
 
@@ -370,41 +365,46 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-    private View BuildMiddleView() {
+    private void BuildMiddleView() {
+
         int layout_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0);
+        if (layout_res == 0){
+            return ;
+        }
 
-        if (layout_res == 0) return null;
-        View middleView = LayoutInflater.from(mContext).inflate(layout_res, null);
+        mMiddleItem = LayoutInflater.from(mContext).inflate(layout_res, (ViewGroup) getParent(),false);
 
+        //给中间自定义View填充额外参数,令布局在父View的中间和最下边的位置(父View指的是TabBar的父控件)
+        fillMiddleParams();
 
-
-        return middleView;
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if(mMiddleItem!=null)
-        fillMiddleParams();
+        if(mMiddleItem==null){
+            BuildMiddleView();
+        }
+        mAttribute.recycle();
+
     }
 
     private void fillMiddleParams() {
         int bottom_dis = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabMiddleBottomDis, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEICONBOTTOM));
         if (getParent().getClass().equals(RelativeLayout.class)) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mMiddleItem.getLayoutParams();
             params.setMargins(0, 0, 0, bottom_dis);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             mMiddleItem.setLayoutParams(params);
         } else if (getParent().getClass().equals(FrameLayout.class)) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mMiddleItem.getLayoutParams();
             params.setMargins(0, 0, 0, bottom_dis);
             params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             mMiddleItem.setLayoutParams(params);
         }
         ((ViewGroup)getParent()).addView(mMiddleItem);
-        mAttribute.recycle();
+
     }
 
     /****-------提供给开发者调用的方法---------****/
@@ -600,6 +600,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * @return
      */
     public View getMiddleView() {
+        //解决开发者在activity引用了注解并且在oncreate方法调用这个方法空指针的问题
+        if(mMiddleItem==null){
+            BuildMiddleView();
+        }
+
         return mMiddleItem;
     }
 

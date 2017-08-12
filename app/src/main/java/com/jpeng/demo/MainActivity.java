@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         mTabbar.showBadge(0, 50);
         //设置Badge消失的代理
         mTabbar.setTabListener(this);
+
+        mTabbar.getMiddleView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"中间点击",0).show();;
+            }
+        });
     }
 
     @Override

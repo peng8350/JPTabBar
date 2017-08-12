@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="300dp"
-              android:layout_height="300dp"
-              android:layout_margin="30dp"
-              android:weightSum="1">
+           android:src="@mipmap/circle"
+              android:layout_width="60dp"
+           android:layout_marginLeft="20dp"
+              android:layout_height="60dp"
+           >
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/circle"
-        android:id="@+id/imageView"
-       />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="更多"
-        android:gravity="center"
-        android:id="@+id/textView3"/>
-</LinearLayout>
+</ImageView>
