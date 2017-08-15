@@ -28,7 +28,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.2.3'
+        compile 'com.jpeng:JPTabBar:1.2.5'
     }
 
 ```
@@ -72,7 +72,7 @@
 ```
 此外,如果想要达到凸出按钮的效果,需要在XML的当前控件追加以下代码,在JAVA代码可以通过getMiddleView获得凸出按钮的View对象
 ```JAVA
-    jp:TabMiddleView="@layout/你自定义的layout"
+    jp:TabMiddleView="@layout/..."
 ```
 
 
@@ -237,6 +237,10 @@
   - 优化了旋转动画弹性
   - 中间TabItem 使用自定义View代替只可以一个图标
   
+### V1.2.5
+  - 添加另外一种方法去获取状态栏的高度
+  - 修正中间View布局参数的BUG
+    
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>
 邮箱:peng8350@gmail.com

@@ -30,7 +30,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.2.3'
+        compile 'com.jpeng:JPTabBar:1.2.5'
     }
 
 ```
@@ -74,7 +74,7 @@ After above, the layout of the TabBar basically has been built. If you want to a
 ```
 In addition, if you want to achieve the effect of the highlight button, you need to add the following code in the current widget of the XML, you can use getMiddleView method to get the view you custom in attribute.
 ```JAVA
-    jp:TabMiddleView="@layout/你自定义的layout"
+    jp:TabMiddleView="@layout/..."
 ```
 
 
@@ -199,6 +199,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
 ```
 3.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
 
+
 # Update Log
 ### V1.1.2
    - Add the Bouncing of the Animation
@@ -238,6 +239,10 @@ In addition, if you want to achieve the effect of the highlight button, you need
   - Fix some problems or bugs.
   - Updated RotateAnimater
   - Add Custom Middle View to replace only Icon
+  
+### V1.2.5
+  - Add another way to get the StatusbarHeight
+  - Fix the bug of Customview Layoutparams
     
 # About Me
 A college student, is still in the study of various techniques...<br>
