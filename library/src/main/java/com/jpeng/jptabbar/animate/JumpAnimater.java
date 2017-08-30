@@ -1,33 +1,20 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
-import com.facebook.rebound.SimpleSpringListener;
-import com.facebook.rebound.Spring;
 import com.nineoldandroids.view.ViewHelper;
+
+import static android.R.attr.value;
 
 /**
  * Created by jpeng on 16-11-15.
  * 实现跳跃图标的动画类
  */
-public class JumpAnimater extends BouncingAnimater implements Animatable {
+public class JumpAnimater extends BouncingAnimater{
 
 
     @Override
     public void playAnimate(final View target, final boolean selected) {
         setPlaying(true);
-        buildSpring(50,2);
-        getSpring().addListener(new SimpleSpringListener() {
-            @Override
-            public void onSpringUpdate(Spring spring) {
-                float value = (float) spring.getCurrentValue();
-                if (isPlaying()) {
-                    ViewHelper.setTranslationY(target, -value * 7);
-                    ViewHelper.setRotationY(target, value * 180);
-                }
-
-            }
-        });
-        getSpring().setCurrentValue(selected?0f:1);
         getSpring().setEndValue(selected?1f:0f);
 
     }
@@ -46,4 +33,11 @@ public class JumpAnimater extends BouncingAnimater implements Animatable {
     }
 
 
+    @Override
+    public void onSpringUpdate(View target, float currentValue) {
+        if (isPlaying()) {
+            ViewHelper.setTranslationY(target, -value * 7);
+            ViewHelper.setRotationY(target, value * 180);
+        }
+    }
 }
