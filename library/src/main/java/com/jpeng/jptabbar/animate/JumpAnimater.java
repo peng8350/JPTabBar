@@ -3,8 +3,6 @@ package com.jpeng.jptabbar.animate;
 import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
-import static android.R.attr.value;
-
 /**
  * Created by jpeng on 16-11-15.
  * 实现跳跃图标的动画类
@@ -13,18 +11,18 @@ public class JumpAnimater extends BouncingAnimater{
 
 
     @Override
-    public void playAnimate(final View target, final boolean selected) {
+    public void playAnimate(boolean selected) {
         setPlaying(true);
         getSpring().setEndValue(selected?1f:0f);
 
     }
 
     @Override
-    public void onPageAnimate(final View target, float offset) {
+    public void onPageAnimate(float offset) {
         setPlaying(false);
 
-        ViewHelper.setTranslationY(target, offset * -7);
-        ViewHelper.setRotationY(target, offset * 180);
+        ViewHelper.setTranslationY(mTarget, offset * -7);
+        ViewHelper.setRotationY(mTarget, offset * 180);
     }
 
     @Override
@@ -36,8 +34,8 @@ public class JumpAnimater extends BouncingAnimater{
     @Override
     public void onSpringUpdate(View target, float currentValue) {
         if (isPlaying()) {
-            ViewHelper.setTranslationY(target, -value * 7);
-            ViewHelper.setRotationY(target, value * 180);
+            ViewHelper.setTranslationY(target, -currentValue * 7);
+            ViewHelper.setRotationY(target, currentValue * 180);
         }
     }
 }

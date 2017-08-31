@@ -15,7 +15,7 @@ public abstract class BouncingAnimater implements Animatable{
     //是否正在播放动画
     private boolean mPlaying;
     //动画控件
-    private View mTarget;
+    View mTarget;
 
     public BouncingAnimater(){
         buildSpring();

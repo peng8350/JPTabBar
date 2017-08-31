@@ -95,11 +95,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private int[] mSelectedIcons;
 
     /**
-     * 动画的实现类
-     */
-    private Animatable mAnimater;
-
-    /**
      * 所有Tabitem
      */
     private JPTabItem[] mJPTabItems;
@@ -167,17 +162,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     }
 
-    private void setAnimater(int type) {
-        if (type == SCALE_TYPE) {
-            mAnimater = new ScaleAnimater();
-        } else if (type == ROTATE_TYPE) {
-            mAnimater = new RotateAnimater();
-        } else if (type == FLIP_TYPE) {
-            mAnimater = new FlipAnimater();
-        } else if (type == JUMP_TYPE) {
-            mAnimater = new JumpAnimater();
-        }
-    }
 
 
     /**
@@ -231,9 +215,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         return total > 0;
     }
 
-    Animatable getAnimater() {
-        return mAnimater;
-    }
 
     /**
      * 获取所有节点属性
@@ -256,28 +237,23 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
         Drawable tabselectbg = mAttribute.getDrawable(R.styleable.JPTabBar_TabSelectBg);
 
-        setAnimater(AnimateType);
-
-
         //假如所有都为空默认已经开启了
-
         if (!isInEditMode()) {
             CheckIfAssertError(mTitles, mNormalIcons, mSelectedIcons);
-
-
             //计算Tab的宽度
 
             mJPTabItems = new JPTabItem[mNormalIcons.length];
             //实例化TabItem添加进去
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
-
+                Animatable animater = AnimateType==SCALE_TYPE?new ScaleAnimater():AnimateType==ROTATE_TYPE?new RotateAnimater():
+                        AnimateType==JUMP_TYPE?new JumpAnimater():AnimateType==FLIP_TYPE?new FlipAnimater():null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
                         .setSelectedColor(selectColor).setBadgeHorMargin(badgeHorMargin)
                         .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)
-                        .setBadgeVerMargin(badgeVerMargin).setMargin(margin)
+                        .setBadgeVerMargin(badgeVerMargin).setMargin(margin).setAnimater(animater)
                         .setSelectIcon(mSelectedIcons == null ? 0 : mSelectedIcons[i]).build();
                 mJPTabItems[i].setOnClickListener(new OnClickListener() {
                     @Override
@@ -310,9 +286,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
             }
 
-            mJPTabItems[0].setSelect(mAnimater, true, true, false);
+            mJPTabItems[0].setSelect(true, true, false);
             for (int i = 1; i < mJPTabItems.length; i++) {
-                mJPTabItems[i].setSelect(mAnimater, false, false);
+                mJPTabItems[i].setSelect(false, false);
             }
 
         }
@@ -331,14 +307,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 continue;
             }
             if (!mJPTabItems[i].isSelect()) {
-                mJPTabItems[i].setSelect(mAnimater, false, animated);
+                mJPTabItems[i].setSelect(false, animated);
             } else {
-                mJPTabItems[i].setSelect(mAnimater, false, animated);
+                mJPTabItems[i].setSelect(false, animated);
             }
 
         }
 
-        mJPTabItems[index].setSelect(mAnimater, true, animated);
+        mJPTabItems[index].setSelect(true, animated);
 
         if (mTabSelectLis != null) {
             mTabSelectLis.onTabSelect(index);
@@ -709,7 +685,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置自定义动画
      */
     public void setCustomAnimate(@NonNull Animatable customAnimate) {
-        this.mAnimater = customAnimate;
+        for(int i = 0;i<mJPTabItems.length;i++){
+            mJPTabItems[i].setAnimater(customAnimate);
+        }
     }
 
     /**
@@ -740,11 +718,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[position + 1].changeAlpha(positionOffset);
             }
 
-            if (mAnimater != null && mNeedScrollAnimate) {
-                if (mAnimater.isNeedPageAnimate()) {
+            if (mJPTabItems[position].getAnimater() != null && mNeedScrollAnimate) {
+                if (mJPTabItems[position].getAnimater().isNeedPageAnimate()) {
                     mNeedAnimate = false;
-                    mAnimater.onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
-                    mAnimater.onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
+                    mJPTabItems[position].getAnimater().onPageAnimate(1 - positionOffset);
+                    mJPTabItems[position+1].getAnimater().onPageAnimate(positionOffset);
                 } else {
                     mNeedAnimate = true;
                 }

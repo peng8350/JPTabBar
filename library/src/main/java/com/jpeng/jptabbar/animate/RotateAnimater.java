@@ -12,16 +12,16 @@ import static android.R.attr.value;
 public class RotateAnimater extends BouncingAnimater{
 
     @Override
-    public void playAnimate(final View target, boolean selected) {
+    public void playAnimate(boolean selected) {
         setPlaying(true);
         getSpring().setEndValue(selected?360f:0f);
 
     }
 
     @Override
-    public void onPageAnimate(View target,float offset) {
+    public void onPageAnimate(float offset) {
         setPlaying(false);
-        ViewHelper.setRotation(target, offset*360);
+        ViewHelper.setRotation(mTarget, offset*360);
 
     }
 
@@ -34,6 +34,6 @@ public class RotateAnimater extends BouncingAnimater{
     @Override
     public void onSpringUpdate(View target, float currentValue) {
         if(isPlaying())
-            ViewHelper.setRotation(target, value);
+            ViewHelper.setRotation(target, currentValue);
     }
 }

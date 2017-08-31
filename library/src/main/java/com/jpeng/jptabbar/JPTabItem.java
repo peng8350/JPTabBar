@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.jpeng.jptabbar.animate.Animatable;
+import com.jpeng.jptabbar.animate.BouncingAnimater;
 import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
 import com.jpeng.jptabbar.badgeview.Badgeable;
 import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
@@ -51,55 +52,25 @@ public class JPTabItem extends BadgeRelativeLayout {
     private int mMargin;
 
     /**
-     * Tab的没有选中图标
-     */
-    private Drawable mNormalIcon;
-
-    /**
-     * Tab选中的图标
-     */
-    private Drawable mSelectIcon;
-
-    /**
      * 选中颜色(包括底部文字和图标)
      */
     private int mSelectColor;
-
 
     /**
      * 没有选中的颜色(包括底部文字和图标)
      */
     private int mNormalColor;
 
-    /**
-     * 选中的颜色
-     */
-    private Drawable mSelectBg;
 
     /**
      * Tab字体大小
      */
     private int mTextSize;
-    /**
-     * Tab字体的画笔
-     */
-    private Paint mTextPaint;
 
     /**
      * 允许图标颜色随着字体颜色变化而变化
      */
     private boolean mAcceptFilter;
-
-    /**
-     * 图标的图层
-     */
-    private LayerDrawable mCompundIcon;
-
-
-    /**
-     * 图标ImageView
-     */
-    private ImageView mIconView;
 
     /**
      * Badge的字体大小
@@ -132,6 +103,42 @@ public class JPTabItem extends BadgeRelativeLayout {
      * badge的间距
      */
     private int mBadgePadding;
+
+    /**
+     * Tab的没有选中图标
+     */
+    private Drawable mNormalIcon;
+
+    /**
+     * Tab选中的图标
+     */
+    private Drawable mSelectIcon;
+
+    /**
+     * 选中的颜色
+     */
+    private Drawable mSelectBg;
+
+    /**
+     * Tab字体的画笔
+     */
+    private Paint mTextPaint;
+
+    /**
+     * 图标的图层
+     */
+    private LayerDrawable mCompundIcon;
+
+
+    /**
+     * 图标ImageView
+     */
+    private ImageView mIconView;
+
+    /**
+     * 动画对象
+     */
+    private Animatable mAnimater;
 
 
     /**
@@ -195,6 +202,11 @@ public class JPTabItem extends BadgeRelativeLayout {
     private void initImageView() {
         //设置ImageView布局属性
         mIconView = new ImageView(mContext);
+        //绑定动画需要操作的控件
+        if(mAnimater!=null&&mAnimater instanceof BouncingAnimater) {
+            ((BouncingAnimater) mAnimater).bindTarget(mIconView);
+        }
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 mIconSize, mIconSize);
         params.addRule(mTitle == null ? RelativeLayout.CENTER_IN_PARENT : RelativeLayout.CENTER_HORIZONTAL);
@@ -262,6 +274,13 @@ public class JPTabItem extends BadgeRelativeLayout {
         return mIconView;
     }
 
+    Animatable getAnimater(){
+        return mAnimater;
+    }
+
+    void setAnimater(Animatable animater){
+        mAnimater = animater;
+    }
     /**
      * 给Item设置代理
      */
@@ -285,11 +304,11 @@ public class JPTabItem extends BadgeRelativeLayout {
     /**
      * 设置TabItem选中的状态
      */
-    void setSelect(Animatable animater, boolean selected, boolean animated){
-        setSelect(animater,selected,animated,true);
+    void setSelect(boolean selected, boolean animated){
+        setSelect(selected,animated,true);
     }
 
-    void setSelect(Animatable animater,boolean selected,boolean animated,boolean filter){
+    void setSelect(boolean selected,boolean animated,boolean filter){
         if (selected && mSelectBg != null) {
             setBackgroundDrawable(mSelectBg);
         } else {
@@ -299,14 +318,14 @@ public class JPTabItem extends BadgeRelativeLayout {
             mSelected = selected;
             if (mCompundIcon != null) {
                 if (selected) {
-                    if (!animated||animater==null||!filter) {
+                    if (!animated||mAnimater==null||!filter) {
                         changeAlpha(1f);
                     } else{
                         ObjectAnimator.ofInt(mSelectIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 255, 0).setDuration(FILTER_DURATION).start();
                     }
                 } else {
-                    if (!animated||animater==null||!filter) {
+                    if (!animated||mAnimater==null||!filter) {
                         changeAlpha(0f);
                     } else{
                         ObjectAnimator.ofInt(mNormalIcon, "alpha", 0, 255).setDuration(FILTER_DURATION).start();
@@ -318,8 +337,8 @@ public class JPTabItem extends BadgeRelativeLayout {
             }
             //播放动画
             if (animated) {
-                if (animater != null) {
-                    animater.playAnimate(mIconView, mSelected);
+                if (mAnimater != null) {
+                    mAnimater.playAnimate(mSelected);
                 }
             }
 
@@ -409,11 +428,17 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         private boolean iconfilter;
 
+        private Animatable animater;
+
 
         Builder(Context context) {
             this.context = context;
         }
 
+        Builder setAnimater(Animatable animater){
+            this.animater = animater;
+            return this;
+        }
 
         Builder setIconSize(int size) {
             this.iconSize = size;
@@ -520,6 +545,7 @@ public class JPTabItem extends BadgeRelativeLayout {
             item.mMargin = margin;
             item.mAcceptFilter = iconfilter;
             item.mSelectBg = selectbg;
+            item.mAnimater = animater;
             item.init(context);
             return item;
         }

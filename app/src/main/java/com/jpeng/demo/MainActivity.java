@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         mTabbar.showBadge(0, 50);
         //设置Badge消失的代理
         mTabbar.setTabListener(this);
-
         mTabbar.getMiddleView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
