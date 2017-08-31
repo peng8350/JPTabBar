@@ -22,7 +22,7 @@
    - [x] Reference annotation method, construction TabBarItem
    
 # Dependencies
-[Rebound](https://github.com/facebook/rebound)
+[Rebound](https://github.com/facebook/rebound)<br>
 [BGABadgeView-Android](https://github.com/bingoogolapple/BGABadgeView-Android)
 
 # Usage:
