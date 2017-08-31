@@ -6,8 +6,7 @@
 阅读中文文档 [请点击这里](https://github.com/peng8350/JPTabBar/blob/master/README_CN.md)
 
 # ScreenShots:
-   ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
-    
+   ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br> 
              
 # Main functions and features:
    - [x] More Animation effects of multiple Tab switching
@@ -21,6 +20,10 @@
    - [x] Provide listening to the click event, middle click and badge is dragged away the interface
 
    - [x] Reference annotation method, construction TabBarItem
+   
+# Dependencies
+[Rebound](https://github.com/facebook/rebound)
+[BGABadgeView-Android](https://github.com/bingoogolapple/BGABadgeView-Android)
 
 # Usage:
   1.Introducing Gradle dependency
