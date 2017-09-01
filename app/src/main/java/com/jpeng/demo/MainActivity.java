@@ -1,5 +1,6 @@
 package com.jpeng.demo;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -9,9 +10,11 @@ import android.widget.Toast;
 import com.jpeng.jptabbar.BadgeDismissListener;
 import com.jpeng.jptabbar.JPTabBar;
 import com.jpeng.jptabbar.OnTabSelectListener;
+import com.jpeng.jptabbar.animate.Animatable;
 import com.jpeng.jptabbar.anno.NorIcons;
 import com.jpeng.jptabbar.anno.SeleIcons;
 import com.jpeng.jptabbar.anno.Titles;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,21 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
                 Toast.makeText(MainActivity.this,"中间点击",0).show();;
             }
         });
+//        mTabbar.setCustomAnimate(new Animatable() {
+//            @Override
+//            public void playAnimate(View v, boolean selected) {
+//            }
+//
+//            @Override
+//            public void onPageAnimate(View v, float offset) {
+//
+//            }
+//
+//            @Override
+//            public boolean isNeedPageAnimate() {
+//                return false;
+//            }
+//        });
     }
 
     @Override

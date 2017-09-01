@@ -3,8 +3,6 @@ package com.jpeng.jptabbar.animate;
 import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
-import static android.R.attr.value;
-
 /**
  * Created by jpeng on 16-11-15.
  * 实现旋转的动画类
@@ -12,14 +10,24 @@ import static android.R.attr.value;
 public class RotateAnimater extends BouncingAnimater{
 
     @Override
-    public void playAnimate(boolean selected) {
+    public void onPressDown(View v) {
+
+    }
+
+    @Override
+    public void onTouchOut(View v) {
+
+    }
+
+    @Override
+    public void playAnimate(View v,boolean selected) {
         setPlaying(true);
         getSpring().setEndValue(selected?360f:0f);
 
     }
 
     @Override
-    public void onPageAnimate(float offset) {
+    public void onPageAnimate(View v,float offset) {
         setPlaying(false);
         ViewHelper.setRotation(mTarget, offset*360);
 

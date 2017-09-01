@@ -10,15 +10,25 @@ import com.nineoldandroids.view.ViewHelper;
 public class FlipAnimater extends BouncingAnimater{
 
     @Override
-    public void playAnimate(boolean selected) {
+    public void onPressDown(View v) {
+
+    }
+
+    @Override
+    public void onTouchOut(View v) {
+
+    }
+
+    @Override
+    public void playAnimate(View v,boolean selected) {
         setPlaying(true);
         getSpring().setEndValue(selected?1f:0f);
     }
 
     @Override
-    public void onPageAnimate(float offset) {
+    public void onPageAnimate(View v,float offset) {
         setPlaying(false);
-        ViewHelper.setRotationY(mTarget, 180*offset);
+        ViewHelper.setRotationY(v, 180*offset);
     }
 
     @Override

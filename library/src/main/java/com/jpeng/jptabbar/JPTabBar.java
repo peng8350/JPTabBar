@@ -713,9 +713,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public void setCustomAnimate(@NonNull Animatable customAnimate) {
         for (int i = 0; i < mJPTabItems.length; i++) {
             mJPTabItems[i].setAnimater(customAnimate);
-            if(customAnimate!=null&&customAnimate instanceof BouncingAnimater) {
-                ((BouncingAnimater) customAnimate).bindTarget(mJPTabItems[i].getIconView());
-            }
+//            if (customAnimate instanceof BouncingAnimater) {
+//                ((BouncingAnimater) customAnimate).bindTarget(mJPTabItems[i].getIconView());
+//            }
         }
     }
 
@@ -750,8 +750,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             if (mJPTabItems[position].getAnimater() != null && mNeedScrollAnimate) {
                 if (mJPTabItems[position].getAnimater().isNeedPageAnimate()) {
                     mNeedAnimate = false;
-                    mJPTabItems[position].getAnimater().onPageAnimate(1 - positionOffset);
-                    mJPTabItems[position + 1].getAnimater().onPageAnimate(positionOffset);
+                    mJPTabItems[position].getAnimater().onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
+                    mJPTabItems[position].getAnimater().onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
                 } else {
                     mNeedAnimate = true;
                 }
