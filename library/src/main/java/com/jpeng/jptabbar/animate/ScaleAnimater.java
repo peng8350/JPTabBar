@@ -1,7 +1,6 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
-import com.facebook.rebound.SpringConfig;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
@@ -10,16 +9,15 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class ScaleAnimater extends BouncingAnimater{
 
+
     @Override
-    public void onPressDown(View v) {
-        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(0,0));
-        getSpring().setEndValue(1.1f);
+    public void onPressDown(View v, boolean selected) {
+
     }
 
     @Override
-    public void onTouchOut(View v) {
-        getSpring().setSpringConfig(SpringConfig.fromBouncinessAndSpeed(50,2));
-        getSpring().setEndValue(1f);
+    public void onTouchOut(View v, boolean selected) {
+
     }
 
     @Override

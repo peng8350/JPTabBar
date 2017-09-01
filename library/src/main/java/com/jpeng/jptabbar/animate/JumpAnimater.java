@@ -11,12 +11,12 @@ public class JumpAnimater extends BouncingAnimater{
 
 
     @Override
-    public void onPressDown(View v) {
+    public void onPressDown(View v, boolean selected) {
 
     }
 
     @Override
-    public void onTouchOut(View v) {
+    public void onTouchOut(View v, boolean selected) {
 
     }
 
