@@ -25,6 +25,6 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         jp:TabMiddleView="@layout/view_mitem"
-        jp:TabAnimate="Scale"
+        jp:TabAnimate="Rotate"
         />
 </RelativeLayout>

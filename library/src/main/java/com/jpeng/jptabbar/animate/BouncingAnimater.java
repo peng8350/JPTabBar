@@ -3,6 +3,7 @@ package com.jpeng.jptabbar.animate;
 import android.view.View;
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 
 /**
@@ -52,6 +53,23 @@ public abstract class BouncingAnimater implements Animatable{
         return mSpring;
     };
 
+    @Override
+    public void onPressDown(View v, boolean selected) {
+        setPlaying(true);
+        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(100,4f));
+    }
 
-    public abstract void onSpringUpdate(View target,float currentValue);
+    @Override
+    public void onTouchOut(View v, boolean selected) {
+        setPlaying(true);
+        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(50,2f));
+    }
+
+    @Override
+    public void onSelectChanged(View v, boolean selected) {
+        setPlaying(true);
+        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(50*3,3*2f));
+    }
+
+    public abstract void onSpringUpdate(View target, float currentValue);
 }

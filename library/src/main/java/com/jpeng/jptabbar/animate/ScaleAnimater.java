@@ -12,17 +12,19 @@ public class ScaleAnimater extends BouncingAnimater{
 
     @Override
     public void onPressDown(View v, boolean selected) {
-
+        super.onPressDown(v,selected);
+        getSpring().setEndValue(0.1f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-
+        super.onTouchOut(v,selected);
+        getSpring().setEndValue(selected?0.2f:0f);
     }
 
     @Override
-    public void playAnimate(View v,boolean selected) {
-        setPlaying(true);
+    public void onSelectChanged(View v,boolean selected) {
+        super.onSelectChanged(v,selected);
         getSpring().setEndValue(selected?0.2f:0f);
     }
 

@@ -338,7 +338,7 @@ public class JPTabItem extends BadgeRelativeLayout {
             //播放动画
             if (animated) {
                 if (mAnimater != null) {
-                    mAnimater.playAnimate(mIconView,mSelected);
+                    mAnimater.onSelectChanged(mIconView,mSelected);
                 }
             }
 

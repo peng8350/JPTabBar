@@ -255,9 +255,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setOnTouchListener(new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
+                        if(v==mJPTabItems[mSelectIndex]){
+                            return false;
+                        }
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-
+                                mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
+                                ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
                                 break;
 
                             case MotionEvent.ACTION_UP:
@@ -274,7 +278,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                                         setSelectTab(temp, true);
                                     }
                                 } else {
-
+                                    mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
+                                    ((JPTabItem) v).getAnimater().onTouchOut(((JPTabItem) v).getIconView(), false);
                                 }
                                 break;
 
