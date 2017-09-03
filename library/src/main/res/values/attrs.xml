@@ -12,8 +12,10 @@
             <enum name="Flip" value="1"/>
             <enum name="Rotate" value="2"/>
             <enum name="Scale" value="3"/>
+
             <enum name="Jump" value="4"/>
             <enum name="None" value="5"/>
+            <enum name="Scale2" value="6"/>
         </attr>
         <attr name="TabMiddleBottomDis" format="dimension|reference"/>
         <attr name="TabMiddleView" format="reference"/>

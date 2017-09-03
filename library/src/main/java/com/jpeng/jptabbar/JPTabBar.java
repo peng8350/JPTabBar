@@ -34,6 +34,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int SCALE_TYPE = 3;
     //跳跃动画
     private static final int JUMP_TYPE = 4;
+    //第二种缩放动画
+    private static final int SCALE2_TYPE = 6;
     //默认的图标大小
     private static final int DEFAULT_ICONSIZE = 24;
     //字体默认大小
@@ -243,7 +245,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
                 Animatable animater = AnimateType == SCALE_TYPE ? new ScaleAnimater() : AnimateType == ROTATE_TYPE ? new RotateAnimater() :
-                        AnimateType == JUMP_TYPE ? new JumpAnimater() : AnimateType == FLIP_TYPE ? new FlipAnimater() : null;
+                        AnimateType == JUMP_TYPE ? new JumpAnimater() : AnimateType == FLIP_TYPE ? new FlipAnimater() : AnimateType == SCALE2_TYPE ? new Scale2Animater() : null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
@@ -254,7 +256,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 mJPTabItems[i].setOnTouchListener(new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(v==mJPTabItems[mSelectIndex]){
+                        if (v == mJPTabItems[mSelectIndex]) {
                             return false;
                         }
                         switch (event.getAction()) {
@@ -711,7 +713,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-
     /**
      * 设置点击TabBar事件的观察者
      */
@@ -744,7 +745,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 if (mJPTabItems[position].getAnimater().isNeedPageAnimate()) {
                     mNeedAnimate = false;
                     mJPTabItems[position].getAnimater().onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
-                    mJPTabItems[position+1].getAnimater().onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
+                    mJPTabItems[position + 1].getAnimater().onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
                 } else {
                     mNeedAnimate = true;
                 }
