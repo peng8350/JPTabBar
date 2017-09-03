@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import com.jpeng.jptabbar.JPTabBar;
-import com.jpeng.jptabbar.animate.*;
 
 /**
  * Created by jpeng on 16-11-14.
@@ -36,20 +35,6 @@ public class Tab2Pager extends Fragment implements RadioGroup.OnCheckedChangeLis
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        switch (checkedId){
-            case R.id.radioButton1:
-                mTabBar.setCustomAnimate(new ScaleAnimater());
-                break;
-            case R.id.radioButton2:
-                mTabBar.setCustomAnimate(new JumpAnimater());
-                break;
-            case R.id.radioButton3:
-                mTabBar.setCustomAnimate(new FlipAnimater());
-                break;
-            case R.id.radioButton4:
-                mTabBar.setCustomAnimate(new RotateAnimater());
-                break;
-        }
     }
 
 }

@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -712,17 +711,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
 
-    /**
-     * 设置自定义动画
-     */
-    public void setCustomAnimate(@NonNull Animatable customAnimate) {
-        for (int i = 0; i < mJPTabItems.length; i++) {
-            mJPTabItems[i].setAnimater(customAnimate);
-//            if (customAnimate instanceof BouncingAnimater) {
-//                ((BouncingAnimater) customAnimate).bindTarget(mJPTabItems[i].getIconView());
-//            }
-        }
-    }
 
     /**
      * 设置点击TabBar事件的观察者
@@ -756,7 +744,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 if (mJPTabItems[position].getAnimater().isNeedPageAnimate()) {
                     mNeedAnimate = false;
                     mJPTabItems[position].getAnimater().onPageAnimate(mJPTabItems[position].getIconView(), 1 - positionOffset);
-                    mJPTabItems[position].getAnimater().onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
+                    mJPTabItems[position+1].getAnimater().onPageAnimate(mJPTabItems[position + 1].getIconView(), positionOffset);
                 } else {
                     mNeedAnimate = true;
                 }

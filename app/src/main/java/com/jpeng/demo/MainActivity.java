@@ -18,6 +18,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import static com.jpeng.demo.R.id.tabbar;
 
@@ -72,27 +73,14 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         mTabbar.showBadge(0, 50);
         //设置Badge消失的代理
         mTabbar.setTabListener(this);
+        mTabbar.setUseScrollAnimate(true);
+        mTabbar.setUseFilter(true);
         mTabbar.getMiddleView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"中间点击",0).show();;
             }
         });
-//        mTabbar.setCustomAnimate(new Animatable() {
-//            @Override
-//            public void playAnimate(View v, boolean selected) {
-//            }
-//
-//            @Override
-//            public void onPageAnimate(View v, float offset) {
-//
-//            }
-//
-//            @Override
-//            public boolean isNeedPageAnimate() {
-//                return false;
-//            }
-//        });
     }
 
     @Override
