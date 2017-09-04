@@ -34,7 +34,6 @@ public class JumpAnimater extends BouncingAnimater{
         setPlaying(false);
 
         ViewHelper.setTranslationY(mTarget, offset * -7);
-        ViewHelper.setRotationY(mTarget, offset * 180);
     }
 
     @Override
@@ -47,7 +46,6 @@ public class JumpAnimater extends BouncingAnimater{
     public void onSpringUpdate(View target, float currentValue) {
         if (isPlaying()) {
             ViewHelper.setTranslationY(target, -currentValue * 7);
-            ViewHelper.setRotationY(target, currentValue * 180);
         }
     }
 }

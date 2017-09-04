@@ -25,17 +25,6 @@ import java.lang.reflect.Field;
  */
 public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener {
 
-
-    //ROTATE3D动画
-    private static final int FLIP_TYPE = 1;
-    //旋转动画
-    private static final int ROTATE_TYPE = 2;
-    //缩放动画
-    private static final int SCALE_TYPE = 3;
-    //跳跃动画
-    private static final int JUMP_TYPE = 4;
-    //第二种缩放动画
-    private static final int SCALE2_TYPE = 6;
     //默认的图标大小
     private static final int DEFAULT_ICONSIZE = 24;
     //字体默认大小
@@ -48,9 +37,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int DEFAULT_SELECT_COLOR = 0xff59D9B9;
     //默认是否接受颜色随着字体变化
     private static final boolean DEFAULT_ACEEPTFILTER = true;
-    //默认的动画类型是放大
-    private static final int DEFAULT_ANIMATE_TYPE = 3;
-
     //默认的徽章背景颜色
     private static final int DEFAULT_BADGE_COLOR = 0xffff0000;
     //默认的徽章字体大小
@@ -119,12 +105,16 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private ViewPager mTabPager;
 
     /**
-     * 渐变判断
+     * 渐变判断(用于滑动的渐变)
      */
     private boolean mFilter;
 
     /**
      * 是否滚动页面的动画
+     * 注意:这个变量是全局控制滚动动画是否执行
+     * 与Animatable的isNeedPageAnimate不同的地方就是:
+     * isNeedPageAnimate控制单一动画是否需要滚动页面动画
+     * 一旦为false,所有动画者的滑动页面动画不会调用
      */
     private boolean mNeedScrollAnimate;
 
@@ -218,14 +208,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 获取所有节点属性
      */
     private void initFromAttribute() {
-
         int normalColor = mAttribute.getColor(R.styleable.JPTabBar_TabNormalColor, DEFAULT_NORMAL_COLOR);
         int selectColor = mAttribute.getColor(R.styleable.JPTabBar_TabSelectColor, DEFAULT_SELECT_COLOR);
         int textSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabTextSize, DensityUtils.sp2px(mContext, DEFAULT_TEXTSIZE)));
         //这里
         int iconSize = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabIconSize, DensityUtils.dp2px(mContext, DEFAULT_ICONSIZE));
         int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMargin, DensityUtils.dp2px(mContext, DEFAULT_MARGIN));
-        int AnimateType = mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, DEFAULT_ANIMATE_TYPE);
+        AnimationType AnimateType = AnimationType.values()[mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, AnimationType.SCALE.ordinal())];
         int BadgeColor = mAttribute.getColor(R.styleable.JPTabBar_BadgeColor, DEFAULT_BADGE_COLOR);
         int BadgetextSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_BadgeTextSize, DensityUtils.sp2px(mContext, DEFAULT_BADGE_TEXTSIZE)));
         int badgePadding = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgePadding, DensityUtils.dp2px(mContext, DEFAULT_PADDING)));
@@ -244,8 +233,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             //实例化TabItem添加进去
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
-                Animatable animater = AnimateType == SCALE_TYPE ? new ScaleAnimater() : AnimateType == ROTATE_TYPE ? new RotateAnimater() :
-                        AnimateType == JUMP_TYPE ? new JumpAnimater() : AnimateType == FLIP_TYPE ? new FlipAnimater() : AnimateType == SCALE2_TYPE ? new Scale2Animater() : null;
+                Animatable animater = AnimateType == AnimationType.SCALE ? new ScaleAnimater() : AnimateType == AnimationType.ROTATE ? new RotateAnimater() :
+                        AnimateType == AnimationType.FLIP ? new FlipAnimater() : AnimateType == AnimationType.JUMP ? new JumpAnimater() : AnimateType == AnimationType.SCALE2 ? new Scale2Animater() : null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
@@ -590,6 +579,19 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public int getSelectPosition() {
 
         return mSelectIndex;
+    }
+
+    /**
+     * 设置动画
+     */
+    public void setAnimation(AnimationType animationType) {
+        for (int i = 0; i < mJPTabItems.length; i++) {
+            mJPTabItems[i].setAnimater(animationType == AnimationType.SCALE ? new ScaleAnimater() : animationType == AnimationType.ROTATE ? new RotateAnimater() :
+                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater() : animationType == AnimationType.SCALE2 ? new Scale2Animater() : null);
+            if(mJPTabItems[i].getAnimater() instanceof  BouncingAnimater){
+                ((BouncingAnimater) mJPTabItems[i].getAnimater()).bindTarget(mJPTabItems[i].getIconView());
+            }
+        }
     }
 
     /**

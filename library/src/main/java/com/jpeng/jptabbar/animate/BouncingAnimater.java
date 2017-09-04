@@ -56,7 +56,7 @@ public abstract class BouncingAnimater implements Animatable{
     @Override
     public void onPressDown(View v, boolean selected) {
         setPlaying(true);
-        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(100,4f));
+        getSpring().setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(100,5f));
     }
 
     @Override
