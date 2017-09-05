@@ -48,10 +48,13 @@ public abstract class BouncingAnimater implements Animatable{
             @Override
             public void onSpringUpdate(Spring spring) {
                 BouncingAnimater.this.onSpringUpdate(mTarget, (float) spring.getCurrentValue());
+
             }
         });
         return mSpring;
     };
+
+
 
     @Override
     public void onPressDown(View v, boolean selected) {
