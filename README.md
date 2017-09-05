@@ -33,7 +33,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.2.5'
+        compile 'com.jpeng:JPTabBar:1.3.0'
     }
 
 ```
@@ -246,6 +246,11 @@ In addition, if you want to achieve the effect of the highlight button, you need
 ### V1.2.5
   - Add another way to get the StatusbarHeight
   - Fix the bug of Customview Layoutparams
+  
+### V1.3.0
+  - Add another Scale Animation
+  - Add a new feature that tabbar's icon can display animtion when user pressdown or touchout tabbaritem
+  - Fix some animations effects
     
 # About Me
 A college student, is still in the study of various techniques...<br>
