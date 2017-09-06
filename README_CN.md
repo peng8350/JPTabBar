@@ -4,8 +4,8 @@
 ### 
 
 # 效果图
-   ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br>
-   
+   ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/main.gif)<br> 
+   ![](https://github.com/peng8350/JPTabBar/blob/master/screenshots/animation.gif)<br> 
              
 # 主要功能以及特色:
    - [x] 多种Tab切换的动画效果
