@@ -81,16 +81,35 @@ In addition, if you want to achieve the effect of the highlight button, you need
     jp:TabMiddleView="@layout/..."
 ```
 
+# 凸出按钮:
+1.if you want to achieve the effect of a raised button, you first need to append the following node attribute to the XML control of layout, which represents your custom tabbar button layout
+```JAVA
+    jp:TabMiddleView="@layout/..."
+```
+2.in Java, you can get layout objects by the getMiddleView method, and you can optionally set the monitor for the layout inside the layout
+```JAVA
+    View middleView = mJPTabBar.getMiddleView();
+```
+3.make sure that the tabbar parent control uses RelativeLayout or FrameLayout as the root node because the highlighted button is added to the parent layout
+```JAVA
+  <?xml version="1.0" encoding="utf-8"?>
+  <!--Use RelativeLayout or FrameLayout --!>
+  <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!--TabBar --!>
+    
+    
+   </RelativeLayout>
+
+```
 
 # Method and node description:
 #### The Main Method Of JPTabBar:
 ```JAVA
-    /**
-     * Set custom Tab toggle animation
-     */
-    public void setCustomAnimate(Animatable customAnimate);
-
-
      /**
      * Show the BadgeView With Text
      * default is false ,cannot drag
@@ -186,22 +205,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
   
   
 ```
-
-2.If you want to achieve the middle of the button, you parent ViewGroup must be RelativeLayout or FrameLayout,because the TabBar Add MiddleIcon into it is depend on the parent Layout
-```JAVA
-  <?xml version="1.0" encoding="utf-8"?>
-  <!--Use RelativeLayout or FrameLayout --!>
-  <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jp="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <!--TabBar --!>
-   </RelativeLayout>
-
-```
-3.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
+2.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
 
 
 # Update Log

@@ -74,20 +74,36 @@
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
 ```
-此外,如果想要达到凸出按钮的效果,需要在XML的当前控件追加以下代码,在JAVA代码可以通过getMiddleView获得凸出按钮的View对象
+
+# 凸出按钮:
+1.如果想要达到凸出按钮的效果,首先需要在XML的tabbar控件追加以下结点属性,这个layout代表的就是你自定义凸出按钮布局
 ```JAVA
     jp:TabMiddleView="@layout/..."
 ```
+2.在Java里可以通过getMiddleView方法获得布局对象,并且可以随意给布局里面控件设置监听
+```JAVA
+    View middleView = mJPTabBar.getMiddleView();
+```
+3.确保tabbar父控件使用RelativeLayout或者FrameLayout作为根结点,因为凸出按钮是依靠父layout添加进去的
+```JAVA
+  <?xml version="1.0" encoding="utf-8"?>
+  <!--Use RelativeLayout or FrameLayout --!>
+  <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!--TabBar --!>
+    
+    
+   </RelativeLayout>
 
+```
 
 # 方法和节点说明:
 #### JPTabBar主要方法:
 ```JAVA
-    /**
-     * 设置自定义Tab切换动画
-     */
-    public void setCustomAnimate(Animatable customAnimate);
-
 
      /**
      * 显示BadgeView ,传入字符串
@@ -184,22 +200,7 @@
   
   
 ```
-
-2.如果你要使用中间凸出按钮,一定要使用RelativeLayout或者FrameLayout作为根结点,因为凸出按钮是依靠父layout添加进去的。
-```JAVA
-  <?xml version="1.0" encoding="utf-8"?>
-  <!--Use RelativeLayout or FrameLayout --!>
-  <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jp="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <!--TabBar --!>
-   </RelativeLayout>
-
-```
-3.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
+2.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
 
 # 更新日志
 ### V1.1.2
