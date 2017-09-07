@@ -32,7 +32,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.0'
+        compile 'com.jpeng:JPTabBar:1.3.2'
     }
 
 ```
@@ -179,7 +179,7 @@
 | TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
-| TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | Scale |
+| TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | NULL |
 | TabMiddleView |Tab中间自定义View     |layout | 无 |
 | TabMiddleBottomDis | 中间图标底部距离 |dimension | 20dp |
 | TabMiddleHMargin | 中间图标的左右间距 |dimension | 24dp |
@@ -201,6 +201,12 @@
   
 ```
 2.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
+
+# 存在的问题:
+1.关于徽章的功能无法拖动,拖动消失等问题,这个问题发生在一部分小米手机机型上,原作者是
+通过悬浮窗口实现徽章的爆炸效果,这类手机默认没有打开悬浮窗的权限
+2.Flip(翻转)动画失效问题,由于华为部分7.0手机不支持setRotationY和setRotationX,
+Flip动画正是调用了setRotationY
 
 # 更新日志
 ### V1.1.2
@@ -250,7 +256,11 @@
   - 添加另外一种缩放动画
   - 添加一种新的特性:tabitem可以展示动画,当用户按下或者在View外面范围松开
   - 调整了一些动画的效果
-    
+  
+### V1.3.2
+  - 修正不使用动画时按下奔溃问题
+  - 修改默认动画为没有动画
+  
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>
 邮箱:peng8350@gmail.com

@@ -34,7 +34,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.0'
+        compile 'com.jpeng:JPTabBar:1.3.2'
     }
 
 ```
@@ -81,7 +81,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
     jp:TabMiddleView="@layout/..."
 ```
 
-# 凸出按钮:
+# Protruding button:
 1.if you want to achieve the effect of a raised button, you first need to append the following node attribute to the XML control of layout, which represents your custom tabbar button layout
 ```JAVA
     jp:TabMiddleView="@layout/..."
@@ -182,7 +182,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
 | TabIconFilter |   Set the icon  change by the font color|boolean | true |
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
-| TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | Scale |
+| TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | None |
 | TabMiddleView |The middle View of the tab      |layout | 无 |
 | TabMiddleBottomDis | Midlle icon bottomMargin from TabBar  |dimension | 20dp |
 | TabMiddleHMargin | MiddleIcon both the left and right margin |dimension | 24dp |
@@ -206,6 +206,14 @@ In addition, if you want to achieve the effect of the highlight button, you need
   
 ```
 2.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
+
+# The existence problem:
+1.About badge function can not drag, drag, disappear and so on, this problem occurred 
+in a part of millet mobile phone model, the original author is Through the suspension 
+window to achieve the explosive effect of badges, such mobile phones by default does 
+not open the suspension window permissions
+2.Flip animation failure problem, because HUAWEI Part 7 mobile phones do not support 
+setRotationY and setRotationX,The Flip animation is called setRotationY
 
 
 # Update Log
@@ -256,6 +264,10 @@ In addition, if you want to achieve the effect of the highlight button, you need
   - Add another Scale Animation
   - Add a new feature that tabbar's icon can display animtion when user pressdown or touchout tabbaritem
   - Fix some animations effects
+    
+### V1.3.2
+  - Fix a crash when pressing down and not using animation
+  - Update the default animation is None    
     
 # About Me
 A college student, is still in the study of various techniques...<br>
