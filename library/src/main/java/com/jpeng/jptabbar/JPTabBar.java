@@ -214,7 +214,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         //这里
         int iconSize = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabIconSize, DensityUtils.dp2px(mContext, DEFAULT_ICONSIZE));
         int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMargin, DensityUtils.dp2px(mContext, DEFAULT_MARGIN));
-        AnimationType AnimateType = AnimationType.values()[mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, AnimationType.SCALE.ordinal())];
+        AnimationType AnimateType = AnimationType.values()[mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, AnimationType.NONE.ordinal())];
         int BadgeColor = mAttribute.getColor(R.styleable.JPTabBar_BadgeColor, DEFAULT_BADGE_COLOR);
         int BadgetextSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_BadgeTextSize, DensityUtils.sp2px(mContext, DEFAULT_BADGE_TEXTSIZE)));
         int badgePadding = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgePadding, DensityUtils.dp2px(mContext, DEFAULT_PADDING)));
