@@ -211,7 +211,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
 1.About badge function can not drag, drag, disappear and so on, this problem occurred 
 in a part of millet mobile phone model, the original author is Through the suspension 
 window to achieve the explosive effect of badges, such mobile phones by default does 
-not open the suspension window permissions
+not open the suspension window permissions<br>
 2.Flip animation failure problem, because HUAWEI Part 7 mobile phones do not support 
 setRotationY and setRotationX,The Flip animation is called setRotationY
 
