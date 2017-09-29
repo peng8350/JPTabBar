@@ -1,6 +1,10 @@
 # :blush:JPTabBar:blush:
+[![Build Status](https://travis-ci.org/peng8350/JPTabBar.svg?branch=master)](https://travis-ci.org/peng8350/JPTabBar)
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/bintray/jcenter/JPTabBar)
 <br>[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
+ [ ![Download](https://api.bintray.com/packages/peng83508440/maven/JPTabBar/images/download.svg) ](https://bintray.com/peng83508440/maven/JPTabBar/_latestVersion)
+ [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/peng8350/JPTabBar/blob/master/LICENSE)
+ 
 ### 
 
 # 效果图
@@ -26,7 +30,7 @@
 
 # 用法:
   1.引入Gradle依赖
-```Java
+```
     repositories {
         jcenter()
     }
@@ -37,7 +41,7 @@
 
 ```
 2.添加JPTabBar到你的主界面布局
-```JAVA
+```
 
     <com.jpeng.jptabbar.JPTabBar
         android:id="@+id/tabbar"
@@ -50,7 +54,7 @@
 ```
 3.在你的主界面使用注解声明数组变量,内部通过反射来生成TabItem,注意的是:NorIcons是必须的,每个数组长度要保持一致
 
-```JAVA
+```
     @Titles
     private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
 
@@ -63,29 +67,29 @@
 
 ```
 或者，你可以在oncreate方法里面初始化导航的item
-```JAVA
+```
         mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
 经过上面,TabBar的布局基本上已经搭建好了。如果要实现Wechat那种渐变还有自动让ViewPager改变页面的功能的话,只需要在Activity oncreate方法里面,添加一行代码:(当然如果你不使用ViewPager的话，不调用这个方法)
-```JAVA
+```
     //传入一定要集成继承ViewPager
     mTabbar.setContainer(mPager);
 ```
 
 # 凸出按钮:
 1.如果想要达到凸出按钮的效果,首先需要在XML的tabbar控件追加以下结点属性,这个layout代表的就是你自定义凸出按钮布局
-```JAVA
+```
     jp:TabMiddleView="@layout/..."
 ```
-2.在Java里可以通过getMiddleView方法获得布局对象,并且可以随意给布局里面控件设置监听
-```JAVA
+2.在里可以通过getMiddleView方法获得布局对象,并且可以随意给布局里面控件设置监听
+```
     View middleView = mJPTabBar.getMiddleView();
 ```
 3.确保tabbar父控件使用RelativeLayout或者FrameLayout作为根结点,因为凸出按钮是依靠父layout添加进去的
-```JAVA
+```
   <?xml version="1.0" encoding="utf-8"?>
   <!--Use RelativeLayout or FrameLayout --!>
   <RelativeLayout
@@ -103,7 +107,7 @@
 
 # 方法和节点说明:
 #### JPTabBar主要方法:
-```JAVA
+```
 
      /**
      * 显示BadgeView ,传入字符串
@@ -191,7 +195,7 @@
 
 # 注意事项
 1.假如你已经给TabBar setContainer,不要setOnPageChangeListener给ViewPager
-```JAVA
+```
   /**
     *如果你前面已经给TabBar设置了容器,然后调用这个方法的话,类似WeChat那种拖动渐变效果以及自动切换页面将会失效
     *假如你要监听页面改变事件,可以使用TabListener

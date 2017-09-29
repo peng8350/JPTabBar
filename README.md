@@ -1,8 +1,10 @@
 # :blush:JPTabBar:blush:
+[![Build Status](https://travis-ci.org/peng8350/JPTabBar.svg?branch=master)](https://travis-ci.org/peng8350/JPTabBar)
 [![Download](https://img.shields.io/crates/d/rustc-serialize.svg)](https://bintray.com/bintray/jcenter/JPTabBar)
-<br>
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
-
+<br>[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JPTabBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4685)
+ [![Download](https://api.bintray.com/packages/peng83508440/maven/JPTabBar/images/download.svg) ](https://bintray.com/peng83508440/maven/JPTabBar/_latestVersion)
+ [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/peng8350/JPTabBar/blob/master/LICENSE)
+ 
 阅读中文文档 [请点击这里](https://github.com/peng8350/JPTabBar/blob/master/README_CN.md)
 
 # ScreenShots:
@@ -28,7 +30,7 @@
 
 # Usage:
   1.Introducing Gradle dependency
-```Java
+```
     repositories {
         jcenter()
     }
@@ -39,7 +41,7 @@
 
 ```
 2.Add JPTabBar to your main interface layout
-```JAVA
+```
 
 
     <com.jpeng.jptabbar.JPTabBar
@@ -52,7 +54,7 @@
 ```
 3.In your main interface using an array of variables to declare an array of variables, the internal reflection to generate TabItem, attention is:NorIcons are required, the length of each array should be consistent
 
-```JAVA
+```
     @Titles
     private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
 
@@ -65,33 +67,33 @@
 
 ```
 Or, you can init in the oncreate
-```JAVA
+```
         mTabbar.setTitles(R.string.tab1, R.string.tab2, R.string.tab3, R.string.tab4)
                 .setNormalIcons(R.mipmap.tab1_normal, R.mipmap.tab2_normal, R.mipmap.tab3_normal, R.mipmap.tab4_normal)
                 .setSelectedIcons(R.mipmap.tab1_selected, R.mipmap.tab2_selected, R.mipmap.tab3_selected, R.mipmap.tab4_selected)
                 .generate();
 ```
 After above, the layout of the TabBar basically has been built. If you want to achieve Wechat kind of gradual change as there are automatically ViewPager to change the function of the page, only in the oncreate Activity method, adding a line of code:(Of curse,If you don't use ViewPager,You needn't use this method)
-```JAVA
+```
     //The parameters must be extends ViewPager
     mTabbar.setContainer(mPager);
 ```
 In addition, if you want to achieve the effect of the highlight button, you need to add the following code in the current widget of the XML, you can use getMiddleView method to get the view you custom in attribute.
-```JAVA
+```
     jp:TabMiddleView="@layout/..."
 ```
 
 # Protruding button:
 1.if you want to achieve the effect of a raised button, you first need to append the following node attribute to the XML control of layout, which represents your custom tabbar button layout
-```JAVA
+```
     jp:TabMiddleView="@layout/..."
 ```
-2.in Java, you can get layout objects by the getMiddleView method, and you can optionally set the monitor for the layout inside the layout
-```JAVA
+2.in Java , you can get layout objects by the getMiddleView method, and you can optionally set the monitor for the layout inside the layout
+```
     View middleView = mJPTabBar.getMiddleView();
 ```
 3.make sure that the tabbar parent control uses RelativeLayout or FrameLayout as the root node because the highlighted button is added to the parent layout
-```JAVA
+```
   <?xml version="1.0" encoding="utf-8"?>
   <!--Use RelativeLayout or FrameLayout --!>
   <RelativeLayout
@@ -109,7 +111,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
 
 # Method and node description:
 #### The Main Method Of JPTabBar:
-```JAVA
+```
      /**
      * Show the BadgeView With Text
      * default is false ,cannot drag
@@ -194,7 +196,7 @@ In addition, if you want to achieve the effect of the highlight button, you need
 
 # Matters needing attention
 1.If you have given setContainer TabBar, do not setOnPageChangeListener to ViewPager
-```JAVA
+```
   /**
     *If you already have the TabBar set up the container, 
     *and then call this method,
