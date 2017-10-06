@@ -1,6 +1,8 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
+import android.view.animation.AnticipateInterpolator;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
@@ -12,23 +14,27 @@ public class JumpAnimater implements Animatable {
 
     @Override
     public void onPressDown(View v, boolean selected) {
-//        getSpring().setEndValue(0.3f);
+        if(!selected)
+        ViewHelper.setTranslationY(v,-3f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-//        getSpring().setEndValue(selected?1f:0f);
+        ViewHelper.setTranslationY(v,0f);
     }
 
     @Override
     public void onSelectChanged(View v, boolean selected) {
-//        getSpring().setEndValue(selected?1f:0f);
-
+        int end = selected?-10:0;
+        ObjectAnimator jumpAnimator = ObjectAnimator.ofFloat(v,"translationY",end);
+        jumpAnimator.setDuration(300);
+        jumpAnimator.setInterpolator(new AnticipateInterpolator());
+        jumpAnimator.start();
     }
 
     @Override
     public void onPageAnimate(View v, float offset) {
-        ViewHelper.setTranslationY(v, offset * -7);
+        ViewHelper.setTranslationY(v, offset * -10);
     }
 
     @Override

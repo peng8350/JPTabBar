@@ -40,9 +40,6 @@ public class Tab2Pager extends Fragment implements RadioGroup.OnCheckedChangeLis
             case R.id.radioButton1:
                 mTabBar.setAnimation(AnimationType.SCALE);
                 break;
-            case R.id.radioButton2:
-                mTabBar.setAnimation(AnimationType.SCALE2);
-                break;
             case R.id.radioButton3:
                 mTabBar.setAnimation(AnimationType.JUMP);
                 break;

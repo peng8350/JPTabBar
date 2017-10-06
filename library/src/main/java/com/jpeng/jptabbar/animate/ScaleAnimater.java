@@ -31,10 +31,10 @@ public class ScaleAnimater implements  Animatable {
     public void onSelectChanged(View v, boolean selected) {
         if(!selected)return;
         AnimatorSet set= new AnimatorSet();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(v,"scaleX",0.75f,1.3f,1f,1.2f,1f);
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(v,"scaleY",0.75f,1.3f,1f,1.2f,1f);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(v,"scaleX",1.3f,1f,1.2f,1f);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(v,"scaleY",1.3f,1f,1.2f,1f);
         set.playTogether(animator1,animator2);
-        set.setDuration(1000);
+        set.setDuration(800);
         set.start();
 
     }

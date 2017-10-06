@@ -1,6 +1,8 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
@@ -12,17 +14,21 @@ public class FlipAnimater implements  Animatable{
 
     @Override
     public void onPressDown(View v, boolean selected) {
-//        getSpring().setEndValue(0.3f);
+        ViewHelper.setRotationY(v,selected?54f:126f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-//        getSpring().setEndValue(selected?1f:0f);
+        ViewHelper.setRotationY(v,selected?180f:0f);
     }
 
     @Override
     public void onSelectChanged(View v,boolean selected) {
-//        getSpring().setEndValue(selected?1f:0f);
+        float end = selected?180f:0f;
+        ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(v,"rotationY",end);
+        flipAnimator.setDuration(400);
+        flipAnimator.setInterpolator(new DecelerateInterpolator());
+        flipAnimator.start();
     }
 
     @Override
