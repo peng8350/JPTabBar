@@ -1,51 +1,51 @@
 package com.jpeng.jptabbar.animate;
 
 import android.view.View;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created by jpeng on 16-11-14.
- * 实现图标缩放动画者
+ * Created by jpeng on 17-9-3.
  */
-public class ScaleAnimater extends BouncingAnimater{
+public class ScaleAnimater implements  Animatable {
 
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        super.onPressDown(v,selected);
-        getSpring().setEndValue(0.1f);
+        if(!selected) {
+            ViewHelper.setScaleX(v,0.75f);
+            ViewHelper.setScaleY(v,0.75f);
+        }
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        super.onTouchOut(v,selected);
-        getSpring().setEndValue(selected?0.2f:0f);
+        if(!selected) {
+            ViewHelper.setScaleX(v,1f);
+            ViewHelper.setScaleY(v,1f);
+        }
     }
 
     @Override
-    public void onSelectChanged(View v,boolean selected) {
-        super.onSelectChanged(v,selected);
-        getSpring().setEndValue(selected?0.2f:0f);
+    public void onSelectChanged(View v, boolean selected) {
+        if(!selected)return;
+        AnimatorSet set= new AnimatorSet();
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(v,"scaleX",0.75f,1.3f,1f,1.2f,1f);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(v,"scaleY",0.75f,1.3f,1f,1.2f,1f);
+        set.playTogether(animator1,animator2);
+        set.setDuration(1000);
+        set.start();
+
     }
 
     @Override
-    public void onPageAnimate(View v,float offset){
-        setPlaying(false);
-        ViewHelper.setScaleX(mTarget, offset*0.2f+1f);
-        ViewHelper.setScaleY(mTarget, offset*0.2f+1f);
+    public void onPageAnimate(View v, float offset) {
+
     }
 
     @Override
     public boolean isNeedPageAnimate() {
-        return true;
-    }
-
-
-    @Override
-    public void onSpringUpdate(View target, float currentValue) {
-        if (isPlaying()) {
-            ViewHelper.setScaleY(target, currentValue+1);
-            ViewHelper.setScaleX(target, currentValue+1);
-        }
+        return false;
     }
 }

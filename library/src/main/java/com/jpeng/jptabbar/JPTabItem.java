@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.jpeng.jptabbar.animate.Animatable;
-import com.jpeng.jptabbar.animate.BouncingAnimater;
 import com.jpeng.jptabbar.badgeview.BadgeRelativeLayout;
 import com.jpeng.jptabbar.badgeview.Badgeable;
 import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
@@ -202,11 +201,6 @@ public class JPTabItem extends BadgeRelativeLayout {
     private void initImageView() {
         //设置ImageView布局属性
         mIconView = new ImageView(mContext);
-        //绑定动画需要操作的控件
-        if(mAnimater!=null&&mAnimater instanceof BouncingAnimater) {
-            ((BouncingAnimater) mAnimater).bindTarget(mIconView);
-        }
-
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 mIconSize, mIconSize);
         params.addRule(mTitle == null ? RelativeLayout.CENTER_IN_PARENT : RelativeLayout.CENTER_HORIZONTAL);

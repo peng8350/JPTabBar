@@ -7,33 +7,28 @@ import com.nineoldandroids.view.ViewHelper;
  * Created by jpeng on 16-11-15.
  * 实现跳跃图标的动画类
  */
-public class JumpAnimater extends BouncingAnimater{
+public class JumpAnimater implements Animatable {
 
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        super.onPressDown(v,selected);
-        getSpring().setEndValue(0.3f);
+//        getSpring().setEndValue(0.3f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        super.onTouchOut(v,selected);
-        getSpring().setEndValue(selected?1f:0f);
+//        getSpring().setEndValue(selected?1f:0f);
     }
 
     @Override
-    public void onSelectChanged(View v,boolean selected) {
-        super.onSelectChanged(v,selected);
-        getSpring().setEndValue(selected?1f:0f);
+    public void onSelectChanged(View v, boolean selected) {
+//        getSpring().setEndValue(selected?1f:0f);
 
     }
 
     @Override
-    public void onPageAnimate(View v,float offset) {
-        setPlaying(false);
-
-        ViewHelper.setTranslationY(mTarget, offset * -7);
+    public void onPageAnimate(View v, float offset) {
+        ViewHelper.setTranslationY(v, offset * -7);
     }
 
     @Override
@@ -41,11 +36,4 @@ public class JumpAnimater extends BouncingAnimater{
         return true;
     }
 
-
-    @Override
-    public void onSpringUpdate(View target, float currentValue) {
-        if (isPlaying()) {
-            ViewHelper.setTranslationY(target, -currentValue * 7);
-        }
-    }
 }

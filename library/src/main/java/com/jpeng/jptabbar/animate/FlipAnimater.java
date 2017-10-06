@@ -7,30 +7,26 @@ import com.nineoldandroids.view.ViewHelper;
  * Created by jpeng on 16-11-15.
  * 实现翻转的动画类
  */
-public class FlipAnimater extends BouncingAnimater{
+public class FlipAnimater implements  Animatable{
 
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        super.onPressDown(v,selected);
-        getSpring().setEndValue(0.3f);
+//        getSpring().setEndValue(0.3f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        super.onTouchOut(v,selected);
-        getSpring().setEndValue(selected?1f:0f);
+//        getSpring().setEndValue(selected?1f:0f);
     }
 
     @Override
     public void onSelectChanged(View v,boolean selected) {
-        super.onSelectChanged(v,selected);
-        getSpring().setEndValue(selected?1f:0f);
+//        getSpring().setEndValue(selected?1f:0f);
     }
 
     @Override
     public void onPageAnimate(View v,float offset) {
-        setPlaying(false);
         ViewHelper.setRotationY(v, 180*offset);
     }
 
@@ -39,9 +35,4 @@ public class FlipAnimater extends BouncingAnimater{
         return true ;
     }
 
-    @Override
-    public void onSpringUpdate(View target, float currentValue) {
-        if(isPlaying())
-            ViewHelper.setRotationY(target, currentValue*180);
-    }
 }

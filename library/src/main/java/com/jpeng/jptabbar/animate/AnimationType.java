@@ -9,5 +9,4 @@ public enum AnimationType {
     SCALE,
     JUMP,
     NONE,
-    SCALE2
 }
