@@ -28,6 +28,12 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="缩放2"
+            android:checked="true"
+            android:id="@+id/radioButton2"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="跳跃"
 
 

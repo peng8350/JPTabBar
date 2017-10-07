@@ -8,5 +8,6 @@ public enum AnimationType {
     ROTATE,
     SCALE,
     JUMP,
+    SCALE2,
     NONE,
 }

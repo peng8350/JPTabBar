@@ -6,46 +6,44 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created by jpeng on 17-9-3.
+ * Created by jpeng on 16-11-14.
+ * 实现图标缩放动画者
  */
-public class ScaleAnimater implements  Animatable {
+public class ScaleAnimater implements Animatable{
 
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        if(!selected) {
-            ViewHelper.setScaleX(v,0.75f);
-            ViewHelper.setScaleY(v,0.75f);
-        }
+//        getSpring().setEndValue(0.1f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        if(!selected) {
-            ViewHelper.setScaleX(v,1f);
-            ViewHelper.setScaleY(v,1f);
-        }
+//        getSpring().setEndValue(1f);
     }
 
     @Override
-    public void onSelectChanged(View v, boolean selected) {
-        if(!selected)return;
-        AnimatorSet set= new AnimatorSet();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(v,"scaleX",1.3f,1f,1.2f,1f);
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(v,"scaleY",1.3f,1f,1.2f,1f);
-        set.playTogether(animator1,animator2);
-        set.setDuration(800);
-        set.start();
-
+    public void onSelectChanged(View v,boolean selected) {
+        AnimatorSet scaleAnimator = new AnimatorSet();
+        float end = selected?1.2f:1f;
+        ObjectAnimator scaleX ;
+        ObjectAnimator scaleY;
+        scaleX = ObjectAnimator.ofFloat(v,"scaleX",end);
+        scaleY  = ObjectAnimator.ofFloat(v,"scaleY",end);
+        scaleAnimator.playTogether(scaleX,scaleY);
+        scaleAnimator.setDuration(selected?600:300);
+        scaleAnimator.start();
     }
 
     @Override
-    public void onPageAnimate(View v, float offset) {
-
+    public void onPageAnimate(View v,float offset){
+        ViewHelper.setScaleX(v, offset*0.2f+1f);
+        ViewHelper.setScaleY(v, offset*0.2f+1f);
     }
 
     @Override
     public boolean isNeedPageAnimate() {
-        return false;
+        return true;
     }
+
 }

@@ -14,12 +14,12 @@ public class RotateAnimater implements Animatable {
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        ViewHelper.setRotation(v,180f);
+
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        ViewHelper.setRotation(v,0f);
+
     }
 
     @Override
