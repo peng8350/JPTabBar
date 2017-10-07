@@ -8,9 +8,6 @@ import android.support.annotation.NonNull;
  */
 public class DensityUtils {
 
-
-
-
     public static int dp2sp(Context context, float dipValue) {
         float pxValue = dp2px(context, dipValue);
         return px2sp(context, pxValue);
@@ -40,7 +37,5 @@ public class DensityUtils {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale);
     }
-
-
 
 }

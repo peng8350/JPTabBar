@@ -11,7 +11,6 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class FlipAnimater implements  Animatable{
 
-
     @Override
     public void onPressDown(View v, boolean selected) {
         ViewHelper.setRotationY(v,selected?54f:126f);

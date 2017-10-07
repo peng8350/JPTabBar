@@ -9,6 +9,4 @@ public interface BadgeDismissListener {
      * TabItem徽章消失的回调
      */
     void onDismiss(int position);
-
-
 }

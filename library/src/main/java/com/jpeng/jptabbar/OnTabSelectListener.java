@@ -12,7 +12,4 @@ public interface OnTabSelectListener {
      */
     void onTabSelect(int index);
 
-
-
-
 }

@@ -10,7 +10,6 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class Scale2Animater implements  Animatable {
 
-
     @Override
     public void onPressDown(View v, boolean selected) {
         if(!selected) {

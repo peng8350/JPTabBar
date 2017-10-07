@@ -11,7 +11,6 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class ScaleAnimater implements Animatable{
 
-
     @Override
     public void onPressDown(View v, boolean selected) {
         ViewHelper.setScaleX(v,1.1f);

@@ -139,8 +139,6 @@ public class BadgeViewHelper {
         mBadgeDragExtraRectF = new RectF();
     }
 
-
-
     private void afterInitDefaultAndCustomAttrs() {
         mBadgePaint.setTextSize(mBadgeTextSize);
     }
@@ -171,8 +169,8 @@ public class BadgeViewHelper {
     }
 
     public void setBadgeHorizontalMarginDp(int badgeHorizontalMargin) {
-            mBadgeHorizontalMargin = DensityUtils.dp2px(mBadgeable.getContext(), badgeHorizontalMargin);
-            mBadgeable.postInvalidate();
+        mBadgeHorizontalMargin = DensityUtils.dp2px(mBadgeable.getContext(), badgeHorizontalMargin);
+        mBadgeable.postInvalidate();
     }
 
     public void setBadgePaddingDp(int badgePadding) {
@@ -326,7 +324,7 @@ public class BadgeViewHelper {
         mBadgeRectF.bottom = mBadgeRectF.top + badgeHeight;
 
         // 计算徽章背景左右的值
-        mBadgeRectF.right = mBadgeable.getWidth()/2 + mBadgeHorizontalMargin;
+        mBadgeRectF.right = mBadgeable.getWidth() / 2 + mBadgeHorizontalMargin;
         mBadgeRectF.left = mBadgeRectF.right - badgeWidth;
 
         if (mBadgeBorderWidth > 0) {

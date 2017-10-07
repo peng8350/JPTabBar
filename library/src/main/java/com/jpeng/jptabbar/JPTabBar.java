@@ -24,7 +24,6 @@ import java.lang.reflect.Field;
  * 主要的底部导航操作类,控制导航的行为(显示隐藏徽章等等)
  */
 public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener {
-
     //默认的图标大小
     private static final int DEFAULT_ICONSIZE = 24;
     //字体默认大小
@@ -51,64 +50,29 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int DEFAULT_MIDDLEICONBOTTOM = 20;
     //默认中间的左右间距
     private static final int DEFAULT_MIDDLEMARGIN = 24;
-
     private Context mContext;
-
     private int mLimit = 99;
-
-
     private TypedArray mAttribute;
-
-    /**
-     * 选中的当前Tab的位置
-     */
+    // 选中的当前Tab的位置
     private int mSelectIndex;
-
-    /**
-     * 标题的数组
-     */
+    // 标题的数组
     private String[] mTitles;
-
-    /**
-     * 没有选中的图标数组
-     */
+    // 没有选中的图标数组
     private int[] mNormalIcons;
-
-    /**
-     * 选中的图标数组
-     */
+    // 选中的图标数组
     private int[] mSelectedIcons;
-
-    /**
-     * 所有Tabitem
-     */
+     //所有Tabitem
     private JPTabItem[] mJPTabItems;
-
-    /**
-     * 中间按钮
-     */
+    // 中间按钮
     private View mMiddleItem;
-
-    /**
-     * 监听点击Tab回调的观察者
-     */
+    // 监听点击Tab回调的观察者
     private OnTabSelectListener mTabSelectLis;
-
-    /**
-     * 判断是否需要动画,解决Viewpager回调onpageChange冲突事件
-     */
+    //判断是否需要动画,解决Viewpager回调onpageChange冲突事件
     private boolean mNeedAnimate = true;
-
-    /**
-     * Tab对应的ViewPager
-     */
+    // Tab对应的ViewPager
     private ViewPager mTabPager;
-
-    /**
-     * 渐变判断(用于滑动的渐变)
-     */
+    // 渐变判断(用于滑动的渐变)
     private boolean mFilter;
-
     /**
      * 是否滚动页面的动画
      * 注意:这个变量是全局控制滚动动画是否执行
@@ -117,7 +81,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 一旦为false,所有动画者的滑动页面动画不会调用
      */
     private boolean mNeedScrollAnimate;
-
 
     public JPTabBar(Context context) {
         super(context);
@@ -129,7 +92,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         init(context, attrs);
     }
 
-
     /**
      * 初始化TabBar
      *
@@ -137,20 +99,14 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * @param set     XML结点集合
      */
     private void init(Context context, AttributeSet set) {
-
         mContext = context;
-
         mAttribute = context.obtainStyledAttributes(set, R.styleable.JPTabBar);
-
         setMinimumHeight(DensityUtils.dp2px(mContext, 48));
         boolean haveAnno = reflectAnnotation();
         if (haveAnno) {
             initFromAttribute();
         }
-
-
     }
-
 
     /**
      * 从类获取注解,映射值到mTiles,mNormalIcons,mSelectedIcons
@@ -161,12 +117,10 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int total = 0;//表示获得注解的总数
         //反射注解
         Field[] fields = mContext.getClass().getDeclaredFields();
-
         //遍历所有字段,寻找标记
         for (Field field : fields) {
             field.setAccessible(true);
             if (field.isAnnotationPresent(Titles.class)) {
-                //标题
                 try {
                     if (field.get(mContext).getClass().equals(String[].class)) {
                         mTitles = (String[]) field.get(mContext);
@@ -184,7 +138,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             } else if (field.isAnnotationPresent(NorIcons.class)) {
                 try {
                     mNormalIcons = (int[]) field.get(mContext);
-
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -192,13 +145,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             } else if (field.isAnnotationPresent(SeleIcons.class)) {
                 try {
                     mSelectedIcons = (int[]) field.get(mContext);
-
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 if (mSelectedIcons != null) total++;
             }
-
         }
         return total > 0;
     }
@@ -211,7 +162,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int normalColor = mAttribute.getColor(R.styleable.JPTabBar_TabNormalColor, DEFAULT_NORMAL_COLOR);
         int selectColor = mAttribute.getColor(R.styleable.JPTabBar_TabSelectColor, DEFAULT_SELECT_COLOR);
         int textSize = DensityUtils.px2sp(mContext, mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabTextSize, DensityUtils.sp2px(mContext, DEFAULT_TEXTSIZE)));
-        //这里
         int iconSize = mAttribute.getDimensionPixelSize(R.styleable.JPTabBar_TabIconSize, DensityUtils.dp2px(mContext, DEFAULT_ICONSIZE));
         int margin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMargin, DensityUtils.dp2px(mContext, DEFAULT_MARGIN));
         AnimationType AnimateType = AnimationType.values()[mAttribute.getInt(R.styleable.JPTabBar_TabAnimate, AnimationType.NONE.ordinal())];
@@ -223,18 +173,16 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int hMargin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
         Drawable tabselectbg = mAttribute.getDrawable(R.styleable.JPTabBar_TabSelectBg);
-
         //假如所有都为空默认已经开启了
         if (!isInEditMode()) {
             CheckIfAssertError(mTitles, mNormalIcons, mSelectedIcons);
             //计算Tab的宽度
-
             mJPTabItems = new JPTabItem[mNormalIcons.length];
             //实例化TabItem添加进去
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
                 Animatable animater = AnimateType == AnimationType.SCALE ? new ScaleAnimater() : AnimateType == AnimationType.ROTATE ? new RotateAnimater() :
-                        AnimateType == AnimationType.FLIP ? new FlipAnimater() : AnimateType == AnimationType.JUMP ? new JumpAnimater() :AnimateType==AnimationType.SCALE2?new Scale2Animater() : null;
+                        AnimateType == AnimationType.FLIP ? new FlipAnimater() : AnimateType == AnimationType.JUMP ? new JumpAnimater() : AnimateType == AnimationType.SCALE2 ? new Scale2Animater() : null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
                         .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
@@ -250,15 +198,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                         }
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                if(mJPTabItems[mSelectIndex].getAnimater()!=null) {
+                                if (mJPTabItems[mSelectIndex].getAnimater() != null) {
                                     mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
                                     ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
                                 }
                                 break;
-
                             case MotionEvent.ACTION_UP:
                                 if (isInRect(v, event)) {
-                                    //在触摸的item内
                                     if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
                                         mNeedAnimate = true;
                                         mTabPager.setCurrentItem(temp, false);
@@ -270,7 +216,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                                         setSelectTab(temp, true);
                                     }
                                 } else {
-                                    if(mJPTabItems[mSelectIndex].getAnimater()!=null) {
+                                    if (mJPTabItems[mSelectIndex].getAnimater() != null) {
                                         mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
                                         ((JPTabItem) v).getAnimater().onTouchOut(((JPTabItem) v).getIconView(), false);
                                     }
@@ -281,25 +227,15 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                         return true;
                     }
                 });
-//                mJPTabItems[i].setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-
-//                    }
-//                });
                 addView(mJPTabItems[i]);
-
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
                 if (i == (mJPTabItems.length / 2 - 1) && mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0) != 0) {
-
                     //添加中间的占位距离控件
                     View stement_view = new View(mContext);
                     ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(hMargin, ViewGroup.LayoutParams.MATCH_PARENT);
                     stement_view.setLayoutParams(params);
                     addView(stement_view);
-
                 }
-
             }
 
             mJPTabItems[0].setSelect(true, true, false);
@@ -310,14 +246,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
-
     /**
      * 切换Tab页面,是否带动画
      */
     private void setSelectTab(int index, boolean animated) {
         if (mJPTabItems == null || index > mJPTabItems.length - 1) return;
         mSelectIndex = index;
-        //把全部tab selected设置为false
         for (int i = 0; i < mJPTabItems.length; i++) {
             if (i == index) {
                 continue;
@@ -327,11 +261,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             } else {
                 mJPTabItems[i].setSelect(false, animated);
             }
-
         }
-
         mJPTabItems[index].setSelect(true, animated);
-
         if (mTabSelectLis != null) {
             mTabSelectLis.onTabSelect(index);
         }
@@ -358,17 +289,13 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
 
     private void BuildMiddleView() {
-
         int layout_res = mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0);
         if (layout_res == 0) {
             return;
         }
-
         mMiddleItem = LayoutInflater.from(mContext).inflate(layout_res, (ViewGroup) getParent(), false);
-
         //给中间自定义View填充额外参数,令布局在父View的中间和最下边的位置(父View指的是TabBar的父控件)
         fillMiddleParams();
-
     }
 
     //判断触摸位置是否在View的区域
@@ -388,7 +315,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             BuildMiddleView();
         }
         mAttribute.recycle();
-
     }
 
     private void fillMiddleParams() {
@@ -406,11 +332,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mMiddleItem.setLayoutParams(params);
         }
         ((ViewGroup) getParent()).addView(mMiddleItem);
-
     }
 
     /****-------提供给开发者调用的方法---------****/
-
 
     /**
      * 切换Tab页面
@@ -511,7 +435,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
         if (count == 0) {
             mJPTabItems[pos].hiddenBadge();
-
         } else if (count > mLimit) {
             mJPTabItems[pos].showTextBadge(mLimit + "+");
         } else {
@@ -522,7 +445,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     /**
      * 隐藏徽章
-     *
      * @param position
      */
     public void hideBadge(int position) {
@@ -532,7 +454,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     /**
      * 设置标题数组
-     *
      * @param titles
      */
     public JPTabBar setTitles(String... titles) {
@@ -543,9 +464,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public JPTabBar setTitles(int... titles) {
         if (titles != null && titles.length > 0) {
             mTitles = new String[titles.length];
-
             for (int i = 0; i < titles.length; i++) {
-
                 mTitles[i] = mContext.getString(titles[i]);
             }
         }
@@ -581,7 +500,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 获得选中的位置
      */
     public int getSelectPosition() {
-
         return mSelectIndex;
     }
 
@@ -591,7 +509,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public void setAnimation(AnimationType animationType) {
         for (int i = 0; i < mJPTabItems.length; i++) {
             mJPTabItems[i].setAnimater(animationType == AnimationType.SCALE ? new ScaleAnimater() : animationType == AnimationType.ROTATE ? new RotateAnimater() :
-                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater():animationType==AnimationType.SCALE2?new Scale2Animater(): null);
+                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater() : animationType == AnimationType.SCALE2 ? new Scale2Animater() : null);
         }
     }
 
@@ -601,7 +519,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     public boolean isBadgeShow(int index) {
         if (mJPTabItems != null)
             return mJPTabItems[index].isBadgeShow();
-
         return false;
     }
 
@@ -615,7 +532,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         if (mMiddleItem == null) {
             BuildMiddleView();
         }
-
         return mMiddleItem;
     }
 
@@ -767,7 +683,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mNeedAnimate = false;
         }
     }
-
 
 }
 

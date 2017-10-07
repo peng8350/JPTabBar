@@ -11,7 +11,6 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class RotateAnimater implements Animatable {
 
-
     @Override
     public void onPressDown(View v, boolean selected) {
 
@@ -34,13 +33,11 @@ public class RotateAnimater implements Animatable {
     @Override
     public void onPageAnimate(View v, float offset) {
         ViewHelper.setRotation(v, offset * 360);
-
     }
 
     @Override
     public boolean isNeedPageAnimate() {
         return true;
     }
-
 
 }
