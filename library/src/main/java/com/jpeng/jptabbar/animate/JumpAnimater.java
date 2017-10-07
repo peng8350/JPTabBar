@@ -14,13 +14,12 @@ public class JumpAnimater implements Animatable {
 
     @Override
     public void onPressDown(View v, boolean selected) {
-        if(!selected)
         ViewHelper.setTranslationY(v,-3f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-        ViewHelper.setTranslationY(v,0f);
+        ViewHelper.setTranslationY(v,selected?-10f:0f);
     }
 
     @Override

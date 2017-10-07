@@ -233,7 +233,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             //实例化TabItem添加进去
             for (int i = 0; i < mJPTabItems.length; i++) {
                 final int temp = i;
-                Animatable animater = AnimateType == AnimationType.SCALE ? new Scale2Animater() : AnimateType == AnimationType.ROTATE ? new RotateAnimater() :
+                Animatable animater = AnimateType == AnimationType.SCALE ? new ScaleAnimater() : AnimateType == AnimationType.ROTATE ? new RotateAnimater() :
                         AnimateType == AnimationType.FLIP ? new FlipAnimater() : AnimateType == AnimationType.JUMP ? new JumpAnimater() :AnimateType==AnimationType.SCALE2?new Scale2Animater() : null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
                         .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
@@ -590,8 +590,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      */
     public void setAnimation(AnimationType animationType) {
         for (int i = 0; i < mJPTabItems.length; i++) {
-            mJPTabItems[i].setAnimater(animationType == AnimationType.SCALE ? new Scale2Animater() : animationType == AnimationType.ROTATE ? new RotateAnimater() :
-                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater(): null);
+            mJPTabItems[i].setAnimater(animationType == AnimationType.SCALE ? new ScaleAnimater() : animationType == AnimationType.ROTATE ? new RotateAnimater() :
+                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater():animationType==AnimationType.SCALE2?new Scale2Animater(): null);
         }
     }
 

@@ -14,12 +14,14 @@ public class ScaleAnimater implements Animatable{
 
     @Override
     public void onPressDown(View v, boolean selected) {
-//        getSpring().setEndValue(0.1f);
+        ViewHelper.setScaleX(v,1.1f);
+        ViewHelper.setScaleY(v,1.1f);
     }
 
     @Override
     public void onTouchOut(View v, boolean selected) {
-//        getSpring().setEndValue(1f);
+        ViewHelper.setScaleX(v,selected?1.2f:1f);
+        ViewHelper.setScaleY(v,selected?1.2f:1f);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class ScaleAnimater implements Animatable{
         scaleX = ObjectAnimator.ofFloat(v,"scaleX",end);
         scaleY  = ObjectAnimator.ofFloat(v,"scaleY",end);
         scaleAnimator.playTogether(scaleX,scaleY);
-        scaleAnimator.setDuration(selected?600:300);
+        scaleAnimator.setDuration(300);
         scaleAnimator.start();
     }
 
