@@ -25,7 +25,6 @@
    - [x] 引用注解方式,免去自己手动构造TabBarItem
 
 # 依赖
-[Rebound](https://github.com/facebook/rebound)<br>
 [BGABadgeView-Android](https://github.com/bingoogolapple/BGABadgeView-Android)
 
 # 用法:
@@ -36,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.2'
+        compile 'com.jpeng:JPTabBar:1.3.3'
     }
 
 ```

@@ -25,7 +25,6 @@
    - [x] Reference annotation method, construction TabBarItem
    
 # Dependencies
-[Rebound](https://github.com/facebook/rebound)<br>
 [BGABadgeView-Android](https://github.com/bingoogolapple/BGABadgeView-Android)
 
 # Usage:
@@ -36,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.2'
+        compile 'com.jpeng:JPTabBar:1.3.3'
     }
 
 ```
