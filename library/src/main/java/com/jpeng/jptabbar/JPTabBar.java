@@ -337,6 +337,28 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /****-------提供给开发者调用的方法---------****/
 
     /**
+     * 获取选中的Tab
+     */
+    public JPTabItem getSelectedTab(){
+        for(int i  = 0 ;i<mJPTabItems.length;i++){
+            if(mJPTabItems[i].isSelect()){
+                return mJPTabItems[i];
+            }
+        }
+        return  null;
+    }
+
+    /**
+     * 获取第几个Tab
+     */
+    public JPTabItem getTabAtPosition(int pos){
+        if(pos<0||pos>=mJPTabItems.length){
+            throw new TabException("invalid position parameter");
+        }
+        return mJPTabItems[pos];
+    }
+
+    /**
      * 切换Tab页面
      */
     public void setSelectTab(int index) {

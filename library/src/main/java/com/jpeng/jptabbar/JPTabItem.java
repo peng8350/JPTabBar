@@ -24,7 +24,6 @@ import com.nineoldandroids.animation.ObjectAnimator;
 public class JPTabItem extends BadgeRelativeLayout {
     //颜色渐变时间
     private static final int FILTER_DURATION = 10;
-
     private Context mContext;
     private String mTitle;
     private int mIndex;
@@ -128,16 +127,9 @@ public class JPTabItem extends BadgeRelativeLayout {
             params.topMargin = mMargin;
         mIconView.setScaleType(ImageView.ScaleType.FIT_XY);
         mIconView.setLayoutParams(params);
-        if (mSelectIcon == null) {
-            mIconView.setImageDrawable(mNormalIcon);
-        } else {
-            mCompundIcon = new LayerDrawable(new Drawable[]{mNormalIcon, mSelectIcon});
-            mNormalIcon.setAlpha(255);
-            mSelectIcon.setAlpha(0);
-            mIconView.setImageDrawable(mCompundIcon);
-        }
         //添加进去主布局
         addView(mIconView);
+        updateIcon();
         //初始化BadgeView设置回调和属性
         initBadge();
     }
@@ -146,6 +138,20 @@ public class JPTabItem extends BadgeRelativeLayout {
     protected void onDraw(Canvas canvas) {
         if (mTitle != null)
             DrawText(canvas);
+    }
+
+    /*
+     *  更新IconView的图标
+     */
+    public void updateIcon(){
+        if (mSelectIcon == null) {
+            mIconView.setImageDrawable(mNormalIcon);
+        } else {
+            mCompundIcon = new LayerDrawable(new Drawable[]{mNormalIcon, mSelectIcon});
+            mNormalIcon.setAlpha(255);
+            mSelectIcon.setAlpha(0);
+            mIconView.setImageDrawable(mCompundIcon);
+        }
     }
 
     /**
@@ -170,14 +176,6 @@ public class JPTabItem extends BadgeRelativeLayout {
      */
     private float getTextY(Rect textBound, Paint.FontMetrics fontMetrics) {
         return (getMeasuredHeight() - mMargin - textBound.height() / 2f - fontMetrics.descent + (fontMetrics.descent - fontMetrics.ascent) / 2);
-    }
-
-    public boolean isBadgeShow() {
-        return isShowBadge();
-    }
-
-    public ImageView getIconView() {
-        return mIconView;
     }
 
     Animatable getAnimater() {
@@ -256,9 +254,6 @@ public class JPTabItem extends BadgeRelativeLayout {
         }
     }
 
-    boolean isSelect() {
-        return mSelected;
-    }
 
     /**
      * 假如开发者没有提供selected Icon的时候,改变图标颜色
@@ -289,6 +284,41 @@ public class JPTabItem extends BadgeRelativeLayout {
             this.mOffset = (int) (offset * 255);
             postInvalidate();
         }
+    }
+
+    public void setTitle(String title){
+        this.mTitle = title;
+        postInvalidate();
+    }
+
+    public String getTitle(){
+        return mTitle;
+    }
+
+    public String getBadgeStr(){
+        return getBadgeViewHelper().getBadgeText();
+    }
+
+    public void setNormalIcon(int normalIcon){
+        mNormalIcon = getContext().getResources().getDrawable(normalIcon).mutate();
+        updateIcon();
+    }
+
+    public void setSelectIcon(int selectIcon){
+        mSelectIcon = getContext().getResources().getDrawable(selectIcon).mutate();
+        updateIcon();
+    }
+
+    public boolean isBadgeShow() {
+        return isShowBadge();
+    }
+
+    public ImageView getIconView() {
+        return mIconView;
+    }
+
+    public boolean isSelect() {
+        return mSelected;
     }
 
     static class Builder {
