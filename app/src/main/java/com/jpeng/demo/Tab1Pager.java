@@ -58,10 +58,10 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
             mNumberEt.setText(count + "");
         }
         else if(v==mShowTextBtn){
-            mTabBar.showBadge(0,"文字");
+            mTabBar.showBadge(0,"文字",true);
         }
         else if(v==mShowCircleBtn){
-            mTabBar.showCircleBadge(0);
+            mTabBar.showCircleBadge(0,true);
         }
         else{
             mTabBar.hideBadge(0);
@@ -75,14 +75,17 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        if(s!=null&&s.toString().equals("0")){
+            mTabBar.showBadge(0, 0,true);
+            mTabBar.hideBadge(0);
+            return;
+        }
         if (s.toString().equals("")) {
-            mTabBar.showBadge(0, 0);
+            mTabBar.showBadge(0, 0,true);
             return;
         }
         int count = Integer.parseInt(s.toString());
@@ -91,6 +94,8 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
     }
 
     public void clearCount() {
-        mNumberEt.setText("0");
+        //当徽章拖拽爆炸后,一旦View被销毁,不判断就会空指针异常
+        if(mNumberEt!=null)
+            mNumberEt.setText("0");
     }
 }

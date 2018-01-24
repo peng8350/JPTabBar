@@ -22,7 +22,7 @@ import static com.jpeng.demo.R.id.tabbar;
 public class MainActivity extends AppCompatActivity implements BadgeDismissListener, OnTabSelectListener{
 
     @Titles
-    private static final String[] mTitles = {"页面一","页面二","页面三","页面四"};
+    private static final int[] mTitles = {R.string.tab1,R.string.tab2,R.string.tab3,R.string.tab4};
 
     @SeleIcons
     private static final int[] mSeleIcons = {R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected};
@@ -63,11 +63,8 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         list.add(mTab4);
         mPager.setAdapter(new Adapter(getSupportFragmentManager(),list));
         mTabbar.setContainer(mPager);
-        mTabbar.setDismissListener(this);
-        //显示圆点模式的徽章
-        //设置容器
-        mTabbar.showBadge(0, 50);
         //设置Badge消失的代理
+        mTabbar.setDismissListener(this);
         mTabbar.setTabListener(this);
         mTabbar.setUseScrollAnimate(true);
         mTabbar.getMiddleView().setOnClickListener(new View.OnClickListener() {
@@ -80,9 +77,7 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
 
     @Override
     public void onDismiss(int position) {
-        if (position == 0) {
             mTab1.clearCount();
-        }
     }
 
 

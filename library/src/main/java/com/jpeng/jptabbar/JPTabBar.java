@@ -387,7 +387,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      */
     public void setCountLimit(int limit) {
         mLimit = limit;
-
     }
 
     /**
@@ -434,6 +433,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 显示圆点徽章,是否可以拖动
      */
     public void showCircleBadge(int pos, boolean draggable) {
+        if(pos<0||pos>=mJPTabItems.length){
+            throw new TabException("invalid position parameter");
+        }
         if (mJPTabItems != null) {
             mJPTabItems[pos].showCirclePointBadge();
             mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
@@ -453,11 +455,12 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置徽章,传入int,是否可拖动
      */
     public void showBadge(int pos, int count, boolean draggable) {
+        if(pos<0||pos>=mJPTabItems.length){
+            throw new TabException("invalid position parameter");
+        }
         if (mJPTabItems == null || mJPTabItems[pos] == null) return;
         mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
-        if (count == 0) {
-            mJPTabItems[pos].hiddenBadge();
-        } else if (count > mLimit) {
+        if (count > mLimit) {
             mJPTabItems[pos].showTextBadge(mLimit + "+");
         } else {
             mJPTabItems[pos].showTextBadge(count + "");
@@ -470,6 +473,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * @param position
      */
     public void hideBadge(int position) {
+        if(position<0||position>=mJPTabItems.length){
+            throw new TabException("invalid position parameter");
+        }
         if (mJPTabItems != null)
             mJPTabItems[position].hiddenBadge();
     }

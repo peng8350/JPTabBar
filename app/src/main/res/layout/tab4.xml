@@ -5,6 +5,10 @@
               android:orientation="vertical"
               android:layout_height="match_parent">
 
-
+    <Button
+        android:id="@+id/button1"
+        android:text="测试"
+        android:layout_width="60dp"
+        android:layout_height="45dp"/>
 
 </LinearLayout>
