@@ -32,7 +32,9 @@ import java.lang.ref.WeakReference;
 
 
 /**
- * Created by jpeng on 16-11-15.
+ * Author jpeng
+ * Date: 16-11-15
+ * E-mail:peng8350@gmail.com
  */
 class DragBadgeView extends View {
     private static final String TAG = DragBadgeView.class.getSimpleName();

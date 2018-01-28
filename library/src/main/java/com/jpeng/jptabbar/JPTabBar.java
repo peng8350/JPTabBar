@@ -20,10 +20,12 @@ import com.jpeng.jptabbar.anno.Titles;
 import java.lang.reflect.Field;
 
 /**
- * Created by jpeng on 16-11-13.
+ *  * Author jpeng
+ * Date: 16-11-13
+ * E-mail:peng8350@gmail.com
  * 主要的底部导航操作类,控制导航的行为(显示隐藏徽章等等)
  */
-public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener {
+public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeListener, View.OnTouchListener {
     //默认的图标大小
     private static final int DEFAULT_ICONSIZE = 24;
     //字体默认大小
@@ -190,43 +192,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                         .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)
                         .setBadgeVerMargin(badgeVerMargin).setMargin(margin).setAnimater(animater)
                         .setSelectIcon(mSelectedIcons == null ? 0 : mSelectedIcons[i]).build();
-                mJPTabItems[i].setOnTouchListener(new OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (v == mJPTabItems[mSelectIndex]) {
-                            return false;
-                        }
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                if (mJPTabItems[mSelectIndex].getAnimater() != null) {
-                                    mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
-                                    ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
-                                }
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                if (isInRect(v, event)) {
-                                    if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
-                                        mNeedAnimate = true;
-                                        mTabPager.setCurrentItem(temp, false);
-                                    } else if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() <= mJPTabItems.length) {
-                                        mNeedAnimate = true;
-                                        mTabPager.setCurrentItem(temp, false);
-                                        setSelectTab(temp);
-                                    } else {
-                                        setSelectTab(temp, true);
-                                    }
-                                } else {
-                                    if (mJPTabItems[mSelectIndex].getAnimater() != null) {
-                                        mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
-                                        ((JPTabItem) v).getAnimater().onTouchOut(((JPTabItem) v).getIconView(), false);
-                                    }
-                                }
-                                break;
-
-                        }
-                        return true;
-                    }
-                });
+                mJPTabItems[i].setTag(temp);
+                mJPTabItems[i].setOnTouchListener(this);
                 addView(mJPTabItems[i]);
                 //判断是不是准备到中间的tab,假如设置了中间图标就添加进去
                 if (i == (mJPTabItems.length / 2 - 1) && mAttribute.getResourceId(R.styleable.JPTabBar_TabMiddleView, 0) != 0) {
@@ -712,5 +679,41 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         }
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event){
+        int temp = (int) v.getTag();
+        if (v == mJPTabItems[mSelectIndex]) {
+            return false;
+        }
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (mJPTabItems[mSelectIndex].getAnimater() != null) {
+                    mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
+                    ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (isInRect(v, event)) {
+                    if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
+                        mNeedAnimate = true;
+                        mTabPager.setCurrentItem(temp, false);
+                    } else if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() <= mJPTabItems.length) {
+                        mNeedAnimate = true;
+                        mTabPager.setCurrentItem(temp, false);
+                        setSelectTab(temp);
+                    } else {
+                        setSelectTab(temp, true);
+                    }
+                } else {
+                    if (mJPTabItems[mSelectIndex].getAnimater() != null) {
+                        mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
+                        ((JPTabItem) v).getAnimater().onTouchOut(((JPTabItem) v).getIconView(), false);
+                    }
+                }
+                break;
+
+        }
+        return true;
+    }
 }
 

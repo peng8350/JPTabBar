@@ -6,7 +6,9 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created by jpeng on 16-11-15.
+ * Author jpeng
+ * Date: 16-11-15
+ * E-mail:peng8350@gmail.com
  * 实现旋转的动画类
  */
 public class RotateAnimater implements Animatable {

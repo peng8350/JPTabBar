@@ -3,7 +3,9 @@ package com.jpeng.jptabbar;
 import android.content.Context;
 import android.support.annotation.NonNull;
 /**
- * Created by jpeng on 16-11-14.
+ * Author jpeng
+ * Date: 16-11-14
+ * E-mail:peng8350@gmail.com
  * 密度工具类
  */
 public class DensityUtils {

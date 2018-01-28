@@ -22,7 +22,9 @@ package com.jpeng.jptabbar.badgeview;
     import android.view.View;
 
     /**
-     * Created by jpeng on 16-11-16.
+     * Author jpeng
+     * Date: 16-11-16
+     * E-mail:peng8350@gmail.com
      */
     public class BadgeViewUtil {
 

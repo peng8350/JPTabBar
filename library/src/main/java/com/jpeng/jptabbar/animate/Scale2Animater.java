@@ -6,7 +6,9 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created by jpeng on 17-9-3.
+ * Author jpeng
+ * Date: 17-9-3
+ * E-mail:peng8350@gmail.com
  */
 public class Scale2Animater implements  Animatable {
 

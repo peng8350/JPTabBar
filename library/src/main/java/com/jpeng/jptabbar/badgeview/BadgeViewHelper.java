@@ -9,7 +9,9 @@ import android.view.View;
 import com.jpeng.jptabbar.DensityUtils;
 
 /**
- * Created by jpeng on 16-11-16.
+ * Author jpeng
+ * Date: 16-11-16
+ * E-mail:peng8350@gmail.com
  */
 public class BadgeViewHelper {
     private Bitmap mBitmap;

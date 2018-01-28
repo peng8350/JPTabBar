@@ -18,7 +18,9 @@ import com.jpeng.jptabbar.badgeview.DragDismissDelegate;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
- * Created by jpeng on 16-11-13.
+ * Author jpeng
+ * Date: 16-11-13
+ * E-mail:peng8350@gmail.com
  * TabBarItem类
  */
 public class JPTabItem extends BadgeRelativeLayout {

@@ -1,7 +1,9 @@
 package com.jpeng.jptabbar;
 
 /**
- * Created by jpeng on 16-11-13.
+ * Author jpeng
+ * Date: 16-11-13
+ * E-mail:peng8350@gmail.com
  * 点击回调监听
  */
 public interface OnTabSelectListener {

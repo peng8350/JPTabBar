@@ -1,7 +1,9 @@
 package com.jpeng.jptabbar.animate;
 
 /**
- * Created by jpeng on 17-9-4.
+ * Author jpeng
+ * Date: 17-9-4
+ * E-mail:peng8350@gmail.com
  */
 public enum AnimationType {
     FLIP,

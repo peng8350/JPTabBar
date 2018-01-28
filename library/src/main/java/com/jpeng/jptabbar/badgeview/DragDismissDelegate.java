@@ -17,7 +17,9 @@
 package com.jpeng.jptabbar.badgeview;
 
 /**
- * Created by jpeng on 16-11-15.
+ * Author jpeng
+ * Date: 16-11-15
+ * E-mail:peng8350@gmail.com
  * 拖动消失的代理
  */
 public interface DragDismissDelegate {

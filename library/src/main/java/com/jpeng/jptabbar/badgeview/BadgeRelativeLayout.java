@@ -24,7 +24,9 @@ import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
 /**
- * Created by jpeng on 16-11-15.
+ * Author jpeng
+ * Date: 16-11-15
+ * E-mail:peng8350@gmail.com
  */
 public class BadgeRelativeLayout extends RelativeLayout implements Badgeable {
     private BadgeViewHelper mBadgeViewHeler;

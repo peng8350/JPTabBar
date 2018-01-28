@@ -3,7 +3,9 @@ package com.jpeng.jptabbar.animate;
 import android.view.View;
 
 /**
- * Created by jpeng on 16-11-14.
+ * Author jpeng
+ * Date: 16-11-14
+ * E-mail:peng8350@gmail.com
  */
 public interface Animatable {
     /**
