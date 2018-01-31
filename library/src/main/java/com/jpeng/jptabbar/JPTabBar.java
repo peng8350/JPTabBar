@@ -83,6 +83,8 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 一旦为false,所有动画者的滑动页面动画不会调用
      */
     private boolean mNeedScrollAnimate;
+    //判断是否拖了徽章
+    private boolean mDragedBadge;
 
     public JPTabBar(Context context) {
         super(context);
@@ -682,17 +684,18 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     @Override
     public boolean onTouch(View v, MotionEvent event){
         int temp = (int) v.getTag();
-        if (v == mJPTabItems[mSelectIndex]) {
-            return false;
-        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (mJPTabItems[mSelectIndex].getAnimater() != null) {
+                mDragedBadge = ((JPTabItem)v).getBadgeViewHelper().checkDragging(event);
+                if (!mDragedBadge&&mJPTabItems[mSelectIndex].getAnimater() != null) {
                     mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
                     ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                if(mDragedBadge){
+                    break;
+                }
                 if (isInRect(v, event)) {
                     if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
                         mNeedAnimate = true;
@@ -713,7 +716,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 break;
 
         }
-        return true;
+        return !mDragedBadge;
     }
 }
 

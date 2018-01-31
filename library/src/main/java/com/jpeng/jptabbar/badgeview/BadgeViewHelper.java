@@ -211,15 +211,20 @@ public class BadgeViewHelper {
         mBadgeable.postInvalidate();
     }
 
+    public boolean checkDragging(MotionEvent event){
+        mBadgeDragExtraRectF.left = mBadgeRectF.left - mDragExtra;
+        mBadgeDragExtraRectF.top = mBadgeRectF.top - mDragExtra;
+        mBadgeDragExtraRectF.right = mBadgeRectF.right + mDragExtra;
+        mBadgeDragExtraRectF.bottom = mBadgeRectF.bottom + mDragExtra;
+        return (mBadgeBorderWidth == 0 || mIsShowDrawable) && mDragable && mIsShowBadge && mBadgeDragExtraRectF.contains(event.getX(), event.getY());
+    }
+
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mBadgeDragExtraRectF.left = mBadgeRectF.left - mDragExtra;
-                mBadgeDragExtraRectF.top = mBadgeRectF.top - mDragExtra;
-                mBadgeDragExtraRectF.right = mBadgeRectF.right + mDragExtra;
-                mBadgeDragExtraRectF.bottom = mBadgeRectF.bottom + mDragExtra;
 
-                if ((mBadgeBorderWidth == 0 || mIsShowDrawable) && mDragable && mIsShowBadge && mBadgeDragExtraRectF.contains(event.getX(), event.getY())) {
+
+                if (checkDragging(event)) {
                     mIsDraging = true;
                     mBadgeable.getParent().requestDisallowInterceptTouchEvent(true);
 

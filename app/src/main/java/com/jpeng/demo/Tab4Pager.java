@@ -24,7 +24,7 @@ public class Tab4Pager extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         JPTabBar tabBar = (JPTabBar) ((Activity)getContext()).findViewById(R.id.tabbar);
-
+        tabBar.showBadge(2,3,true);
     }
 
 }
