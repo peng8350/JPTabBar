@@ -35,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.3'
+        compile 'com.jpeng:JPTabBar:1.3.5'
     }
 
 ```

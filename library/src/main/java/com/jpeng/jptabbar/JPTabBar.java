@@ -20,7 +20,7 @@ import com.jpeng.jptabbar.anno.Titles;
 import java.lang.reflect.Field;
 
 /**
- *  * Author jpeng
+ * * Author jpeng
  * Date: 16-11-13
  * E-mail:peng8350@gmail.com
  * 主要的底部导航操作类,控制导航的行为(显示隐藏徽章等等)
@@ -63,7 +63,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private int[] mNormalIcons;
     // 选中的图标数组
     private int[] mSelectedIcons;
-     //所有Tabitem
+    //所有Tabitem
     private JPTabItem[] mJPTabItems;
     // 中间按钮
     private View mMiddleItem;
@@ -308,20 +308,20 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     /**
      * 获取选中的Tab
      */
-    public JPTabItem getSelectedTab(){
-        for(int i  = 0 ;i<mJPTabItems.length;i++){
-            if(mJPTabItems[i].isSelect()){
+    public JPTabItem getSelectedTab() {
+        for (int i = 0; i < mJPTabItems.length; i++) {
+            if (mJPTabItems[i].isSelect()) {
                 return mJPTabItems[i];
             }
         }
-        return  null;
+        return null;
     }
 
     /**
      * 获取第几个Tab
      */
-    public JPTabItem getTabAtPosition(int pos){
-        if(pos<0||pos>=mJPTabItems.length){
+    public JPTabItem getTabAtPosition(int pos) {
+        if (pos < 0 || pos >= mJPTabItems.length) {
             throw new TabException("invalid position parameter");
         }
         return mJPTabItems[pos];
@@ -402,7 +402,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 显示圆点徽章,是否可以拖动
      */
     public void showCircleBadge(int pos, boolean draggable) {
-        if(pos<0||pos>=mJPTabItems.length){
+        if (pos < 0 || pos >= mJPTabItems.length) {
             throw new TabException("invalid position parameter");
         }
         if (mJPTabItems != null) {
@@ -424,7 +424,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * 设置徽章,传入int,是否可拖动
      */
     public void showBadge(int pos, int count, boolean draggable) {
-        if(pos<0||pos>=mJPTabItems.length){
+        if (pos < 0 || pos >= mJPTabItems.length) {
             throw new TabException("invalid position parameter");
         }
         if (mJPTabItems == null || mJPTabItems[pos] == null) return;
@@ -439,10 +439,11 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     /**
      * 隐藏徽章
+     *
      * @param position
      */
     public void hideBadge(int position) {
-        if(position<0||position>=mJPTabItems.length){
+        if (position < 0 || position >= mJPTabItems.length) {
             throw new TabException("invalid position parameter");
         }
         if (mJPTabItems != null)
@@ -451,6 +452,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
 
     /**
      * 设置标题数组
+     *
      * @param titles
      */
     public JPTabBar setTitles(String... titles) {
@@ -682,18 +684,18 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event){
+    public boolean onTouch(View v, MotionEvent event) {
         int temp = (int) v.getTag();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mDragedBadge = ((JPTabItem)v).getBadgeViewHelper().checkDragging(event);
-                if (!mDragedBadge&&mJPTabItems[mSelectIndex].getAnimater() != null) {
+                mDragedBadge = ((JPTabItem) v).getBadgeViewHelper().checkDragging(event);
+                if (!mDragedBadge && mJPTabItems[mSelectIndex].getAnimater() != null) {
                     mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
                     ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if(mDragedBadge){
+                if (mDragedBadge) {
                     break;
                 }
                 if (isInRect(v, event)) {
