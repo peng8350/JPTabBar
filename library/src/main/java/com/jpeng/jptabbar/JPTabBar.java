@@ -686,19 +686,29 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int temp = (int) v.getTag();
+        JPTabItem tabItem = (JPTabItem) v;
+        if(tabItem.isSelect()){
+            return false;
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mDragedBadge = ((JPTabItem) v).getBadgeViewHelper().checkDragging(event);
+                mDragedBadge = (tabItem).getBadgeViewHelper().checkDragging(event);
                 if (!mDragedBadge && mJPTabItems[mSelectIndex].getAnimater() != null) {
                     mJPTabItems[mSelectIndex].getAnimater().onPressDown(mJPTabItems[mSelectIndex].getIconView(), true);
-                    ((JPTabItem) v).getAnimater().onPressDown(((JPTabItem) v).getIconView(), false);
+                    tabItem.getAnimater().onPressDown((tabItem).getIconView(), false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (mDragedBadge) {
                     break;
                 }
-                if (isInRect(v, event)) {
+                if (!isInRect(v, event)||(mTabSelectLis!=null&&mTabSelectLis.onInterruptSelect(temp))) {
+                    if (mJPTabItems[mSelectIndex].getAnimater() != null) {
+                        mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
+                        tabItem.getAnimater().onTouchOut((tabItem.getIconView()), false);
+                    }
+
+                } else {
                     if (mTabPager != null && mTabPager.getAdapter() != null && mTabPager.getAdapter().getCount() >= mJPTabItems.length) {
                         mNeedAnimate = true;
                         mTabPager.setCurrentItem(temp, false);
@@ -708,11 +718,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                         setSelectTab(temp);
                     } else {
                         setSelectTab(temp, true);
-                    }
-                } else {
-                    if (mJPTabItems[mSelectIndex].getAnimater() != null) {
-                        mJPTabItems[mSelectIndex].getAnimater().onTouchOut(mJPTabItems[mSelectIndex].getIconView(), true);
-                        ((JPTabItem) v).getAnimater().onTouchOut(((JPTabItem) v).getIconView(), false);
                     }
                 }
                 break;

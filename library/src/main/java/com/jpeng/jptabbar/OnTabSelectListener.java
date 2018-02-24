@@ -14,4 +14,13 @@ public interface OnTabSelectListener {
      */
     void onTabSelect(int index);
 
+    /**
+     * 这个方法主要用来拦截Tab选中的事件
+     * 返回true,tab将不会被选中,onTabSelect也不会被回调
+     * 默认返回false
+     * @param index 点击选中的tab下标
+     * @return 布尔值
+     */
+    boolean onInterruptSelect(int index);
+
 }

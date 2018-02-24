@@ -55,12 +55,13 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
-        mTabbar.setTabListener(this);
         mTab4 = new Tab4Pager();
+        mTabbar.setTabListener(this);
         list.add(mTab1);
         list.add(mTab2);
         list.add(mTab3);
         list.add(mTab4);
+
         mPager.setAdapter(new Adapter(getSupportFragmentManager(),list));
         mTabbar.setContainer(mPager);
         //设置Badge消失的代理
@@ -83,9 +84,13 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
 
     @Override
     public void onTabSelect(int index) {
-
+        Toast.makeText(MainActivity.this,"choose the tab index is "+index,Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onInterruptSelect(int index) {
+        return false;
+    }
 
     public JPTabBar getTabbar() {
         return mTabbar;
