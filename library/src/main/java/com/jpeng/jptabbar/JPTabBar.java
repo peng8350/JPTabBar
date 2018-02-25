@@ -303,6 +303,15 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         ((ViewGroup) getParent()).addView(mMiddleItem);
     }
 
+    private void updateTitles(String... titles){
+        for(int i =0 ;i<mTitles.length;i++){
+            if(!titles[i].equals(mTitles[i])){
+                mJPTabItems[i].setTitle(titles[i]);
+            }
+        }
+        mTitles = titles;
+    }
+
     /****-------提供给开发者调用的方法---------****/
 
     /**
@@ -456,34 +465,84 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      * @param titles
      */
     public JPTabBar setTitles(String... titles) {
-        this.mTitles = titles;
+        if(mTitles==null) {
+            this.mTitles = titles;
+        }
+        else if(mTitles.length<=titles.length){
+            updateTitles(titles);
+        }
+
         return this;
     }
 
     public JPTabBar setTitles(int... titles) {
         if (titles != null && titles.length > 0) {
-            mTitles = new String[titles.length];
+            //转换为字符串数组
+            String[] strArray = new String[titles.length];
             for (int i = 0; i < titles.length; i++) {
-                mTitles[i] = mContext.getString(titles[i]);
+                strArray[i] = mContext.getString(titles[i]);
             }
+
+            if(mTitles==null){
+                mTitles = strArray;
+            }
+            else if(mTitles.length<=titles.length){
+                updateTitles(strArray);
+            }
+
         }
         return this;
+    }
+
+    public void setTitle(int pos,String title){
+        if(pos>=0&&pos<mJPTabItems.length){
+            mJPTabItems[pos].setTitle(title);
+        }
     }
 
     /**
      * 设置为选中的图标数组
      */
     public JPTabBar setNormalIcons(int... normalIcons) {
-        this.mNormalIcons = normalIcons;
+        if(mNormalIcons==null) {
+            this.mNormalIcons = normalIcons;
+        }
+        else if(mNormalIcons.length<=normalIcons.length){
+            for(int i =0 ;i<mNormalIcons.length;i++) {
+                mJPTabItems[i].setNormalIcon(normalIcons[i]);
+            }
+            mNormalIcons = normalIcons;
+        }
+
         return this;
+    }
+
+    public void setNormalIcon(int pos,int normalIcon){
+        if(pos>=0&&pos<mJPTabItems.length){
+            mJPTabItems[pos].setNormalIcon(normalIcon);
+        }
     }
 
     /**
      * 设置选中图标
      */
     public JPTabBar setSelectedIcons(int... selectedIcons) {
-        this.mSelectedIcons = selectedIcons;
+        if(mSelectedIcons==null) {
+            this.mSelectedIcons = selectedIcons;
+        }
+        else if(mSelectedIcons.length<=selectedIcons.length){
+            for(int i =0 ;i<mSelectedIcons.length;i++) {
+                mJPTabItems[i].setSelectIcon(selectedIcons[i]);
+            }
+            mSelectedIcons = selectedIcons;
+        }
         return this;
+    }
+
+    public void setSelectedIcon(int pos,int selectedIcon){
+        if(pos>=0&&pos<mJPTabItems.length){
+            mJPTabItems[pos].setSelectIcon(selectedIcon);
+        }
     }
 
     /**

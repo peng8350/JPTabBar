@@ -311,6 +311,8 @@ public class JPTabItem extends BadgeRelativeLayout {
         updateIcon();
     }
 
+
+
     public boolean isBadgeShow() {
         return isShowBadge();
     }
