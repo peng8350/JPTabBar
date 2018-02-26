@@ -53,8 +53,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     private static final int DEFAULT_MIDDLEICONBOTTOM = 20;
     //默认中间的左右间距
     private static final int DEFAULT_MIDDLEMARGIN = 24;
+
     private Context mContext;
-    private int mLimit = 99;
+
     private TypedArray mAttribute;
     // 选中的当前Tab的位置
     private int mSelectIndex;
@@ -361,13 +362,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
     }
 
     /**
-     * 设置Badge消息数量最大限制
-     */
-    public void setCountLimit(int limit) {
-        mLimit = limit;
-    }
-
-    /**
      * 设置图标和标题的滑动渐变以及点击渐变是否使用
      */
     public JPTabBar setUseFilter(boolean filter) {
@@ -419,32 +413,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
         }
     }
-
-    /**
-     * 重载方法
-     * 设置徽章,传入int,,默认为不可拖动
-     */
-    public void showBadge(int pos, int count) {
-        showBadge(pos, count, false);
-    }
-
-    /**
-     * 重载方法
-     * 设置徽章,传入int,是否可拖动
-     */
-    public void showBadge(int pos, int count, boolean draggable) {
-        if (pos < 0 || pos >= mJPTabItems.length) {
-            throw new TabException("invalid position parameter");
-        }
-        if (mJPTabItems == null || mJPTabItems[pos] == null) return;
-        mJPTabItems[pos].getBadgeViewHelper().setDragable(draggable);
-        if (count > mLimit) {
-            mJPTabItems[pos].showTextBadge(mLimit + "+");
-        } else {
-            mJPTabItems[pos].showTextBadge(count + "");
-        }
-    }
-
 
     /**
      * 隐藏徽章
@@ -573,16 +541,6 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
      */
     public int getSelectPosition() {
         return mSelectIndex;
-    }
-
-    /**
-     * 设置动画
-     */
-    public void setAnimation(AnimationType animationType) {
-        for (int i = 0; i < mJPTabItems.length; i++) {
-            mJPTabItems[i].setAnimater(animationType == AnimationType.SCALE ? new ScaleAnimater() : animationType == AnimationType.ROTATE ? new RotateAnimater() :
-                    animationType == AnimationType.JUMP ? new JumpAnimater() : animationType == AnimationType.FLIP ? new FlipAnimater() : animationType == AnimationType.SCALE2 ? new Scale2Animater() : null);
-        }
     }
 
     /**
