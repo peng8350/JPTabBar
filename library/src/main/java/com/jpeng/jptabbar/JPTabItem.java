@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.DrawableRes;
@@ -39,6 +40,8 @@ public class JPTabItem extends BadgeRelativeLayout {
     private int mNormalColor;
     // Tab字体大小
     private int mTextSize;
+    // Tab字体类型
+    private Typeface mTypeFace;
     //允许图标颜色随着字体颜色变化而变化
     private boolean mAcceptFilter;
     // Badge的字体大小
@@ -64,9 +67,9 @@ public class JPTabItem extends BadgeRelativeLayout {
     private Paint mTextPaint;
     // 图标的图层
     private LayerDrawable mCompundIcon;
-     //图标ImageView
+    //图标ImageView
     private ImageView mIconView;
-     // 动画对象
+    // 动画对象
     private Animatable mAnimater;
     // 徽章被用户拖出去的回调事件
     private BadgeDismissListener mDismissListener;
@@ -115,6 +118,7 @@ public class JPTabItem extends BadgeRelativeLayout {
         mTextPaint.setAntiAlias(true);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(DensityUtils.sp2px(mContext, mTextSize));
+        mTextPaint.setTypeface(mTypeFace);
     }
 
     /**
@@ -145,7 +149,7 @@ public class JPTabItem extends BadgeRelativeLayout {
     /*
      *  更新IconView的图标
      */
-    public void updateIcon(){
+    public void updateIcon() {
         if (mSelectIcon == null) {
             mIconView.setImageDrawable(mNormalIcon);
         } else {
@@ -206,6 +210,15 @@ public class JPTabItem extends BadgeRelativeLayout {
     void setTextSize(int size) {
         this.mTextSize = size;
         mTextPaint.setTextSize(mTextSize);
+    }
+
+    void setTypeFace(Typeface typeFace) {
+
+        mTextPaint.setTypeface(typeFace);
+
+        postInvalidate();
+
+        mTypeFace = typeFace;
     }
 
     /**
@@ -288,29 +301,28 @@ public class JPTabItem extends BadgeRelativeLayout {
         }
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.mTitle = title;
         postInvalidate();
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return mTitle;
     }
 
-    public String getBadgeStr(){
+    public String getBadgeStr() {
         return getBadgeViewHelper().getBadgeText();
     }
 
-    public void setNormalIcon(int normalIcon){
+    public void setNormalIcon(int normalIcon) {
         mNormalIcon = getContext().getResources().getDrawable(normalIcon).mutate();
         updateIcon();
     }
 
-    public void setSelectIcon(int selectIcon){
+    public void setSelectIcon(int selectIcon) {
         mSelectIcon = getContext().getResources().getDrawable(selectIcon).mutate();
         updateIcon();
     }
-
 
 
     public boolean isBadgeShow() {
@@ -341,6 +353,7 @@ public class JPTabItem extends BadgeRelativeLayout {
         private Drawable selectbg;
         private String title;
         private Context context;
+        private String typeFacepath;
         private int index;
         private boolean iconfilter;
         private Animatable animater;
@@ -351,6 +364,11 @@ public class JPTabItem extends BadgeRelativeLayout {
 
         Builder setAnimater(Animatable animater) {
             this.animater = animater;
+            return this;
+        }
+
+        Builder setTypeFacePath(String typeFacepath) {
+            this.typeFacepath = typeFacepath;
             return this;
         }
 
@@ -455,6 +473,8 @@ public class JPTabItem extends BadgeRelativeLayout {
             item.mAcceptFilter = iconfilter;
             item.mSelectBg = selectbg;
             item.mAnimater = animater;
+            if (typeFacepath != null)
+                item.mTypeFace = Typeface.createFromAsset(context.getAssets(), typeFacepath);
             item.init(context);
             return item;
         }

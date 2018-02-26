@@ -3,6 +3,7 @@ package com.jpeng.jptabbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -175,6 +176,7 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
         int badgeVerMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeVerticalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEVERTICAL_MARGIN)));
         int badgeHorMargin = DensityUtils.px2dp(mContext, mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_BadgeHorizonalMargin, DensityUtils.dp2px(mContext, DEFAULT_BADGEHORIZONAL_MARGIN)));
         int hMargin = mAttribute.getDimensionPixelOffset(R.styleable.JPTabBar_TabMiddleHMargin, DensityUtils.dp2px(mContext, DEFAULT_MIDDLEMARGIN));
+        String typeFacepath = mAttribute.getString(R.styleable.JPTabBar_TabTypeface);
         boolean acceptFilter = mAttribute.getBoolean(R.styleable.JPTabBar_TabIconFilter, DEFAULT_ACEEPTFILTER);
         Drawable tabselectbg = mAttribute.getDrawable(R.styleable.JPTabBar_TabSelectBg);
         //假如所有都为空默认已经开启了
@@ -188,11 +190,9 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
                 Animatable animater = AnimateType == AnimationType.SCALE ? new ScaleAnimater() : AnimateType == AnimationType.ROTATE ? new RotateAnimater() :
                         AnimateType == AnimationType.FLIP ? new FlipAnimater() : AnimateType == AnimationType.JUMP ? new JumpAnimater() : AnimateType == AnimationType.SCALE2 ? new Scale2Animater() : null;
                 mJPTabItems[i] = new JPTabItem.Builder(mContext).setTitle(mTitles == null ? null : mTitles[i]).setIndex(temp).setTextSize(textSize)
-                        .setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
-                        .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i])
-                        .setSelectedColor(selectColor).setBadgeHorMargin(badgeHorMargin)
-                        .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter)
-                        .setBadgeVerMargin(badgeVerMargin).setMargin(margin).setAnimater(animater)
+                        .setTypeFacePath(typeFacepath).setNormalColor(normalColor).setSelectBg(tabselectbg).setBadgeColor(BadgeColor)
+                        .setBadgeTextSize(BadgetextSize).setNormalIcon(mNormalIcons[i]).setSelectedColor(selectColor).setBadgeHorMargin(badgeHorMargin)
+                        .setBadgePadding(badgePadding).setIconSize(iconSize).setIconFilte(acceptFilter).setBadgeVerMargin(badgeVerMargin).setMargin(margin).setAnimater(animater)
                         .setSelectIcon(mSelectedIcons == null ? 0 : mSelectedIcons[i]).build();
                 mJPTabItems[i].setTag(temp);
                 mJPTabItems[i].setOnTouchListener(this);
@@ -553,6 +553,20 @@ public class JPTabBar extends LinearLayout implements ViewPager.OnPageChangeList
             initFromAttribute();
     }
 
+    public void setTabTypeFace(Typeface typeFace){
+        for(JPTabItem tabItem:mJPTabItems){
+            tabItem.setTypeFace(typeFace);
+        }
+    }
+
+    /*
+     * 设置Tab标题字体类型
+     */
+    public void setTabTypeFace(String TypeFacepath){
+        for(JPTabItem tabItem:mJPTabItems){
+            tabItem.setTypeFace(Typeface.createFromAsset(mContext.getAssets(),TypeFacepath));
+        }
+    }
 
     /**
      * 获得选中的位置
