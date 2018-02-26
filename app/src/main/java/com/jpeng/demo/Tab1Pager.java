@@ -80,17 +80,17 @@ public class Tab1Pager extends Fragment implements View.OnClickListener, TextWat
     @Override
     public void afterTextChanged(Editable s) {
         if(s!=null&&s.toString().equals("0")){
-            mTabBar.showBadge(0, 0,true);
+            mTabBar.showBadge(0, ""+0,true);
             mTabBar.hideBadge(0);
             return;
         }
         if (s.toString().equals("")) {
-            mTabBar.showBadge(0, 0,true);
+            mTabBar.showBadge(0, ""+0,true);
             return;
         }
         int count = Integer.parseInt(s.toString());
         if(mTabBar!=null)
-            mTabBar.showBadge(0, count,true);
+            mTabBar.showBadge(0, count+"",true);
     }
 
     public void clearCount() {

@@ -279,7 +279,6 @@ public class JPTabItem extends BadgeRelativeLayout {
                 ) {
             if (selected) {
                 mIconView.setColorFilter(mSelectColor);
-
             } else {
                 mIconView.setColorFilter(mNormalColor);
             }

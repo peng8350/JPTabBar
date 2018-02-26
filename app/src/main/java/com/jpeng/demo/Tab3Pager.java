@@ -36,18 +36,18 @@ public class Tab3Pager extends Fragment implements RadioGroup.OnCheckedChangeLis
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId){
             case R.id.radioButton1:
-                mTabBar.setUseScrollAnimate(true);
+                mTabBar.setPageAnimateEnable(true);
                 break;
 
             case R.id.radioButton2:
-                mTabBar.setUseScrollAnimate(false);
+                mTabBar.setPageAnimateEnable(false);
                 break;
 
             case R.id.radioButton3:
-                mTabBar.setUseFilter(true);
+                mTabBar.setGradientEnable(true);
                 break;
             case R.id.radioButton4:
-                mTabBar.setUseFilter(false);
+                mTabBar.setGradientEnable(false);
                 break;
         }
     }

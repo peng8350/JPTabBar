@@ -50,15 +50,14 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (ViewPager) findViewById(R.id.view_pager);
-        mTabbar.setTitles("asd","页面二","页面三","页面四").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab2_normal)
-                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab2_selected).generate();
-        mTabbar.setNormalIcon(3,R.mipmap.tab1_normal);
-        mTabbar.setSelectedIcon(3,R.mipmap.tab1_selected);
-
+//        mTabbar.setTitles("asd","页面二","页面三","页面四").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
+//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
         mTab4 = new Tab4Pager();
+        mTabbar.setGradientEnable(true);
+        mTabbar.setPageAnimateEnable(true);
         mTabbar.setTabListener(this);
         list.add(mTab1);
         list.add(mTab2);
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         //设置Badge消失的代理
         mTabbar.setDismissListener(this);
         mTabbar.setTabListener(this);
-        mTabbar.setUseScrollAnimate(true);
         mTabbar.getMiddleView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
