@@ -35,7 +35,7 @@
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.5'
+        compile 'com.jpeng:JPTabBar:1.4.0'
     }
 
 ```
@@ -122,34 +122,19 @@
    public void showBadge(int position,String text,boolean draggable);
     
     /**
-     * 设置图标和标题的滑动渐变以及点击渐变是否使用
-     * 默认为false
-     */
-    public JPTabBar setUseFilter(boolean filter);
-    
-    /**
-     * 设置是否需要页面滚动动画
-     * 默认为false
-     */
-    public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
-    
-    /**
     *显示圆点徽章
     */ 
     public void showCircleBadge(int pos);
-        
-    /**
-     * 设置徽章消息数量限制数
-     * 如果你使用这个方法 ShowBadge(int position,int count)
-     * 如果第二个参数 > limit , Badge将会显示 "limit+"
-     * 可以看下参考图
-     */
-    public void setCountLimit(int limit);
 
     /**
      * 隐藏BadgeView
      */
     public void hideBadge(int position);
+    
+     /**
+       * 获取徽章是否显示
+       */
+    public boolean isBadgeShow(int index) 
 
     /**
      * 切换Tab页面
@@ -170,6 +155,16 @@
      * 这个方法用来获得中间TabItem的View对象(即你在XML设置的"TabMiddleView")
      */
     public View getMiddleView();
+    
+     /**
+       * 设置某个TabItem的标题
+       */
+    public void setTitle(int pos, String title)
+    
+    /**
+      * 获取TabItem
+      */
+    public JPTabItem getTabAtPosition(int pos) 
 ```
 
 ### 结点说明:
@@ -180,12 +175,16 @@
 | TabTextSize |Tab底部文件大小      |dimension | 14sp |
 | TabIconSize |Tab图标的大小       |dimension| 24dp |
 | TabIconFilter |   设置图标是否随着字体颜色而改变|boolean | true |
+| TabTypeface |  设置所有TabItem的字体类型| string | null |
 | TabMargin |设置图标距离上面和文字距离下面的距离      |dimension | 8dp |
 | TabSelectBg |设置TabBarItem选中的背景颜色     |color | 透明 |
 | TabAnimate |Tab切换的动画类型(None,Scale,Jump....)      |enum | NULL |
 | TabMiddleView |Tab中间自定义View     |layout | 无 |
 | TabMiddleBottomDis | 中间图标底部距离 |dimension | 20dp |
 | TabMiddleHMargin | 中间图标的左右间距 |dimension | 24dp |
+| TabPressAnimateEnable | 允许按住TabItem的动画效果 |boolean | true |
+| TabPageAnimateEnable | 允许页面滑动效果 |boolean | false |
+| TabGradientEnable | 允许图标颜色随着页面滑动而改变 |boolean | false |
 | BadgeColor |徽章的背景颜色      |color | #f00(红色) |
 | BadgePadding |徽章的背景扩展距离      |dimension | 4dp |
 | BadgeTextSize |徽章显示的字体大小      |dimension | 11dp |
@@ -204,6 +203,8 @@
   
 ```
 2.如果你想让ViewPager禁止滑动,你可以使用我demo中的NoScrollViewPager
+
+3.OnTabSelectListener里的onInterruptSelect的回调方法只中断点击TabItem的情况,不考虑页面滑动过去后选中
 
 # 存在的问题:
 1.关于徽章的功能无法拖动,拖动消失等问题,这个问题发生在一部分小米手机机型上,原作者是
@@ -263,6 +264,20 @@ Flip动画正是调用了setRotationY
 ### V1.3.2
   - 修正不使用动画时按下奔溃问题
   - 修改默认动画为没有动画
+  
+### V1.3.5
+  - 新增动态修改结点的方法  
+  - 修正触摸事件逻辑判断问题(换到别的Tab不能滑动徽章)
+  - 修复在attrs里TabAnimate值的错误
+  - 暴露TabItem接口,可以直接操作TabItem
+
+### V1.4.0
+  - 添加设置TabItem的字体类型的功能
+  - 添加onInterruptSelect回调方法来决定是否中断点击事件
+  - 移除部分作用不大的方法和属性,比如:消息限制格式
+  - 增加可以控制按住动画效果开关
+  - 增加TabBar部分方法,比如:修改某个tab标题,图标等
+  - 重命名setUseScrollAnimate setUseFilter这两个方法名,并且可通过结点设置
   
 # 关于我
 一名在校大学生,目前还在专研学习各种技术中...<br>

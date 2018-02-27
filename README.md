@@ -28,14 +28,14 @@
 [BGABadgeView-Android](https://github.com/bingoogolapple/BGABadgeView-Android)
 
 # Usage:
-  1.Introducing Gradle dependency
+1.Introducing Gradle dependency
 ```
     repositories {
         jcenter()
     }
 
     dependencies{
-        compile 'com.jpeng:JPTabBar:1.3.5'
+        compile 'com.jpeng:JPTabBar:1.4.0'
     }
 
 ```
@@ -122,36 +122,21 @@ In addition, if you want to achieve the effect of the highlight button, you need
      * The Badge Can draggable when you use true.
      */
     public void showBadge(int position,String text,boolean draggable);
-        
-    /**
-     * set the icon and title filter when scroll page and click the tab
-     * default value is false
-     */
-    public JPTabBar setUseFilter(boolean filter);
-        
-    /**
-     * Set the boolean If Need the PageAnimate
-     * default value is false
-     */
-    public JPTabBar setUseScrollAnimate(boolean scrollAnimate);
     
     /**
       *Show the Circle point
       */ 
     public void showCircleBadge(int pos);
-    
-    /**
-      * Set the Badge Message Count Limit
-      * If you use ShowBadge(int position,int count)
-      * If the Second parameters > limit , it will show "limit+"
-      * you can see the screenshots
-      */
-    public void setCountLimit(int limit);
 
     /**
      * Hide the OVAL Badge
      */
     public void hideBadge(int position);
+
+     /**
+       * get if the badge  showing
+       */
+    public boolean isBadgeShow(int index) 
 
     /**
      * Switch Tab page
@@ -172,6 +157,16 @@ In addition, if you want to achieve the effect of the highlight button, you need
       * get the TabMiddleItem View that you set in "TabMiddleView" attribute
      */
     public View getMiddleView();
+    
+    /**
+      * set TabItem title
+      */
+    public void setTitle(int pos, String title)
+    
+    /**
+      * get TabItem
+      */
+    public JPTabItem getTabAtPosition(int pos)     
 ```
 ### Attribute Explain:
 | Attribute Name        |     Attribute Explain     | Parameter Type | Default Value  |
@@ -181,12 +176,16 @@ In addition, if you want to achieve the effect of the highlight button, you need
 | TabTextSize |the textsize of the bottom text     |dimension | 14sp |
 | TabIconSize |the icon size of the tab       |dimension| 24dp |
 | TabIconFilter |   Set the icon  change by the font color|boolean | true |
+| TabTypeface |  set tabitems font typeface| string | null |
 | TabMargin |Set the icon distance above and below the distance from the text      |dimension | 8dp |
 | TabSelectBg |Set the TabItem Selected bg    |color | transparent |
 | TabAnimate |The animate type of the Tab Switch(None,Scale,Jump....)      |enum | None |
 | TabMiddleView |The middle View of the tab      |layout | 无 |
 | TabMiddleBottomDis | Midlle icon bottomMargin from TabBar  |dimension | 20dp |
 | TabMiddleHMargin | MiddleIcon both the left and right margin |dimension | 24dp |
+| TabPressAnimateEnable | enable press down TabItem animation effect |boolean | true |
+| TabPageAnimateEnable | enable page scroll animation |boolean | false |
+| TabGradientEnable | enable the alpha of the icon to change with the page |boolean | false |
 | BadgeColor |The background of the badgeView      |color | #f00(RED) |
 | BadgePadding |The background expansion distance of the badge      |dimension | 4dp |
 | BadgeTextSize |The textSize of the Badge      |dimension | 10dp |
@@ -207,6 +206,8 @@ In addition, if you want to achieve the effect of the highlight button, you need
   
 ```
 2.If you want to Disable the scroll of ViewPager,you can use NoScrollViewPager in my demo
+
+3.The callback method of onInterruptSelect in OnTabSelectListener only interrupts the case of clicking on TabItem, and does not consider the page slide past and selected.
 
 # The existence problem:
 1.About badge function can not drag, drag, disappear and so on, this problem occurred 
@@ -270,6 +271,20 @@ setRotationY and setRotationX,The Flip animation is called setRotationY
   - Fix a crash when pressing down and not using animation
   - Update the default animation is None    
     
+### V1.3.5
+  - adding methods of dynamically modified nodes 
+  - Modify the logical judgment of touch events (switch to other Tab ineminable badges)
+  - Fix the error value in TabAnimate in attrs.xml
+  - Exposing the TabItem interface, you can manipulate TabItem directly
+
+### V1.4.0
+  - Add the function of the font type for setting up TabItem
+  - Add the onInterruptSelect callback method to determine whether or not the click event is interrupted
+  - Remove methods and attributes that have little partial effect, such as message limit
+  - Add the control to press down the animation effect switch
+  - Add some TabBar methods, such as modifying a tab title, icons, and so on
+  - Rename the two method names of setUseScrollAnimate setUseFilter and can be set by nodes
+  
 # About Me
 A college student, is still in the study of various techniques...<br>
 E-mail:peng8350@gmail.com

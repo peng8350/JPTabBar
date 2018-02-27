@@ -26,6 +26,5 @@
         android:background="@drawable/tab_bg"
         jp:TabMiddleView="@layout/view_mitem"
         jp:TabAnimate="Scale"
-        jp:TabPressAnimateEnable="false"
         />
 </RelativeLayout>
