@@ -50,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements BadgeDismissListe
         setContentView(R.layout.activity_main);
         mTabbar = (JPTabBar) findViewById(tabbar);
         mPager = (ViewPager) findViewById(R.id.view_pager);
-//        mTabbar.setTitles("asd","页面二","页面三","页面四").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
-//                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected,R.mipmap.tab4_selected).generate();
+        mTabbar.setTitles("asd","页面二","页面三","页面四").setNormalIcons(R.mipmap.tab1_normal,R.mipmap.tab2_normal,R.mipmap.tab3_normal,R.mipmap.tab4_normal)
+                .setSelectedIcons(R.mipmap.tab1_selected,R.mipmap.tab2_selected,R.mipmap.tab3_selected);
+//        mTabbar.setTabTypeFace("fonts/Jaden.ttf");
         mTab1 = new Tab1Pager();
         mTab2 = new Tab2Pager();
         mTab3 = new Tab3Pager();
